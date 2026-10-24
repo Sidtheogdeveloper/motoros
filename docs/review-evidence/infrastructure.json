@@ -1,0 +1,9 @@
+{
+  "project": "motoros-review-1792829846301",
+  "freshVolume": true,
+  "serviceOwnedSchemas": true,
+  "flywayMigrations": 3,
+  "crossSchemaDenials": 6,
+  "healthEndpoints": 3,
+  "passed": true
+}

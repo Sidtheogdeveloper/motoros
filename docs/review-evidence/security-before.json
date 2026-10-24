@@ -1,0 +1,144 @@
+{
+  "checks": 23,
+  "passed": 3,
+  "results": [
+    {
+      "name": "8081: missing expiry",
+      "expected": 401,
+      "actual": 200,
+      "pass": false
+    },
+    {
+      "name": "8081: missing subject",
+      "expected": 401,
+      "actual": 200,
+      "pass": false
+    },
+    {
+      "name": "8081: missing branch claims",
+      "expected": 401,
+      "actual": 200,
+      "pass": false
+    },
+    {
+      "name": "8081: wrong issuer",
+      "expected": 401,
+      "actual": 401,
+      "pass": true
+    },
+    {
+      "name": "8081: malformed tenant",
+      "expected": 401,
+      "actual": 403,
+      "pass": false
+    },
+    {
+      "name": "8081: unknown role",
+      "expected": 401,
+      "actual": 403,
+      "pass": false
+    },
+    {
+      "name": "8082: missing expiry",
+      "expected": 401,
+      "actual": 200,
+      "pass": false
+    },
+    {
+      "name": "8082: missing subject",
+      "expected": 401,
+      "actual": 200,
+      "pass": false
+    },
+    {
+      "name": "8082: missing branch claims",
+      "expected": 401,
+      "actual": 200,
+      "pass": false
+    },
+    {
+      "name": "8082: wrong issuer",
+      "expected": 401,
+      "actual": 401,
+      "pass": true
+    },
+    {
+      "name": "8082: malformed tenant",
+      "expected": 401,
+      "actual": 403,
+      "pass": false
+    },
+    {
+      "name": "8082: unknown role",
+      "expected": 401,
+      "actual": 403,
+      "pass": false
+    },
+    {
+      "name": "8083: missing expiry",
+      "expected": 401,
+      "actual": 200,
+      "pass": false
+    },
+    {
+      "name": "8083: missing subject",
+      "expected": 401,
+      "actual": 200,
+      "pass": false
+    },
+    {
+      "name": "8083: missing branch claims",
+      "expected": 401,
+      "actual": 403,
+      "pass": false
+    },
+    {
+      "name": "8083: wrong issuer",
+      "expected": 401,
+      "actual": 401,
+      "pass": true
+    },
+    {
+      "name": "8083: malformed tenant",
+      "expected": 401,
+      "actual": 403,
+      "pass": false
+    },
+    {
+      "name": "8083: unknown role",
+      "expected": 401,
+      "actual": 403,
+      "pass": false
+    },
+    {
+      "name": "missing branch parameter",
+      "expected": 400,
+      "actual": 500,
+      "pass": false
+    },
+    {
+      "name": "unsupported method",
+      "expected": 405,
+      "actual": 500,
+      "pass": false
+    },
+    {
+      "name": "unknown API route",
+      "expected": 404,
+      "actual": 500,
+      "pass": false
+    },
+    {
+      "name": "overlong UTF-8 password",
+      "expected": 400,
+      "actual": 500,
+      "pass": false
+    },
+    {
+      "name": "status update requires version",
+      "expected": 400,
+      "actual": 200,
+      "pass": false
+    }
+  ]
+}

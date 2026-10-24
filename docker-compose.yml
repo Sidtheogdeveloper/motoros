@@ -1,0 +1,101 @@
+name: motoros
+services:
+  postgres:
+    image: postgres:17.6-alpine
+    environment:
+      POSTGRES_DB: motoros
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run node scripts/env.mjs}
+      TENANT_PASSWORD: ${TENANT_PASSWORD:?Run node scripts/env.mjs}
+      CUSTOMER_PASSWORD: ${CUSTOMER_PASSWORD:?Run node scripts/env.mjs}
+      BOOKING_PASSWORD: ${BOOKING_PASSWORD:?Run node scripts/env.mjs}
+      INVENTORY_PASSWORD: ${INVENTORY_PASSWORD:?Run node scripts/env.mjs}
+      BILLING_PASSWORD: ${BILLING_PASSWORD:?Run node scripts/env.mjs}
+      WORKORDER_PASSWORD: ${WORKORDER_PASSWORD:?Run node scripts/env.mjs}
+      KEYCLOAK_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD:?Run node scripts/env.mjs}
+    ports: ['127.0.0.1:55432:5432']
+    volumes:
+      - motoros-postgres:/var/lib/postgresql/data
+      - ./infrastructure/docker/init.sh:/docker-entrypoint-initdb.d/01-services.sh:ro
+      - ./infrastructure/docker/booking-db.sh:/docker-entrypoint-initdb.d/03-booking.sh:ro
+      - ./infrastructure/docker/commercial-db.sh:/docker-entrypoint-initdb.d/04-commercial.sh:ro
+      - ./infrastructure/docker/keycloak-db.sh:/docker-entrypoint-initdb.d/02-keycloak.sh:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d motoros']
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  redis:
+    image: redis:7.4.7-alpine
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?Run node scripts/env.mjs}
+      REDISCLI_AUTH: ${REDIS_PASSWORD}
+    command: ['sh', '-c', 'exec redis-server --appendonly yes --requirepass "$$REDIS_PASSWORD"']
+    ports: ['127.0.0.1:16379:6379']
+    volumes: ['motoros-redis:/data']
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  mailpit:
+    image: axllent/mailpit:v1.29.2
+    ports: ['127.0.0.1:8025:8025', '127.0.0.1:1025:1025']
+    healthcheck:
+      test: ['CMD', '/mailpit', 'readyz']
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.8.1
+    command: ['start-dev', '--import-realm']
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: motoros-local-admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:?Run node scripts/env.mjs}
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: keycloak_app
+      KC_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
+      KC_HOSTNAME: http://127.0.0.1:8180
+      KC_HEALTH_ENABLED: 'true'
+      KC_HTTP_ENABLED: 'true'
+    ports: ['127.0.0.1:8180:8080', '127.0.0.1:9190:9000']
+    volumes:
+      [
+        './.runtime/keycloak:/opt/keycloak/data/import:ro',
+        './infrastructure/docker/keycloak-health.sh:/opt/keycloak/motoros-health.sh:ro',
+      ]
+    depends_on:
+      postgres: { condition: service_healthy }
+      mailpit: { condition: service_healthy }
+    healthcheck:
+      test: ['CMD', 'bash', '/opt/keycloak/motoros-health.sh']
+      interval: 5s
+      timeout: 5s
+      retries: 60
+      start_period: 30s
+  storage:
+    image: chrislusf/seaweedfs:4.48
+    command: ['mini', '-dir=/data']
+    environment:
+      AWS_ACCESS_KEY_ID: ${S3_LOCAL_ACCESS_KEY:?Run node scripts/env.mjs}
+      AWS_SECRET_ACCESS_KEY: ${S3_LOCAL_SECRET_KEY:?Run node scripts/env.mjs}
+      S3_BUCKET: motoros-private
+    ports: ['127.0.0.1:8333:8333']
+    volumes: ['motoros-objects:/data']
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -q -O /dev/null http://localhost:9333/cluster/status']
+      interval: 3s
+      timeout: 3s
+      retries: 40
+  localstack:
+    image: localstack/localstack:4.9.2
+    profiles: ['messaging']
+    environment: { SERVICES: 's3,sqs', AWS_DEFAULT_REGION: ap-south-1 }
+    ports: ['127.0.0.1:4566:4566']
+
+volumes:
+  motoros-postgres:
+  motoros-redis:
+
+  motoros-objects:

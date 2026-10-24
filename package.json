@@ -1,0 +1,31 @@
+{
+  "name": "motoros",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "npm run build --workspace apps/workshop-dashboard",
+    "typecheck": "npm run typecheck --workspace apps/workshop-dashboard",
+    "test:e2e": "playwright test",
+    "fixtures": "node scripts/seed-identities.mjs",
+    "test:unit": "node --test tests/unit/*.test.mjs",
+    "test:api": "node tests/integration/milestone2.mjs && node tests/integration/milestone3.mjs && node tests/integration/milestone4.mjs && node tests/integration/milestone5.mjs",
+    "test:secrets": "node scripts/check-secrets.mjs",
+    "infra": "node scripts/infra.mjs",
+    "export:openapi": "node scripts/export-openapi.mjs",
+    "fixtures:m3": "node scripts/milestone3-fixtures.mjs",
+    "storage:configure": "node scripts/prepare-storage.mjs",
+    "test:api:m2": "node tests/integration/milestone2.mjs",
+    "test:api:m4": "node tests/integration/milestone4.mjs",
+    "fixtures:m4": "node scripts/milestone4-fixtures.mjs",
+    "test:api:m5": "node tests/integration/milestone5.mjs",
+    "fixtures:m5": "node scripts/milestone5-fixtures.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "pg": "8.23.1",
+    "prettier": "3.9.10"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-24",
+  "javaSuites": [
+    {
+      "name": "com.motoros.customer.CustomerIntegrationTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "com.motoros.tenant.OnboardingIntegrationTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "com.motoros.workorder.StatusTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "com.motoros.workorder.WorkOrderIntegrationTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "com.motoros.security.AccessTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "com.motoros.security.LocalClaimsValidatorTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "javaTests": 21,
+  "nodeTests": 5,
+  "httpChecks": 38,
+  "playwrightTests": 6,
+  "productionBrowserTests": 6,
+  "frontendBuild": "passed",
+  "typecheck": "passed",
+  "freshCompose": "passed",
+  "serviceImageBuilds": 3,
+  "nonRootContainerRuntimeChecks": "passed",
+  "cloudDeployed": false
+}

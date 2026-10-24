@@ -1,0 +1,309 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MotorOS commercial event envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eventId",
+    "eventType",
+    "eventVersion",
+    "tenantId",
+    "branchId",
+    "aggregateId",
+    "occurredAt",
+    "correlationId",
+    "payload"
+  ],
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "eventType": {
+      "enum": [
+        "PartReserved",
+        "PartReservationFailed",
+        "PartConsumed",
+        "PartReservationReleased",
+        "StockTransferRequested",
+        "StockTransferApproved",
+        "StockTransferDispatched",
+        "StockTransferReceived",
+        "EstimateCreated",
+        "EstimateSubmitted",
+        "EstimateApproved",
+        "EstimateRejected",
+        "InvoiceIssued",
+        "PaymentRecorded",
+        "PaymentReconciled",
+        "PartCatalogUpdated",
+        "StockAdjusted",
+        "StockTransferStatusChanged",
+        "CommercialSettingsUpdated",
+        "EstimateDraftUpdated",
+        "EstimateCancelled",
+        "EstimateExpired",
+        "InvoiceDraftCreated",
+        "PaymentRefunded",
+        "InvoiceCreditRecorded"
+      ]
+    },
+    "eventVersion": {
+      "const": 1
+    },
+    "tenantId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "branchId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "aggregateId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "correlationId": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "payload": {
+      "type": "object"
+    },
+    "actorId": {
+      "type": "string",
+      "format": "uuid"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "PartReserved",
+              "PartReservationFailed"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "required": [
+              "branchId",
+              "partId",
+              "workOrderId",
+              "quantity"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "PartConsumed",
+              "PartReservationReleased"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "required": [
+              "reservationId",
+              "workOrderId",
+              "partId",
+              "quantity"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "StockTransferRequested"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "required": [
+              "sourceBranchId",
+              "destinationBranchId",
+              "items",
+              "note"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "StockTransferApproved",
+              "StockTransferDispatched"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "required": [
+              "status"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "StockTransferReceived"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "required": [
+              "version",
+              "items",
+              "note"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "EstimateSubmitted"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "required": [
+              "revision",
+              "approvalId"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "EstimateApproved",
+              "EstimateRejected"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "required": [
+              "revision",
+              "customerId",
+              "workOrderId"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "InvoiceIssued"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "required": [
+              "invoiceNumber",
+              "workOrderId"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "PaymentRecorded"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "required": [
+              "invoiceId",
+              "amount",
+              "providerVerified"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "PaymentReconciled"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "required": [
+              "note",
+              "providerVerified"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

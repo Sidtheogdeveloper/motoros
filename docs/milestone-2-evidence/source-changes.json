@@ -1,0 +1,545 @@
+{
+  "baseline": "motoros-milestone1-reviewed-source.zip",
+  "files": [
+    {
+      "file": ".github/workflows/verify.yml",
+      "change": "modified"
+    },
+    {
+      "file": ".gitignore",
+      "change": "modified"
+    },
+    {
+      "file": "README.md",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/next.config.ts",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/package.json",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/access-denied/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/api/auth/callback/route.ts",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/api/auth/login/route.ts",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/api/auth/logout/route.ts",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/api/auth/me/route.ts",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/api/auth/session/route.ts",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/api/backend/[...path]/route.ts",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/api/context/route.ts",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/api/logout/route.ts",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/branches/[id]/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/branches/layout.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/branches/new/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/branches/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/globals.css",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/invitations/accept/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/login/page.tsx",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/onboarding/layout.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/onboarding/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/page.tsx",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/password-recovery/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/platform/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/profile/layout.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/profile/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/register/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/session-expired/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/settings/brand/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/settings/layout.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/staff/layout.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/staff/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/verify-email/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/components/management.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/components/workshop-chooser.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/components/workspace.tsx",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/lib/account.ts",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/lib/api.ts",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/lib/session.ts",
+      "change": "added"
+    },
+    {
+      "file": "docker-compose.yml",
+      "change": "modified"
+    },
+    {
+      "file": "docs/api/README.md",
+      "change": "modified"
+    },
+    {
+      "file": "docs/architecture/identity-and-authorization.md",
+      "change": "added"
+    },
+    {
+      "file": "docs/architecture/overview.md",
+      "change": "modified"
+    },
+    {
+      "file": "docs/architecture/role-permission-matrix.json",
+      "change": "added"
+    },
+    {
+      "file": "docs/decisions/0002-local-auth-and-isolation.md",
+      "change": "modified"
+    },
+    {
+      "file": "docs/decisions/0003-oidc-and-live-membership-authority.md",
+      "change": "added"
+    },
+    {
+      "file": "docs/milestone-2-evidence/results.json",
+      "change": "added"
+    },
+    {
+      "file": "docs/milestone-2-evidence/secrets.json",
+      "change": "added"
+    },
+    {
+      "file": "docs/milestones/MILESTONE_2_REPORT.md",
+      "change": "added"
+    },
+    {
+      "file": "docs/milestones/milestone-2-plan.md",
+      "change": "added"
+    },
+    {
+      "file": "docs/previews/m2-staff-desktop.png",
+      "change": "added"
+    },
+    {
+      "file": "docs/previews/m2-staff-mobile.png",
+      "change": "added"
+    },
+    {
+      "file": "infrastructure/docker/keycloak-db.sh",
+      "change": "added"
+    },
+    {
+      "file": "infrastructure/docker/keycloak-health.sh",
+      "change": "added"
+    },
+    {
+      "file": "infrastructure/terraform/cognito/.terraform.lock.hcl",
+      "change": "added"
+    },
+    {
+      "file": "infrastructure/terraform/cognito/README.md",
+      "change": "added"
+    },
+    {
+      "file": "infrastructure/terraform/cognito/main.tf",
+      "change": "added"
+    },
+    {
+      "file": "infrastructure/terraform/cognito/terraform.tfvars.example",
+      "change": "added"
+    },
+    {
+      "file": "package-lock.json",
+      "change": "modified"
+    },
+    {
+      "file": "package.json",
+      "change": "modified"
+    },
+    {
+      "file": "packages/api-contracts/index.ts",
+      "change": "modified"
+    },
+    {
+      "file": "packages/api-contracts/openapi/customer.json",
+      "change": "modified"
+    },
+    {
+      "file": "packages/api-contracts/openapi/tenant.json",
+      "change": "modified"
+    },
+    {
+      "file": "packages/api-contracts/openapi/workorder.json",
+      "change": "modified"
+    },
+    {
+      "file": "packages/service-security/src/main/java/com/motoros/security/Access.java",
+      "change": "modified"
+    },
+    {
+      "file": "packages/service-security/src/main/java/com/motoros/security/AuthorizationContext.java",
+      "change": "added"
+    },
+    {
+      "file": "packages/service-security/src/main/java/com/motoros/security/AuthorizationResolver.java",
+      "change": "added"
+    },
+    {
+      "file": "packages/service-security/src/main/java/com/motoros/security/Correlation.java",
+      "change": "added"
+    },
+    {
+      "file": "packages/service-security/src/main/java/com/motoros/security/Permission.java",
+      "change": "added"
+    },
+    {
+      "file": "packages/service-security/src/main/java/com/motoros/security/ProviderClaimsValidator.java",
+      "change": "added"
+    },
+    {
+      "file": "packages/service-security/src/main/java/com/motoros/security/RemoteAuthorizationResolver.java",
+      "change": "added"
+    },
+    {
+      "file": "packages/service-security/src/main/java/com/motoros/security/SecurityConfiguration.java",
+      "change": "modified"
+    },
+    {
+      "file": "packages/service-security/src/main/java/com/motoros/security/ServiceTokens.java",
+      "change": "added"
+    },
+    {
+      "file": "packages/service-security/src/test/java/com/motoros/security/AccessTest.java",
+      "change": "modified"
+    },
+    {
+      "file": "packages/service-security/src/test/java/com/motoros/security/JwksDecoderTest.java",
+      "change": "added"
+    },
+    {
+      "file": "packages/service-security/src/test/java/com/motoros/security/ProviderClaimsValidatorTest.java",
+      "change": "added"
+    },
+    {
+      "file": "scripts/check-secrets.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "scripts/configure-oidc.mjs",
+      "change": "added"
+    },
+    {
+      "file": "scripts/dev.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "scripts/env.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "scripts/export-openapi.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "scripts/fresh-fixtures.mjs",
+      "change": "added"
+    },
+    {
+      "file": "scripts/frontend.mjs",
+      "change": "added"
+    },
+    {
+      "file": "scripts/infra.mjs",
+      "change": "added"
+    },
+    {
+      "file": "scripts/oidc-admin.mjs",
+      "change": "added"
+    },
+    {
+      "file": "scripts/prepare-oidc.mjs",
+      "change": "added"
+    },
+    {
+      "file": "scripts/run-services.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "scripts/runtime.mjs",
+      "change": "added"
+    },
+    {
+      "file": "scripts/seed-identities.mjs",
+      "change": "added"
+    },
+    {
+      "file": "services/customer-service/src/main/java/com/motoros/customer/AuthorizationConfiguration.java",
+      "change": "added"
+    },
+    {
+      "file": "services/customer-service/src/main/java/com/motoros/customer/CustomerController.java",
+      "change": "modified"
+    },
+    {
+      "file": "services/customer-service/src/main/resources/application.yml",
+      "change": "modified"
+    },
+    {
+      "file": "services/customer-service/src/test/java/com/motoros/customer/CustomerIntegrationTest.java",
+      "change": "modified"
+    },
+    {
+      "file": "services/tenant-service/pom.xml",
+      "change": "modified"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/Administration.java",
+      "change": "added"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/AuditEvents.java",
+      "change": "added"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/AuthorizationService.java",
+      "change": "added"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/IdentityController.java",
+      "change": "added"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/InvitationCipher.java",
+      "change": "added"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/InvitationController.java",
+      "change": "added"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/InvitationMailWorker.java",
+      "change": "added"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/InvitationService.java",
+      "change": "added"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/OidcProfileClient.java",
+      "change": "added"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/Rows.java",
+      "change": "added"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/TenantAdminController.java",
+      "change": "added"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/UserDirectory.java",
+      "change": "added"
+    },
+    {
+      "file": "services/tenant-service/src/main/resources/application.yml",
+      "change": "modified"
+    },
+    {
+      "file": "services/tenant-service/src/main/resources/db/migration/V2__identities_memberships_and_administration.sql",
+      "change": "added"
+    },
+    {
+      "file": "services/tenant-service/src/test/java/com/motoros/tenant/OnboardingIntegrationTest.java",
+      "change": "modified"
+    },
+    {
+      "file": "services/workorder-service/src/main/java/com/motoros/workorder/AuthorizationConfiguration.java",
+      "change": "added"
+    },
+    {
+      "file": "services/workorder-service/src/main/java/com/motoros/workorder/WorkOrderController.java",
+      "change": "modified"
+    },
+    {
+      "file": "services/workorder-service/src/main/java/com/motoros/workorder/WorkOrderRepository.java",
+      "change": "modified"
+    },
+    {
+      "file": "services/workorder-service/src/main/resources/application.yml",
+      "change": "modified"
+    },
+    {
+      "file": "services/workorder-service/src/test/java/com/motoros/workorder/WorkOrderIntegrationTest.java",
+      "change": "modified"
+    },
+    {
+      "file": "tests/e2e/milestone2.spec.ts",
+      "change": "added"
+    },
+    {
+      "file": "tests/helpers/oidc.mjs",
+      "change": "added"
+    },
+    {
+      "file": "tests/integration/container-smoke.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "tests/integration/fresh-compose.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "tests/integration/milestone2.mjs",
+      "change": "added"
+    },
+    {
+      "file": "tests/legacy/README.md",
+      "change": "added"
+    },
+    {
+      "file": "tests/legacy/container-smoke.mjs",
+      "change": "added"
+    },
+    {
+      "file": "tests/legacy/fixtures.mjs",
+      "change": "added"
+    },
+    {
+      "file": "tests/legacy/isolation.mjs",
+      "change": "added"
+    },
+    {
+      "file": "tests/legacy/milestone1-workshop.ts",
+      "change": "added"
+    },
+    {
+      "file": "tests/legacy/review-security.mjs",
+      "change": "added"
+    },
+    {
+      "file": "packages/service-security/src/main/java/com/motoros/security/LocalClaimsValidator.java",
+      "change": "removed"
+    },
+    {
+      "file": "packages/service-security/src/test/java/com/motoros/security/LocalClaimsValidatorTest.java",
+      "change": "removed"
+    },
+    {
+      "file": "scripts/fixtures.mjs",
+      "change": "removed"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/LocalAuthController.java",
+      "change": "removed"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/TenantController.java",
+      "change": "removed"
+    },
+    {
+      "file": "tests/e2e/workshop.spec.ts",
+      "change": "removed"
+    },
+    {
+      "file": "tests/integration/isolation.mjs",
+      "change": "removed"
+    },
+    {
+      "file": "tests/integration/review-security.mjs",
+      "change": "removed"
+    }
+  ]
+}

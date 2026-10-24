@@ -1,0 +1,1122 @@
+{
+  "date": "2026-10-24",
+  "scope": "M3 local registry verification; no AWS deployment",
+  "baseline": {
+    "java": 26,
+    "node": 5,
+    "api": 72,
+    "browserInitialPass": 8,
+    "browserInitialTotal": 9,
+    "focusedBrowserRetryPassed": true
+  },
+  "java": {
+    "total": 34,
+    "passed": true,
+    "suites": [
+      {
+        "name": "com.motoros.customer.CustomerIntegrationTest",
+        "tests": "9",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.customer.RegistryMigrationTest",
+        "tests": "1",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.tenant.OnboardingIntegrationTest",
+        "tests": "7",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.workorder.StatusTest",
+        "tests": "3",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.workorder.WorkOrderIntegrationTest",
+        "tests": "5",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.security.AccessTest",
+        "tests": "2",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.security.JwksDecoderTest",
+        "tests": "5",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.security.ProviderClaimsValidatorTest",
+        "tests": "2",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      }
+    ]
+  },
+  "node": {
+    "passed": 5
+  },
+  "typecheck": true,
+  "frontendProductionBuild": true,
+  "productionBrowser": {
+    "passed": 12,
+    "inheritedM2": 9,
+    "newM3": 3,
+    "includesCredentialOmissionOnObjectDownload": true
+  },
+  "m2Api": {
+    "checks": 72,
+    "passed": true,
+    "results": [
+      {
+        "name": "8081: unauthenticated access",
+        "actual": 401,
+        "expected": 401,
+        "pass": true
+      },
+      {
+        "name": "8082: unauthenticated access",
+        "actual": 401,
+        "expected": 401,
+        "pass": true
+      },
+      {
+        "name": "8083: unauthenticated access",
+        "actual": 401,
+        "expected": 401,
+        "pass": true
+      },
+      {
+        "name": "tampered OIDC token",
+        "actual": 401,
+        "expected": 401,
+        "pass": true
+      },
+      {
+        "name": "legacy local signer rejected",
+        "actual": 401,
+        "expected": 401,
+        "pass": true
+      },
+      {
+        "name": "cross-tenant brand read",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "cross-tenant vehicle read",
+        "actual": 404,
+        "expected": 404,
+        "pass": true
+      },
+      {
+        "name": "customer API uses live membership",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "search contains only selected tenant",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "owner creates branch",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "duplicate branch code rejected",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "tenant path manipulation rejected",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "live owner context",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "new branch is visible without new JWT",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "stale-tab brand context rejected",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "unauthorized brand switch",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "owner invites manager",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "wrong verified account denied",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "manager accepts delivered invitation",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "invitation is single-use",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "manager lists assigned branches",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "manager sees exactly assigned branch",
+        "actual": 1,
+        "expected": 1,
+        "pass": true
+      },
+      {
+        "name": "manager branch assignment",
+        "actual": "4793800b-e192-4976-8e6c-18df46df4d09",
+        "expected": "4793800b-e192-4976-8e6c-18df46df4d09",
+        "pass": true
+      },
+      {
+        "name": "manager updates assigned branch hours",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "manager cannot edit brand settings",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "manager cannot grant owner",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "manager cannot assign foreign branch",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "self role escalation denied",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "owner invites mechanic",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "mechanic accepts delivered invitation",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "mechanic cannot create customers",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "mechanic cannot edit brand",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "authorized cross-branch mechanic history",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "history originates in another branch",
+        "actual": "be26a064-88db-492b-aab2-9fb71dcaeacc",
+        "expected": "be26a064-88db-492b-aab2-9fb71dcaeacc",
+        "pass": true
+      },
+      {
+        "name": "cross-tenant history denied",
+        "actual": 404,
+        "expected": 404,
+        "pass": true
+      },
+      {
+        "name": "mechanic cannot use brand-wide overview",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "manager cannot modify another tenant branches",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "mechanic cannot read foreign vehicle",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "user cannot forge service delegation",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "service identity alone grants no business context",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "authenticated delegated user and service",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "invalid delegated token",
+        "actual": 401,
+        "expected": 401,
+        "pass": true
+      },
+      {
+        "name": "owner reads employee access",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "owner deactivates membership",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "same valid JWT immediately loses vehicle access",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "same JWT immediately loses history",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "create expiry fixture",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "resend rotates invitation",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "resend replaces secret",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "old invitation link invalidated",
+        "actual": 404,
+        "expected": 404,
+        "pass": true
+      },
+      {
+        "name": "expired invitation denied",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "revoke invitation",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "revoked invitation denied",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "invitation metadata listing",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "lists do not expose token hashes or secrets",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "history location labels",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "history labels contain no staff contacts",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "owner reads audit trail",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "audit includes actor tenant correlation and outcome",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "owner cannot enter platform administration",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "explicit platform operator lists brands",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "privileged operator suspends brand",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "suspended brand rejects same user JWT",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "privileged operator restores brand",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "parallel session refresh succeeds",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "refresh token rotates server-side",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "CSRF protects session context",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "CSRF protects logout",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "logout deletes application session",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "logged-out session cookie cannot be replayed",
+        "actual": false,
+        "expected": false,
+        "pass": true
+      },
+      {
+        "name": "legacy migration table remains available",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "MotorOS no longer stores password hashes",
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      }
+    ]
+  },
+  "m3Api": {
+    "checks": 91,
+    "passed": true,
+    "results": [
+      {
+        "name": "Velachery employee finds shared Anna Nagar vehicle",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "shared vehicle search includes mandatory fixture",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "mechanic vehicle search redacts owner identifiers",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "authorized vehicle detail",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "vehicle profile redacts customer identity",
+        "actual": false,
+        "expected": false,
+        "pass": true
+      },
+      {
+        "name": "mechanic cannot read customer-sensitive profile",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "mechanic cannot read ownership relationships",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "authorized cross-branch timeline through authenticated services",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "Anna Nagar service visible from Velachery",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "timeline includes structured Work Order source reference",
+        "actual": "workorder",
+        "expected": "workorder",
+        "pass": true
+      },
+      {
+        "name": "timeline is paginated",
+        "actual": 1,
+        "expected": 1,
+        "pass": true
+      },
+      {
+        "name": "invalid acting branch denied",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "Precision cannot access vehicles/b3595474-a5a2-4a9b-83dc-5864d29f2645",
+        "actual": 404,
+        "expected": 404,
+        "pass": true
+      },
+      {
+        "name": "Precision cannot access vehicles/b3595474-a5a2-4a9b-83dc-5864d29f2645/documents",
+        "actual": 404,
+        "expected": 404,
+        "pass": true
+      },
+      {
+        "name": "Precision cannot access vehicles/b3595474-a5a2-4a9b-83dc-5864d29f2645/timeline",
+        "actual": 404,
+        "expected": 404,
+        "pass": true
+      },
+      {
+        "name": "Precision cannot obtain document URL",
+        "actual": 404,
+        "expected": 404,
+        "pass": true
+      },
+      {
+        "name": "Precision search remains tenant scoped",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "foreign vehicle absent from searches",
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      },
+      {
+        "name": "create customer contact registry",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "normalized duplicate email denied",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "explicit duplicate candidate lookup",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "duplicate candidate identifies existing record",
+        "actual": "99307939-4e7e-4669-ad73-3e142d2af8d5",
+        "expected": "99307939-4e7e-4669-ad73-3e142d2af8d5",
+        "pass": true
+      },
+      {
+        "name": "reviewed shared contact creates separate person",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "customer directory pagination and search",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "pagination keeps total count",
+        "actual": 2,
+        "expected": 2,
+        "pass": true
+      },
+      {
+        "name": "pagination bounds content",
+        "actual": 1,
+        "expected": 1,
+        "pass": true
+      },
+      {
+        "name": "normalized duplicate registration denied",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "duplicate VIN denied",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "read current vehicle version",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "ownership transfer commits with history",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "stale ownership version rejected",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "historical ownership retrieval",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "old owner relationship retained",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "exactly one current owner",
+        "actual": 1,
+        "expected": 1,
+        "pass": true
+      },
+      {
+        "name": "transfer retains vehicle service history",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "service remains attached to same vehicle",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "read odometer history",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "mechanic records odometer in assigned branch",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "decreasing odometer denied",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "odometer invalid branch denied",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "authorized document upload grant",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "signed upload accepted",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "backend validates checksum size and magic bytes",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "document metadata hides storage key",
+        "actual": false,
+        "expected": false,
+        "pass": true
+      },
+      {
+        "name": "authorized technical document download",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "download grant expires quickly",
+        "actual": 60,
+        "expected": 60,
+        "pass": true
+      },
+      {
+        "name": "signed private download works",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "download bytes match upload",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "anonymous raw object access denied",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "tampered download signature denied",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "upload grant replay is confined to staging object",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "published object unaffected by upload replay",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "cross-tenant document ID manipulation denied",
+        "actual": 404,
+        "expected": 404,
+        "pass": true
+      },
+      {
+        "name": "authorized document upload grant",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "signed upload accepted",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "publish customer private document",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "mechanic cannot download private owner document",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "document list filters sensitive objects",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "private document absent from mechanic list",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "unsupported executable upload rejected",
+        "actual": 400,
+        "expected": 400,
+        "pass": true
+      },
+      {
+        "name": "authorized document upload grant",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "signed upload accepted",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "declared PDF with wrong magic rejected",
+        "actual": 400,
+        "expected": 400,
+        "pass": true
+      },
+      {
+        "name": "unvalidated upload cannot be downloaded",
+        "actual": 404,
+        "expected": 404,
+        "pass": true
+      },
+      {
+        "name": "archive revokes new grants",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "archived document cannot get fresh URL",
+        "actual": 404,
+        "expected": 404,
+        "pass": true
+      },
+      {
+        "name": "customer profile versioned edit",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "stale customer edit denied",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "read vehicle for versioned edit",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "vehicle edit cannot claim foreign branch",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "authorized vehicle profile edit",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "stale vehicle profile edit denied",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "odometer requires a supplied reading",
+        "actual": 400,
+        "expected": 400,
+        "pass": true
+      },
+      {
+        "name": "registry activity endpoint",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "registry audit retains actor tenant and correlation",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "register inactive vehicle without deleting history",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "inactive vehicle denies new work-order intake",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "inactive vehicle keeps readable service history",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "additional customer contact persists",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "contact deactivation is versioned",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "contact listing excludes inactive entries",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "deactivated contact absent from active list",
+        "actual": false,
+        "expected": false,
+        "pass": true
+      },
+      {
+        "name": "stale contact deactivation rejected",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "customer document upload grant",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "customer file signed upload accepted",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "customer document publication",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "customer target always forces private classification",
+        "actual": "CUSTOMER_PRIVATE",
+        "expected": "CUSTOMER_PRIVATE",
+        "pass": true
+      },
+      {
+        "name": "customer document listing",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "customer document is attached to correct owner record",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "mechanic cannot fetch customer-targeted document",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "customer document archival",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      }
+    ]
+  },
+  "freshInfrastructure": {
+    "freshVolume": true,
+    "serviceOwnedSchemas": true,
+    "flywayMigrations": 8,
+    "crossSchemaDenials": 6,
+    "healthEndpoints": 3,
+    "passed": true
+  },
+  "containers": {
+    "nonRootImages": 3,
+    "healthEndpoints": 3,
+    "realOidc": true,
+    "authenticatedServiceDelegation": true,
+    "crossBranchHistory": true,
+    "customerToWorkOrderTimeline": true,
+    "privateDocumentDownload": true,
+    "passed": true
+  },
+  "storageRestart": {
+    "persistedAcrossContainerRestart": true,
+    "authorizedDownload": 200,
+    "unsignedDownload": 403,
+    "passed": true
+  },
+  "storageProvider": "SeaweedFS 4.48; generated credentials; unsigned reads denied",
+  "localstackDocumentProbe": {
+    "unsignedRead": 200,
+    "rejectedForDocuments": true
+  },
+  "openApiExports": 3,
+  "npmProductionAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "milestone4Started": false,
+  "awsResourcesCreated": false,
+  "unverified": [
+    "actual AWS S3/Cognito and deployment IAM/TLS",
+    "malware scanning/deep file validation",
+    "load/chaos/restore testing",
+    "GitHub CI run",
+    "production retention and orphan reconciliation"
+  ]
+}

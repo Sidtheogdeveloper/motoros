@@ -1,0 +1,165 @@
+{
+  "baseline": "original Milestone 1 source archive",
+  "files": [
+    {
+      "file": ".dockerignore",
+      "change": "modified"
+    },
+    {
+      "file": ".github/workflows/verify.yml",
+      "change": "modified"
+    },
+    {
+      "file": ".gitignore",
+      "change": "modified"
+    },
+    {
+      "file": "MILESTONE_1_REVIEW.md",
+      "change": "added"
+    },
+    {
+      "file": "README.md",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/next-env.d.ts",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/api/backend/[...path]/route.ts",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/login/page.tsx",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/components/workspace.tsx",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/lib/limited-body.ts",
+      "change": "added"
+    },
+    {
+      "file": "docs/review-evidence/containers.json",
+      "change": "added"
+    },
+    {
+      "file": "docs/review-evidence/infrastructure.json",
+      "change": "added"
+    },
+    {
+      "file": "docs/review-evidence/npm-production-audit.json",
+      "change": "added"
+    },
+    {
+      "file": "docs/review-evidence/security-after.json",
+      "change": "added"
+    },
+    {
+      "file": "docs/review-evidence/security-before.json",
+      "change": "added"
+    },
+    {
+      "file": "docs/test-results.json",
+      "change": "modified"
+    },
+    {
+      "file": "docs/verification.md",
+      "change": "modified"
+    },
+    {
+      "file": "infrastructure/docker/service.Dockerfile",
+      "change": "modified"
+    },
+    {
+      "file": "package.json",
+      "change": "modified"
+    },
+    {
+      "file": "packages/api-contracts/openapi/customer.json",
+      "change": "modified"
+    },
+    {
+      "file": "packages/api-contracts/openapi/workorder.json",
+      "change": "modified"
+    },
+    {
+      "file": "packages/service-security/src/main/java/com/motoros/security/ApiErrors.java",
+      "change": "modified"
+    },
+    {
+      "file": "packages/service-security/src/main/java/com/motoros/security/LocalClaimsValidator.java",
+      "change": "added"
+    },
+    {
+      "file": "packages/service-security/src/main/java/com/motoros/security/SecurityConfiguration.java",
+      "change": "modified"
+    },
+    {
+      "file": "packages/service-security/src/test/java/com/motoros/security/LocalClaimsValidatorTest.java",
+      "change": "added"
+    },
+    {
+      "file": "scripts/check-secrets.mjs",
+      "change": "added"
+    },
+    {
+      "file": "scripts/dev.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "scripts/process-group.mjs",
+      "change": "added"
+    },
+    {
+      "file": "scripts/run-services.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "services/customer-service/src/test/java/com/motoros/customer/CustomerIntegrationTest.java",
+      "change": "modified"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/LocalAuthController.java",
+      "change": "modified"
+    },
+    {
+      "file": "services/tenant-service/src/test/java/com/motoros/tenant/OnboardingIntegrationTest.java",
+      "change": "modified"
+    },
+    {
+      "file": "services/workorder-service/src/main/java/com/motoros/workorder/WorkOrderController.java",
+      "change": "modified"
+    },
+    {
+      "file": "services/workorder-service/src/test/java/com/motoros/workorder/WorkOrderIntegrationTest.java",
+      "change": "modified"
+    },
+    {
+      "file": "tests/e2e/workshop.spec.ts",
+      "change": "modified"
+    },
+    {
+      "file": "tests/integration/container-smoke.mjs",
+      "change": "added"
+    },
+    {
+      "file": "tests/integration/fresh-compose.mjs",
+      "change": "added"
+    },
+    {
+      "file": "tests/integration/review-security.mjs",
+      "change": "added"
+    },
+    {
+      "file": "tests/unit/http-boundary.test.mjs",
+      "change": "added"
+    },
+    {
+      "file": "tests/unit/process-group.test.mjs",
+      "change": "added"
+    }
+  ]
+}

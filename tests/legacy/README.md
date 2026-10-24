@@ -1,0 +1,1 @@
+Historical Milestone 1 test sources. These depend on the removed custom password API and are not executable Milestone 2 checks. Use npm run test:api and npm run test:e2e. Baseline execution is recorded in the milestone plan/report.

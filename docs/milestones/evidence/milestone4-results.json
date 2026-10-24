@@ -1,0 +1,136 @@
+{
+  "date": "2026-10-24",
+  "java": {
+    "total": 46,
+    "suites": [
+      {
+        "name": "com.motoros.booking.BookingIntegrationTest",
+        "tests": "4",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.booking.SchedulingTest",
+        "tests": "3",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.customer.CustomerIntegrationTest",
+        "tests": "9",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.customer.RegistryMigrationTest",
+        "tests": "1",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.tenant.OnboardingIntegrationTest",
+        "tests": "8",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.workorder.StatusTest",
+        "tests": "3",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.workorder.WorkOrderIntegrationTest",
+        "tests": "9",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.security.AccessTest",
+        "tests": "2",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.security.JwksDecoderTest",
+        "tests": "5",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.security.ProviderClaimsValidatorTest",
+        "tests": "2",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      }
+    ]
+  },
+  "node": {
+    "tests": 5,
+    "passed": true
+  },
+  "api": {
+    "milestone2": {
+      "checks": 72,
+      "passed": true
+    },
+    "milestone3": {
+      "checks": 91,
+      "passed": true
+    },
+    "milestone4": {
+      "checks": 105,
+      "passed": true
+    }
+  },
+  "browser": {
+    "tests": 14,
+    "passed": true,
+    "target": "Next.js production build"
+  },
+  "compose": {
+    "project": "motoros-review-1792848915995",
+    "freshVolume": true,
+    "serviceOwnedSchemas": true,
+    "flywayMigrations": 14,
+    "crossSchemaDenials": 12,
+    "healthEndpoints": 4,
+    "passed": true
+  },
+  "containers": {
+    "nonRootImages": 4,
+    "healthEndpoints": 4,
+    "realOidc": true,
+    "authenticatedServiceDelegation": true,
+    "crossBranchHistory": true,
+    "customerToWorkOrderTimeline": true,
+    "privateDocumentDownload": true,
+    "bookingReferenceDelegation": true,
+    "workshopPhotosPrivate": true,
+    "developmentApprovalDisabledByDefault": true,
+    "passed": true
+  },
+  "fixtureHelper": {
+    "passed": true,
+    "finalStatus": "CLOSED"
+  },
+  "secretScan": {
+    "sourceFilesScanned": 288,
+    "trackedFiles": 0,
+    "commitCount": 0,
+    "generatedSecretValuesChecked": 27,
+    "findings": [],
+    "historyScan": "No commits exist; committed secret check is vacuous"
+  },
+  "cloudDeployment": false
+}

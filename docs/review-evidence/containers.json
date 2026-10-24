@@ -1,0 +1,8 @@
+{
+  "nonRootImages": 3,
+  "healthEndpoints": 3,
+  "login": true,
+  "customers": true,
+  "crossBranchHistoryThroughContainerNetwork": true,
+  "passed": true
+}

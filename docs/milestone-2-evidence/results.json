@@ -1,0 +1,569 @@
+{
+  "date": "2026-10-24",
+  "scope": "Milestone 2 local verification; no AWS provisioning",
+  "baseline": {
+    "java": 21,
+    "node": 5,
+    "http": 38,
+    "browser": 6
+  },
+  "java": {
+    "total": 26,
+    "passed": true,
+    "suites": [
+      {
+        "name": "com.motoros.customer.CustomerIntegrationTest",
+        "tests": "4",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.tenant.OnboardingIntegrationTest",
+        "tests": "7",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.workorder.StatusTest",
+        "tests": "3",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.workorder.WorkOrderIntegrationTest",
+        "tests": "3",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.security.AccessTest",
+        "tests": "2",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.security.JwksDecoderTest",
+        "tests": "5",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.motoros.security.ProviderClaimsValidatorTest",
+        "tests": "2",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      }
+    ]
+  },
+  "node": {
+    "passed": 5
+  },
+  "browser": {
+    "passed": 9,
+    "frontend": "Next.js production build/start",
+    "flows": [
+      "OIDC PKCE session restoration",
+      "owner invitations through Mailpit and scoped manager/mechanic workspaces",
+      "provider registration/verification and atomic onboarding",
+      "branch settings/all-branches and multi-brand context",
+      "provider password recovery through Mailpit",
+      "customer/vehicle/work-order lifecycle",
+      "desktop/mobile staff profile, account profile persistence and guards",
+      "server session expiration",
+      "application and provider logout"
+    ]
+  },
+  "api": {
+    "checks": 72,
+    "passed": true,
+    "results": [
+      {
+        "name": "8081: unauthenticated access",
+        "actual": 401,
+        "expected": 401,
+        "pass": true
+      },
+      {
+        "name": "8082: unauthenticated access",
+        "actual": 401,
+        "expected": 401,
+        "pass": true
+      },
+      {
+        "name": "8083: unauthenticated access",
+        "actual": 401,
+        "expected": 401,
+        "pass": true
+      },
+      {
+        "name": "tampered OIDC token",
+        "actual": 401,
+        "expected": 401,
+        "pass": true
+      },
+      {
+        "name": "legacy local signer rejected",
+        "actual": 401,
+        "expected": 401,
+        "pass": true
+      },
+      {
+        "name": "cross-tenant brand read",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "cross-tenant vehicle read",
+        "actual": 404,
+        "expected": 404,
+        "pass": true
+      },
+      {
+        "name": "customer API uses live membership",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "search contains only selected tenant",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "owner creates branch",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "duplicate branch code rejected",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "tenant path manipulation rejected",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "live owner context",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "new branch is visible without new JWT",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "stale-tab brand context rejected",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "unauthorized brand switch",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "owner invites manager",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "wrong verified account denied",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "manager accepts delivered invitation",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "invitation is single-use",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "manager lists assigned branches",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "manager sees exactly assigned branch",
+        "actual": 1,
+        "expected": 1,
+        "pass": true
+      },
+      {
+        "name": "manager branch assignment",
+        "actual": "4793800b-e192-4976-8e6c-18df46df4d09",
+        "expected": "4793800b-e192-4976-8e6c-18df46df4d09",
+        "pass": true
+      },
+      {
+        "name": "manager updates assigned branch hours",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "manager cannot edit brand settings",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "manager cannot grant owner",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "manager cannot assign foreign branch",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "self role escalation denied",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "owner invites mechanic",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "mechanic accepts delivered invitation",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "mechanic cannot create customers",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "mechanic cannot edit brand",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "authorized cross-branch mechanic history",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "history originates in another branch",
+        "actual": "be26a064-88db-492b-aab2-9fb71dcaeacc",
+        "expected": "be26a064-88db-492b-aab2-9fb71dcaeacc",
+        "pass": true
+      },
+      {
+        "name": "cross-tenant history denied",
+        "actual": 404,
+        "expected": 404,
+        "pass": true
+      },
+      {
+        "name": "mechanic cannot use brand-wide overview",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "manager cannot modify another tenant branches",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "mechanic cannot read foreign vehicle",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "user cannot forge service delegation",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "service identity alone grants no business context",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "authenticated delegated user and service",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "invalid delegated token",
+        "actual": 401,
+        "expected": 401,
+        "pass": true
+      },
+      {
+        "name": "owner reads employee access",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "owner deactivates membership",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "same valid JWT immediately loses vehicle access",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "same JWT immediately loses history",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "create expiry fixture",
+        "actual": 201,
+        "expected": 201,
+        "pass": true
+      },
+      {
+        "name": "resend rotates invitation",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "resend replaces secret",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "old invitation link invalidated",
+        "actual": 404,
+        "expected": 404,
+        "pass": true
+      },
+      {
+        "name": "expired invitation denied",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "revoke invitation",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "revoked invitation denied",
+        "actual": 409,
+        "expected": 409,
+        "pass": true
+      },
+      {
+        "name": "invitation metadata listing",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "lists do not expose token hashes or secrets",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "history location labels",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "history labels contain no staff contacts",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "owner reads audit trail",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "audit includes actor tenant correlation and outcome",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "owner cannot enter platform administration",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "explicit platform operator lists brands",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "privileged operator suspends brand",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "suspended brand rejects same user JWT",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "privileged operator restores brand",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "parallel session refresh succeeds",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "refresh token rotates server-side",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "CSRF protects session context",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "CSRF protects logout",
+        "actual": 403,
+        "expected": 403,
+        "pass": true
+      },
+      {
+        "name": "logout deletes application session",
+        "actual": 200,
+        "expected": 200,
+        "pass": true
+      },
+      {
+        "name": "logged-out session cookie cannot be replayed",
+        "actual": false,
+        "expected": false,
+        "pass": true
+      },
+      {
+        "name": "legacy migration table remains available",
+        "actual": true,
+        "expected": true,
+        "pass": true
+      },
+      {
+        "name": "MotorOS no longer stores password hashes",
+        "actual": 0,
+        "expected": 0,
+        "pass": true
+      }
+    ]
+  },
+  "infrastructure": {
+    "freshVolume": true,
+    "serviceOwnedSchemas": true,
+    "flywayMigrations": 4,
+    "crossSchemaDenials": 6,
+    "healthEndpoints": 3,
+    "passed": true
+  },
+  "containers": {
+    "nonRootImages": 3,
+    "healthEndpoints": 3,
+    "realOidc": true,
+    "authenticatedServiceDelegation": true,
+    "crossBranchHistory": true,
+    "passed": true
+  },
+  "freshDevelopmentFixtures": {
+    "noLegacyLoginFiles": true,
+    "realOidcAndBusinessApis": true,
+    "passed": true
+  },
+  "typecheck": true,
+  "frontendProductionBuild": true,
+  "openApiExports": 3,
+  "terraform": {
+    "version": "1.13.5",
+    "awsProvider": "6.70.0",
+    "fmt": true,
+    "initBackendFalse": true,
+    "validate": true,
+    "plan": false,
+    "apply": false
+  },
+  "npmProductionAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "unverified": [
+    "AWS Cognito runtime",
+    "GitHub CI execution",
+    "production rollout and operations",
+    "load/outage/restore/SMTP-exhaustion testing"
+  ],
+  "milestone3Started": false
+}

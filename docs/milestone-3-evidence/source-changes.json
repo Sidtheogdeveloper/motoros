@@ -1,0 +1,285 @@
+{
+  "baseline": "motoros-milestone2-reviewed-source.zip",
+  "files": [
+    {
+      "file": ".github/workflows/verify.yml",
+      "change": "modified"
+    },
+    {
+      "file": "README.md",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/next.config.ts",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/customers/[id]/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/customers/layout.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/customers/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/globals.css",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/vehicles/[id]/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/vehicles/[id]/timeline/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/vehicles/layout.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/app/vehicles/page.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/components/registry.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/components/registry/detail.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/components/registry/directory.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/components/registry/documents.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/components/registry/shared.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/components/registry/timeline.tsx",
+      "change": "added"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/components/ui/modal.tsx",
+      "change": "modified"
+    },
+    {
+      "file": "apps/workshop-dashboard/src/components/workspace.tsx",
+      "change": "modified"
+    },
+    {
+      "file": "docker-compose.yml",
+      "change": "modified"
+    },
+    {
+      "file": "docs/api/README.md",
+      "change": "modified"
+    },
+    {
+      "file": "docs/architecture/customer-vehicle-registry.md",
+      "change": "added"
+    },
+    {
+      "file": "docs/architecture/role-permission-matrix.json",
+      "change": "modified"
+    },
+    {
+      "file": "docs/milestone-3-evidence/results.json",
+      "change": "added"
+    },
+    {
+      "file": "docs/milestone-3-evidence/secrets.json",
+      "change": "added"
+    },
+    {
+      "file": "docs/milestones/MILESTONE_3_REPORT.md",
+      "change": "added"
+    },
+    {
+      "file": "docs/milestones/milestone-3-plan.md",
+      "change": "added"
+    },
+    {
+      "file": "docs/previews/m3-vehicle-desktop.png",
+      "change": "added"
+    },
+    {
+      "file": "docs/previews/m3-vehicle-mobile.png",
+      "change": "added"
+    },
+    {
+      "file": "infrastructure/docker/service.Dockerfile",
+      "change": "modified"
+    },
+    {
+      "file": "package.json",
+      "change": "modified"
+    },
+    {
+      "file": "packages/api-contracts/index.ts",
+      "change": "modified"
+    },
+    {
+      "file": "packages/api-contracts/openapi/customer.json",
+      "change": "modified"
+    },
+    {
+      "file": "packages/api-contracts/openapi/tenant.json",
+      "change": "modified"
+    },
+    {
+      "file": "packages/api-contracts/openapi/workorder.json",
+      "change": "modified"
+    },
+    {
+      "file": "packages/service-security/src/main/java/com/motoros/security/Permission.java",
+      "change": "modified"
+    },
+    {
+      "file": "packages/service-security/src/main/java/com/motoros/security/SecurityConfiguration.java",
+      "change": "modified"
+    },
+    {
+      "file": "scripts/check-secrets.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "scripts/dev.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "scripts/env.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "scripts/infra.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "scripts/milestone3-fixtures.mjs",
+      "change": "added"
+    },
+    {
+      "file": "scripts/prepare-storage.mjs",
+      "change": "added"
+    },
+    {
+      "file": "scripts/runtime.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "services/customer-service/pom.xml",
+      "change": "modified"
+    },
+    {
+      "file": "services/customer-service/src/main/java/com/motoros/customer/ApiContract.java",
+      "change": "added"
+    },
+    {
+      "file": "services/customer-service/src/main/java/com/motoros/customer/CustomerController.java",
+      "change": "modified"
+    },
+    {
+      "file": "services/customer-service/src/main/java/com/motoros/customer/DocumentController.java",
+      "change": "added"
+    },
+    {
+      "file": "services/customer-service/src/main/java/com/motoros/customer/DocumentStorage.java",
+      "change": "added"
+    },
+    {
+      "file": "services/customer-service/src/main/java/com/motoros/customer/Documents.java",
+      "change": "added"
+    },
+    {
+      "file": "services/customer-service/src/main/java/com/motoros/customer/LocalStorageSetup.java",
+      "change": "added"
+    },
+    {
+      "file": "services/customer-service/src/main/java/com/motoros/customer/Registry.java",
+      "change": "added"
+    },
+    {
+      "file": "services/customer-service/src/main/java/com/motoros/customer/TimelineController.java",
+      "change": "added"
+    },
+    {
+      "file": "services/customer-service/src/main/resources/application.yml",
+      "change": "modified"
+    },
+    {
+      "file": "services/customer-service/src/main/resources/db/migration/V2__unified_registry.sql",
+      "change": "added"
+    },
+    {
+      "file": "services/customer-service/src/main/resources/db/migration/V3__registry_identifier_constraints.sql",
+      "change": "added"
+    },
+    {
+      "file": "services/customer-service/src/test/java/com/motoros/customer/CustomerIntegrationTest.java",
+      "change": "modified"
+    },
+    {
+      "file": "services/customer-service/src/test/java/com/motoros/customer/RegistryMigrationTest.java",
+      "change": "added"
+    },
+    {
+      "file": "services/tenant-service/src/main/java/com/motoros/tenant/ApiContract.java",
+      "change": "added"
+    },
+    {
+      "file": "services/tenant-service/src/main/resources/db/migration/V3__registry_permissions.sql",
+      "change": "added"
+    },
+    {
+      "file": "services/workorder-service/src/main/java/com/motoros/workorder/ApiContract.java",
+      "change": "added"
+    },
+    {
+      "file": "services/workorder-service/src/main/java/com/motoros/workorder/WorkOrderController.java",
+      "change": "modified"
+    },
+    {
+      "file": "services/workorder-service/src/main/java/com/motoros/workorder/WorkOrderRepository.java",
+      "change": "modified"
+    },
+    {
+      "file": "services/workorder-service/src/main/resources/application.yml",
+      "change": "modified"
+    },
+    {
+      "file": "services/workorder-service/src/main/resources/db/migration/V2__audit_correlation.sql",
+      "change": "added"
+    },
+    {
+      "file": "services/workorder-service/src/test/java/com/motoros/workorder/WorkOrderIntegrationTest.java",
+      "change": "modified"
+    },
+    {
+      "file": "tests/e2e/milestone3.spec.ts",
+      "change": "added"
+    },
+    {
+      "file": "tests/integration/container-smoke.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "tests/integration/fresh-compose.mjs",
+      "change": "modified"
+    },
+    {
+      "file": "tests/integration/milestone3.mjs",
+      "change": "added"
+    }
+  ]
+}

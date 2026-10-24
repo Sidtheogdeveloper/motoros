@@ -1,0 +1,4 @@
+region = "ap-south-1"
+name = "motoros-staging"
+domain_prefix = "replace-with-a-unique-motoros-domain"
+app_origin = "https://workshop.example.com"

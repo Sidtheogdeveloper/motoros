@@ -1,0 +1,64 @@
+server:
+  port: ${PORT:8081}
+  address: ${BIND_ADDRESS:127.0.0.1}
+spring:
+  mail:
+    host: ${SMTP_HOST:127.0.0.1}
+    port: ${SMTP_PORT:1025}
+    username: ${SMTP_USERNAME:}
+    password: ${SMTP_PASSWORD:}
+    properties:
+      mail.smtp.auth: ${SMTP_AUTH:false}
+      mail.smtp.starttls.enable: ${SMTP_STARTTLS:false}
+      mail.smtp.starttls.required: ${SMTP_STARTTLS:false}
+      mail.smtp.connectiontimeout: 5000
+      mail.smtp.timeout: 5000
+      mail.smtp.writetimeout: 5000
+  application:
+    name: motoros-tenant
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:55432/motoros}
+    username: ${DATABASE_USER:tenant_app}
+    password: ${DATABASE_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: tenant
+  flyway:
+    default-schema: tenant
+    schemas: tenant
+    create-schemas: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+logging:
+  structured:
+    format:
+      console: logstash
+motoros:
+  oidc:
+    issuer: ${OIDC_ISSUER:http://127.0.0.1:8180/realms/motoros}
+    jwks-uri: ${OIDC_JWKS_URI:http://127.0.0.1:8180/realms/motoros/protocol/openid-connect/certs}
+    token-uri: ${OIDC_TOKEN_URI:http://127.0.0.1:8180/realms/motoros/protocol/openid-connect/token}
+    userinfo-uri: ${OIDC_USERINFO_URI:http://127.0.0.1:8180/realms/motoros/protocol/openid-connect/userinfo}
+    audience: ${OIDC_AUDIENCE:motoros-api}
+    accepted-clients: ${OIDC_ACCEPTED_CLIENTS:motoros-bff,motoros-customer,motoros-workorder,motoros-booking,motoros-inventory,motoros-billing}
+  service-client-id: ${SERVICE_CLIENT_ID:}
+  service-client-secret: ${SERVICE_CLIENT_SECRET:}
+  internal-scope: ${OIDC_INTERNAL_SCOPE:motoros.internal}
+  delegating-clients: ${DELEGATING_CLIENTS:motoros-customer,motoros-workorder,motoros-booking,motoros-inventory,motoros-billing}
+  tenant-url: ${TENANT_URL:http://127.0.0.1:8081}
+  customer-url: ${CUSTOMER_URL:http://127.0.0.1:8082}
+  invitation-key: ${INVITATION_ENCRYPTION_KEY:}
+  app-url: ${APP_ORIGIN:http://127.0.0.1:3000}
+  mail-from: ${SMTP_FROM:motoros@example.test}
+  mail-enabled: ${MAIL_ENABLED:false}

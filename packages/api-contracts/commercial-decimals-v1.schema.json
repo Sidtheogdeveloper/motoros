@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Exact commercial decimal transport",
+  "description": "Inventory and Billing serialize decimal quantities and money as strings. Calculate and round on the server; clients format exact strings. BigDecimal values in stored JSON and service responses are parsed with decimal precision.",
+  "type": "string",
+  "pattern": "^-?[0-9]+(?:\\.[0-9]+)?$",
+  "examples": [
+    "100.00",
+    "0.001",
+    "99999999999999999.99"
+  ]
+}

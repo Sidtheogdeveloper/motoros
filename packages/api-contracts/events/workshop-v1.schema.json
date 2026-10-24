@@ -1,0 +1,1098 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motoros.example/contracts/workshop-v1.schema.json",
+  "title": "MotorOS workshop event definitions (transport deferred)",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "eventType",
+        "schemaVersion",
+        "occurredAt",
+        "tenantId",
+        "branchId",
+        "aggregateId",
+        "aggregateVersion",
+        "correlationId",
+        "source",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "eventType": {
+          "const": "AppointmentBooked"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tenantId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "branchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateVersion": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "correlationId": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "service",
+            "resourceId",
+            "path"
+          ],
+          "properties": {
+            "service": {
+              "enum": [
+                "booking",
+                "workorder"
+              ]
+            },
+            "resourceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^/api/(appointments|work-orders|check-ins)/"
+            }
+          }
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "appointmentId",
+            "customerId",
+            "vehicleId",
+            "requestedStartTime"
+          ],
+          "properties": {
+            "appointmentId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "customerId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "vehicleId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "requestedStartTime": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "eventType",
+        "schemaVersion",
+        "occurredAt",
+        "tenantId",
+        "branchId",
+        "aggregateId",
+        "aggregateVersion",
+        "correlationId",
+        "source",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "eventType": {
+          "const": "AppointmentConfirmed"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tenantId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "branchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateVersion": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "correlationId": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "service",
+            "resourceId",
+            "path"
+          ],
+          "properties": {
+            "service": {
+              "enum": [
+                "booking",
+                "workorder"
+              ]
+            },
+            "resourceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^/api/(appointments|work-orders|check-ins)/"
+            }
+          }
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "appointmentId"
+          ],
+          "properties": {
+            "appointmentId": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "eventType",
+        "schemaVersion",
+        "occurredAt",
+        "tenantId",
+        "branchId",
+        "aggregateId",
+        "aggregateVersion",
+        "correlationId",
+        "source",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "eventType": {
+          "const": "AppointmentCancelled"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tenantId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "branchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateVersion": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "correlationId": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "service",
+            "resourceId",
+            "path"
+          ],
+          "properties": {
+            "service": {
+              "enum": [
+                "booking",
+                "workorder"
+              ]
+            },
+            "resourceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^/api/(appointments|work-orders|check-ins)/"
+            }
+          }
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "appointmentId",
+            "reason"
+          ],
+          "properties": {
+            "appointmentId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "eventType",
+        "schemaVersion",
+        "occurredAt",
+        "tenantId",
+        "branchId",
+        "aggregateId",
+        "aggregateVersion",
+        "correlationId",
+        "source",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "eventType": {
+          "const": "VehicleCheckedIn"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tenantId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "branchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateVersion": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "correlationId": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "service",
+            "resourceId",
+            "path"
+          ],
+          "properties": {
+            "service": {
+              "enum": [
+                "booking",
+                "workorder"
+              ]
+            },
+            "resourceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^/api/(appointments|work-orders|check-ins)/"
+            }
+          }
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "checkInId",
+            "workOrderId",
+            "vehicleId"
+          ],
+          "properties": {
+            "checkInId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workOrderId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "vehicleId": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "eventType",
+        "schemaVersion",
+        "occurredAt",
+        "tenantId",
+        "branchId",
+        "aggregateId",
+        "aggregateVersion",
+        "correlationId",
+        "source",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "eventType": {
+          "const": "WorkOrderCreated"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tenantId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "branchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateVersion": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "correlationId": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "service",
+            "resourceId",
+            "path"
+          ],
+          "properties": {
+            "service": {
+              "enum": [
+                "booking",
+                "workorder"
+              ]
+            },
+            "resourceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^/api/(appointments|work-orders|check-ins)/"
+            }
+          }
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workOrderId",
+            "vehicleId",
+            "jobCardNumber"
+          ],
+          "properties": {
+            "workOrderId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "vehicleId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "jobCardNumber": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "eventType",
+        "schemaVersion",
+        "occurredAt",
+        "tenantId",
+        "branchId",
+        "aggregateId",
+        "aggregateVersion",
+        "correlationId",
+        "source",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "eventType": {
+          "const": "TechnicianAssigned"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tenantId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "branchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateVersion": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "correlationId": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "service",
+            "resourceId",
+            "path"
+          ],
+          "properties": {
+            "service": {
+              "enum": [
+                "booking",
+                "workorder"
+              ]
+            },
+            "resourceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^/api/(appointments|work-orders|check-ins)/"
+            }
+          }
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workOrderId",
+            "technicianId"
+          ],
+          "properties": {
+            "workOrderId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "technicianId": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "eventType",
+        "schemaVersion",
+        "occurredAt",
+        "tenantId",
+        "branchId",
+        "aggregateId",
+        "aggregateVersion",
+        "correlationId",
+        "source",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "eventType": {
+          "const": "InspectionCompleted"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tenantId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "branchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateVersion": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "correlationId": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "service",
+            "resourceId",
+            "path"
+          ],
+          "properties": {
+            "service": {
+              "enum": [
+                "booking",
+                "workorder"
+              ]
+            },
+            "resourceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^/api/(appointments|work-orders|check-ins)/"
+            }
+          }
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workOrderId",
+            "inspectionId"
+          ],
+          "properties": {
+            "workOrderId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "inspectionId": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "eventType",
+        "schemaVersion",
+        "occurredAt",
+        "tenantId",
+        "branchId",
+        "aggregateId",
+        "aggregateVersion",
+        "correlationId",
+        "source",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "eventType": {
+          "const": "WorkOrderStatusChanged"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tenantId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "branchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateVersion": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "correlationId": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "service",
+            "resourceId",
+            "path"
+          ],
+          "properties": {
+            "service": {
+              "enum": [
+                "booking",
+                "workorder"
+              ]
+            },
+            "resourceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^/api/(appointments|work-orders|check-ins)/"
+            }
+          }
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workOrderId",
+            "fromStatus",
+            "toStatus"
+          ],
+          "properties": {
+            "workOrderId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "fromStatus": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            "toStatus": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "eventType",
+        "schemaVersion",
+        "occurredAt",
+        "tenantId",
+        "branchId",
+        "aggregateId",
+        "aggregateVersion",
+        "correlationId",
+        "source",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "eventType": {
+          "const": "WorkOrderCompleted"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tenantId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "branchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateVersion": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "correlationId": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "service",
+            "resourceId",
+            "path"
+          ],
+          "properties": {
+            "service": {
+              "enum": [
+                "booking",
+                "workorder"
+              ]
+            },
+            "resourceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^/api/(appointments|work-orders|check-ins)/"
+            }
+          }
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workOrderId",
+            "vehicleId"
+          ],
+          "properties": {
+            "workOrderId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "vehicleId": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "eventType",
+        "schemaVersion",
+        "occurredAt",
+        "tenantId",
+        "branchId",
+        "aggregateId",
+        "aggregateVersion",
+        "correlationId",
+        "source",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "eventType": {
+          "const": "QualityCheckFailed"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tenantId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "branchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateVersion": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "correlationId": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "service",
+            "resourceId",
+            "path"
+          ],
+          "properties": {
+            "service": {
+              "enum": [
+                "booking",
+                "workorder"
+              ]
+            },
+            "resourceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^/api/(appointments|work-orders|check-ins)/"
+            }
+          }
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workOrderId",
+            "qualityCheckId",
+            "reason"
+          ],
+          "properties": {
+            "workOrderId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "qualityCheckId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "eventType",
+        "schemaVersion",
+        "occurredAt",
+        "tenantId",
+        "branchId",
+        "aggregateId",
+        "aggregateVersion",
+        "correlationId",
+        "source",
+        "payload"
+      ],
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "eventType": {
+          "const": "VehicleReadyForDelivery"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tenantId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "branchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "aggregateVersion": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "correlationId": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "service",
+            "resourceId",
+            "path"
+          ],
+          "properties": {
+            "service": {
+              "enum": [
+                "booking",
+                "workorder"
+              ]
+            },
+            "resourceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^/api/(appointments|work-orders|check-ins)/"
+            }
+          }
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workOrderId",
+            "vehicleId",
+            "qualityCheckId"
+          ],
+          "properties": {
+            "workOrderId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "vehicleId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "qualityCheckId": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+CREATE INDEX tasks_job_detail ON work_order_tasks(tenant_id,work_order_id,created_at,id);
+CREATE INDEX notes_job_detail ON job_notes(tenant_id,work_order_id,created_at,id);
+CREATE INDEX parts_job_detail ON required_parts(tenant_id,work_order_id,created_at,id);
+CREATE INDEX inspections_job_detail ON inspections(tenant_id,work_order_id,created_at,id);
+CREATE INDEX findings_job_detail ON inspection_findings(tenant_id,work_order_id,category,id);
+CREATE INDEX quality_job_detail ON quality_checks(tenant_id,work_order_id,created_at,id);
+CREATE INDEX status_job_detail ON work_order_status_history(tenant_id,work_order_id,created_at,id);
+CREATE INDEX assignments_job_detail ON technician_assignments(tenant_id,work_order_id,created_at,id);
+CREATE INDEX photos_job_detail ON workshop_photos(tenant_id,work_order_id,created_at,id);
+CREATE INDEX intake_vehicle_history ON vehicle_check_ins(tenant_id,vehicle_id,check_in_at,id);
+CREATE INDEX task_history_detail ON task_history(tenant_id,task_id,created_at,id);
+ALTER TABLE work_orders ADD CONSTRAINT work_order_status_valid CHECK(status IN ('CREATED','CHECKED_IN','INSPECTION','ESTIMATE_PENDING','AWAITING_APPROVAL','APPROVED','IN_PROGRESS','QUALITY_CHECK','READY_FOR_DELIVERY','DELIVERED','CLOSED','CANCELLED'));

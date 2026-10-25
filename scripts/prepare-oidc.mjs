@@ -1,5 +1,6 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { loadEnv } from './env.mjs';
+import { identitySmtp } from './identity-smtp.mjs';
 const env = loadEnv();
 mkdirSync('.runtime/keycloak', { recursive: true });
 const audience = {
@@ -73,15 +74,7 @@ const realm = {
   bruteForceProtected: true,
   failureFactor: 5,
   waitIncrementSeconds: 30,
-  smtpServer: {
-    host: 'mailpit',
-    port: '1025',
-    from: 'motoros@example.test',
-    fromDisplayName: 'MotorOS Local',
-    ssl: 'false',
-    starttls: 'false',
-    auth: 'false',
-  },
+  smtpServer: identitySmtp(env),
   clientScopes: [scope('motoros.api'), scope('motoros.internal')],
   clients,
 };

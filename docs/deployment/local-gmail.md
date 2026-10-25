@@ -6,8 +6,9 @@ Workshop notifications continue using Mailpit. Gmail is not enabled by default.
 1. Enable Google 2-Step Verification and create an App Password named MotorOS at
    <https://myaccount.google.com/apppasswords>. Some managed or Advanced Protection
    accounts cannot use App Passwords. Never use your normal Google password.
-2. With local Keycloak running, open PowerShell in the repository and run
-   `powershell -NoProfile -File scripts/configure-gmail.ps1`.
+2. With local Keycloak running, open a terminal in the repository and run
+   `node scripts/setup-gmail.mjs`. This does not require PowerShell script execution
+   or a change to Windows execution policy. The older PowerShell wrapper remains optional.
 3. Enter the sending Gmail address and paste the App Password into the hidden prompt.
    Do not send credentials in chat. The script stores configuration in the ignored
    local `.env` and local Keycloak database. Restrict access to these local files,

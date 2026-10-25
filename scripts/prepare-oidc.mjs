@@ -40,6 +40,8 @@ for (const [name, secret] of [
   ['booking', env.BOOKING_CLIENT_SECRET],
   ['inventory', env.INVENTORY_CLIENT_SECRET],
   ['billing', env.BILLING_CLIENT_SECRET],
+  ['notification', env.NOTIFICATION_CLIENT_SECRET],
+  ['analytics', env.ANALYTICS_CLIENT_SECRET],
 ])
   clients.push({
     clientId: 'motoros-' + name,

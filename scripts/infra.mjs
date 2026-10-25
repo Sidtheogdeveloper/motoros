@@ -1,4 +1,5 @@
 import { spawnSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import './prepare-oidc.mjs';
 import { loadEnv } from './env.mjs';
 const env = { ...process.env, ...loadEnv() };
@@ -18,7 +19,14 @@ const currentPostgres = spawnSync('docker', ['compose', 'ps', '-q', 'postgres'],
 run(['compose', 'exec', '-T', 'postgres', 'sh', '/docker-entrypoint-initdb.d/02-keycloak.sh']);
 run(['compose', 'exec', '-T', 'postgres', 'sh', '/docker-entrypoint-initdb.d/03-booking.sh']);
 run(['compose', 'exec', '-T', 'postgres', 'sh', '/docker-entrypoint-initdb.d/04-commercial.sh']);
-run(['compose', 'up', '-d', '--wait', 'redis', 'mailpit', 'keycloak', 'storage']);
+// Feed the checked-in script directly: an updated Windows bind mount can retain a stale file handle.
+const reliability = spawnSync('docker', ['compose', 'exec', '-T', 'postgres', 'sh', '-s'], {
+  env,
+  input: readFileSync('infrastructure/docker/reliability-db.sh'),
+  stdio: ['pipe', 'inherit', 'inherit'],
+});
+if (reliability.status !== 0) throw new Error('Reliability schema initialization failed');
+run(['compose', 'up', '-d', '--wait', 'redis', 'mailpit', 'keycloak', 'storage', 'localstack']);
 
 // A running Keycloak pool can retain closed connections after a PostgreSQL container replacement.
 if (previousPostgres && currentPostgres && previousPostgres !== currentPostgres) {

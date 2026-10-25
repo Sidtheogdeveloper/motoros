@@ -66,6 +66,13 @@ public class IdentityController {
     return auth.resolve(jwt, tenantId, permission);
   }
 
+  @GetMapping("/internal/platform-authority")
+  public Map<String,Object> platformAuthority(@AuthenticationPrincipal Jwt jwt,HttpServletRequest request){
+    if(request.getAttribute("trustedService")==null)throw new ResponseStatusException(FORBIDDEN);
+    var user=users.current(jwt,false);
+    return Map.of("userId",user.get("id"),"platformAdmin",Boolean.TRUE.equals(user.get("platform_admin")));
+  }
+
   @GetMapping("/roles")
   public Map<String, Object> roles(@AuthenticationPrincipal Jwt jwt) {
     var c = auth.resolve(jwt, Access.tenant(jwt), null);

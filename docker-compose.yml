@@ -11,6 +11,8 @@ services:
       BOOKING_PASSWORD: ${BOOKING_PASSWORD:?Run node scripts/env.mjs}
       INVENTORY_PASSWORD: ${INVENTORY_PASSWORD:?Run node scripts/env.mjs}
       BILLING_PASSWORD: ${BILLING_PASSWORD:?Run node scripts/env.mjs}
+      NOTIFICATION_PASSWORD: ${NOTIFICATION_PASSWORD:?Run node scripts/env.mjs}
+      ANALYTICS_PASSWORD: ${ANALYTICS_PASSWORD:?Run node scripts/env.mjs}
       WORKORDER_PASSWORD: ${WORKORDER_PASSWORD:?Run node scripts/env.mjs}
       KEYCLOAK_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD:?Run node scripts/env.mjs}
     ports: ['127.0.0.1:55432:5432']
@@ -19,6 +21,7 @@ services:
       - ./infrastructure/docker/init.sh:/docker-entrypoint-initdb.d/01-services.sh:ro
       - ./infrastructure/docker/booking-db.sh:/docker-entrypoint-initdb.d/03-booking.sh:ro
       - ./infrastructure/docker/commercial-db.sh:/docker-entrypoint-initdb.d/04-commercial.sh:ro
+      - ./infrastructure/docker/reliability-db.sh:/docker-entrypoint-initdb.d/05-reliability.sh:ro
       - ./infrastructure/docker/keycloak-db.sh:/docker-entrypoint-initdb.d/02-keycloak.sh:ro
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U postgres -d motoros']
@@ -90,8 +93,12 @@ services:
       retries: 40
   localstack:
     image: localstack/localstack:4.9.2
-    profiles: ['messaging']
-    environment: { SERVICES: 's3,sqs', AWS_DEFAULT_REGION: ap-south-1 }
+    environment: { SERVICES: 'sns,sqs', AWS_DEFAULT_REGION: ap-south-1 }
+    healthcheck:
+      test: ['CMD-SHELL', 'curl -f http://localhost:4566/_localstack/health']
+      interval: 3s
+      timeout: 3s
+      retries: 40
     ports: ['127.0.0.1:4566:4566']
 
 volumes:

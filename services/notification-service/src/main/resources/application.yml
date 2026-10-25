@@ -1,0 +1,85 @@
+server:
+  port: ${PORT:8087}
+  address: ${BIND_ADDRESS:127.0.0.1}
+spring:
+  mail:
+    host: ${SMTP_HOST:127.0.0.1}
+    port: ${SMTP_PORT:1025}
+    username: ${SMTP_USERNAME:}
+    password: ${SMTP_PASSWORD:}
+    properties:
+      mail.smtp.auth: ${SMTP_AUTH:false}
+      mail.smtp.starttls.enable: ${SMTP_STARTTLS:false}
+      mail.smtp.starttls.required: ${SMTP_STARTTLS:false}
+      mail.smtp.connectiontimeout: 5000
+      mail.smtp.timeout: 5000
+      mail.smtp.writetimeout: 5000
+  application:
+    name: motoros-notification
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:55432/motoros}
+    username: ${DATABASE_USER:notification_app}
+    password: ${DATABASE_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: notification
+  flyway:
+    default-schema: notification
+    schemas: notification
+    create-schemas: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+logging:
+  structured:
+    format:
+      console: logstash
+motoros:
+  documents:
+    endpoint: ${S3_ENDPOINT:}
+    public-endpoint: ${S3_PUBLIC_ENDPOINT:}
+    bucket: ${S3_BUCKET:motoros-private}
+    region: ${S3_REGION:ap-south-1}
+    local-access-key: ${S3_LOCAL_ACCESS_KEY:}
+    local-secret-key: ${S3_LOCAL_SECRET_KEY:}
+  oidc:
+    issuer: ${OIDC_ISSUER:http://127.0.0.1:8180/realms/motoros}
+    jwks-uri: ${OIDC_JWKS_URI:http://127.0.0.1:8180/realms/motoros/protocol/openid-connect/certs}
+    token-uri: ${OIDC_TOKEN_URI:http://127.0.0.1:8180/realms/motoros/protocol/openid-connect/token}
+    userinfo-uri: ${OIDC_USERINFO_URI:http://127.0.0.1:8180/realms/motoros/protocol/openid-connect/userinfo}
+    audience: ${OIDC_AUDIENCE:motoros-api}
+    accepted-clients: ${OIDC_ACCEPTED_CLIENTS:motoros-bff,motoros-customer,motoros-workorder,motoros-booking,motoros-inventory,motoros-billing,motoros-notification,motoros-analytics}
+  service-client-id: ${SERVICE_CLIENT_ID:}
+  service-client-secret: ${SERVICE_CLIENT_SECRET:}
+  internal-scope: ${OIDC_INTERNAL_SCOPE:motoros.internal}
+  delegating-clients: ${DELEGATING_CLIENTS:motoros-customer,motoros-workorder,motoros-booking,motoros-inventory,motoros-billing,motoros-notification,motoros-analytics}
+  tenant-url: ${TENANT_URL:http://127.0.0.1:8081}
+  customer-url: ${CUSTOMER_URL:http://127.0.0.1:8082}
+  invitation-key: ${INVITATION_ENCRYPTION_KEY:}
+  app-url: ${APP_ORIGIN:http://127.0.0.1:3000}
+  mail-enabled: ${MAIL_ENABLED:false}
+
+  workorder-url: ${WORKORDER_URL:http://127.0.0.1:8083}
+
+  inventory-url: ${INVENTORY_URL:http://127.0.0.1:8085}
+  billing-url: ${BILLING_URL:http://127.0.0.1:8086}
+
+---
+motoros:
+  events:
+    enabled: ${MESSAGING_ENABLED:false}
+    endpoint: ${MESSAGING_ENDPOINT:}
+    account: ${MESSAGING_ACCOUNT:000000000000}
+    region: ${AWS_REGION:ap-south-1}
+    prefix: ${MESSAGING_PREFIX:motoros}
+    bootstrap: ${MESSAGING_BOOTSTRAP:false}

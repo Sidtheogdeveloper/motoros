@@ -12,7 +12,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 @Component
 @EnableScheduling
-@ConditionalOnProperty(name = "motoros.mail-enabled", havingValue = "true")
+@org.springframework.boot.autoconfigure.condition.ConditionalOnExpression("${motoros.mail-enabled:false} and !${motoros.events.enabled:false}")
 public class ApprovalMailWorker {
   private final JdbcTemplate db;
   private final ApprovalCipher cipher;

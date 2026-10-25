@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync, readdirSync } from 'node:fs';
 import net from 'node:net';
 import path from 'node:path';
 import { loadEnv } from '../../scripts/env.mjs';
+import { serviceEnv } from '../../scripts/runtime.mjs';
 import { ProcessGroup } from '../../scripts/process-group.mjs';
 const env = { ...process.env, ...loadEnv() };
 const project = 'motoros-review-' + Date.now();
@@ -43,13 +44,41 @@ try {
     ? path.join(env.JAVA_HOME, 'bin', process.platform === 'win32' ? 'java.exe' : 'java')
     : 'java';
   const customerPort = await port();
-  for (const service of ['tenant', 'customer', 'workorder', 'booking', 'inventory', 'billing']) {
+  for (const service of [
+    'tenant',
+    'customer',
+    'workorder',
+    'booking',
+    'inventory',
+    'billing',
+    'notification',
+    'analytics',
+  ]) {
     const httpPort = service === 'customer' ? customerPort : await port();
     const child = group.start(
       java,
       ['-jar', `services/${service}-service/target/${service}-service-0.1.0-SNAPSHOT.jar`],
       {
-        ...env,
+        ...serviceEnv(
+          env,
+          service,
+          [
+            'tenant',
+            'customer',
+            'workorder',
+            'booking',
+            'inventory',
+            'billing',
+            'notification',
+            'analytics',
+          ].indexOf(service),
+        ),
+        MESSAGING_ENABLED: 'true',
+        MESSAGING_BOOTSTRAP: 'false',
+        MOTOROS_EVENTS_PUBLISH_ENABLED: 'false',
+        MOTOROS_EVENTS_CONSUME_ENABLED: 'false',
+        MOTOROS_ANALYTICS_RECONCILE_ENABLED: 'false',
+        MAIL_ENABLED: 'false',
         PORT: String(httpPort),
         DATABASE_URL: `jdbc:postgresql://127.0.0.1:${databasePort}/motoros`,
         DATABASE_USER: service + '_app',
@@ -69,7 +98,7 @@ try {
   const finalSql =
     extendedSql +
     " SELECT 'workorder-v4:' || count(*) FROM workorder.flyway_schema_history WHERE success AND version='4'; SELECT 'booking-v2:' || count(*) FROM booking.flyway_schema_history WHERE success AND version='2';";
-  const output = docker([
+  let output = docker([
     ...base,
     'exec',
     '-T',
@@ -85,8 +114,53 @@ try {
     finalSql +
       " SELECT 'workorder-v8:' || count(*) FROM workorder.flyway_schema_history WHERE success AND version='8'; SELECT 'workorder-v7:' || count(*) FROM workorder.flyway_schema_history WHERE success AND version='7'; SELECT 'billing-v2:' || count(*) FROM billing.flyway_schema_history WHERE success AND version='2'; SELECT 'workorder-v6:' || count(*) FROM workorder.flyway_schema_history WHERE success AND version='6'; SELECT 'inventory-v2:' || count(*) FROM inventory.flyway_schema_history WHERE success AND version='2'; SELECT 'tenant-v5:' || count(*) FROM tenant.flyway_schema_history WHERE success AND version='5'; SELECT 'workorder-v5:' || count(*) FROM workorder.flyway_schema_history WHERE success AND version='5'; SELECT 'inventory-v1:' || count(*) FROM inventory.flyway_schema_history WHERE success AND version='1'; SELECT 'billing-v1:' || count(*) FROM billing.flyway_schema_history WHERE success AND version='1';",
   ]);
-  for (const service of ['tenant', 'customer', 'workorder', 'booking', 'inventory', 'billing'])
-    assert.ok(output.includes(`${service}:${service}_app`));
+  const allServices = [
+    'tenant',
+    'customer',
+    'workorder',
+    'booking',
+    'inventory',
+    'billing',
+    'notification',
+    'analytics',
+  ];
+  let migrationCount = 0;
+  let extraSql =
+    "select nspname||':'||pg_get_userbyid(nspowner) from pg_namespace where nspname in ('notification','analytics');";
+  const schemaNames = allServices.map((n) => "'" + n + "'").join(','),
+    roleNames = allServices.map((n) => "'" + n + "_app'").join(',');
+  extraSql += ` select r.rolname||':'||n.nspname||':'||has_schema_privilege(r.rolname,n.oid,'USAGE') from pg_roles r cross join pg_namespace n where r.rolname in (${roleNames}) and n.nspname in (${schemaNames});`;
+  for (const service of allServices)
+    for (const file of readdirSync(`services/${service}-service/src/main/resources/db/migration`)) {
+      const match = file.match(/^V([0-9]+)__/);
+      if (match) {
+        migrationCount++;
+        extraSql += ` select '${service}-v${match[1]}:'||count(*) from ${service}.flyway_schema_history where success and version='${match[1]}';`;
+      }
+    }
+  output +=
+    '\n' +
+    docker([
+      ...base,
+      'exec',
+      '-T',
+      'postgres',
+      'psql',
+      '-U',
+      'postgres',
+      '-d',
+      'motoros',
+      '-t',
+      '-A',
+      '-c',
+      extraSql,
+    ]);
+  for (const service of allServices)
+    for (const file of readdirSync(`services/${service}-service/src/main/resources/db/migration`)) {
+      const match = file.match(/^V([0-9]+)__/);
+      if (match) assert.ok(output.includes(`${service}-v${match[1]}:1`));
+    }
+  for (const service of allServices) assert.ok(output.includes(`${service}:${service}_app`));
   assert.ok(
     output.includes('tenant:1') && output.includes('customer:1') && output.includes('workorder:1'),
   );
@@ -97,8 +171,8 @@ try {
       output.includes('customer-v3:1') &&
       output.includes('workorder-v2:1'),
   );
-  for (const a of ['tenant', 'customer', 'workorder', 'booking', 'inventory', 'billing'])
-    for (const b of ['tenant', 'customer', 'workorder', 'booking', 'inventory', 'billing'])
+  for (const a of allServices)
+    for (const b of allServices)
       assert.ok(output.includes(`${a}_app:${b}:${a === b ? 'true' : 'false'}`));
   for (const tag of [
     'tenant-v4:1',
@@ -127,9 +201,9 @@ try {
         project,
         freshVolume: true,
         serviceOwnedSchemas: true,
-        flywayMigrations: 23,
-        crossSchemaDenials: 30,
-        healthEndpoints: 6,
+        flywayMigrations: migrationCount,
+        crossSchemaDenials: 56,
+        healthEndpoints: 8,
         passed: true,
       },
       null,
@@ -137,7 +211,7 @@ try {
     ),
   );
   console.log(
-    'PASS: fresh Compose initialization, 23 service-owned Flyway migrations, six health endpoints and 30 privilege denials.',
+    `PASS: fresh Compose initialization, ${migrationCount} service-owned Flyway migrations, eight health endpoints and 56 privilege denials.`,
   );
 } finally {
   group.stop();

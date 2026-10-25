@@ -320,6 +320,26 @@ try {
   const approvalKey = randomUUID();
   await req(customer, `billing/estimates/${estimate.id}/approve`, 200, post(decision, approvalKey));
   await req(customer, `billing/estimates/${estimate.id}/approve`, 200, post(decision, approvalKey));
+  if (process.env.MOTOROS_EXPECT_ASYNC_APPROVAL === '1') {
+    const deadline = Date.now() + 60000;
+    do {
+      const current = await call(owner, `workorder/work-orders/${job.id}`, { tenant: f.tenant });
+      assert.equal(current.status(), 200);
+      job = await current.json();
+      if (job.status === 'APPROVED' && job.commercialEstimateId === estimate.id) break;
+      await new Promise((resolve) => setTimeout(resolve, 300));
+    } while (Date.now() < deadline);
+    check(
+      'Customer approval event automatically advances eligible work order',
+      job.status,
+      'APPROVED',
+    );
+    check(
+      'Async approval binds the actual customer-approved estimate',
+      job.commercialEstimateId,
+      estimate.id,
+    );
+  }
   job = await req(
     owner,
     `workorder/work-orders/${job.id}/commercial-approval`,

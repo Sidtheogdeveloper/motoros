@@ -11,7 +11,7 @@ function run(command, args) {
   if (r.status !== 0) throw new Error('Startup prerequisite failed');
 }
 try {
-  await assertPortsAvailable([3000, 8081, 8082, 8083,8084,8085,8086]);
+  await assertPortsAvailable([3000, 8081, 8082, 8083, 8084, 8085, 8086, 8087, 8088]);
   run(process.execPath, ['scripts/infra.mjs']);
   if (process.platform === 'win32')
     run('powershell.exe', [
@@ -24,7 +24,16 @@ try {
     ]);
   else run('mvn', ['verify']);
   run(process.execPath, ['scripts/prepare-storage.mjs']);
-  const services = ['tenant', 'customer', 'workorder','booking','inventory','billing'].map((name, index) => ({
+  const services = [
+    'tenant',
+    'customer',
+    'workorder',
+    'booking',
+    'inventory',
+    'billing',
+    'notification',
+    'analytics',
+  ].map((name, index) => ({
     port: 8081 + index,
     child: group.start(
       java(env),
@@ -54,7 +63,7 @@ try {
   );
   await group.waitHttp(child, 'http://127.0.0.1:3000/login');
   console.log(
-    'MotorOS ready at http://127.0.0.1:3000 — provider http://127.0.0.1:8180, mail http://127.0.0.1:8025.',
+    'MotorOS ready at http://127.0.0.1:3000 â€” provider http://127.0.0.1:8180, mail http://127.0.0.1:8025.',
   );
 } catch (error) {
   console.error(error.message);

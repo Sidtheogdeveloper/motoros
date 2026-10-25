@@ -2,7 +2,7 @@
 
 Licensed under the [MIT License](LICENSE).
 
-Milestone 5 adds independently packaged Inventory and Billing services, branch stock and transfers, versioned estimates and customer decisions, issued invoices, private PDFs, manual payments and workshop approval/readiness contracts. See [the Milestone 5 report](docs/milestones/MILESTONE_5_REPORT.md) for verified coverage and remaining release limits. Milestones 1–4 are preserved and regression tested. No AWS deployment or Milestone 6 event transport is included.
+Milestone 6 adds reliable SNS/SQS event processing, transactional outbox/inbox workers, customer notifications and consent, durable reminders, versioned analytics and controlled fault recovery. The existing workshop, inventory and billing APIs remain in place. See [the Milestone 6 report](docs/milestones/MILESTONE_6_REPORT.md) for verified results and release limits, and [event reliability](docs/architecture/event-reliability.md) for the operational model. No AWS deployment, paid messaging providers or AI Orchestrator is included.
 
 ## Run locally
 
@@ -15,12 +15,14 @@ npx playwright install chromium # only for automated browser tests / fixtures
 npm run dev
 ```
 
-The dev runner generates ignored random local credentials, preserves existing credentials/volumes, starts PostgreSQL, Keycloak, Redis, Mailpit and credential-enforced SeaweedFS with health checks, configures OIDC clients, builds/tests the Java services, and starts six services plus Next.js. Windows uses checksum-verified workspace-local Maven 3.9.11. First startup downloads dependencies/images. Ctrl+C stops app processes; infrastructure persists. `docker compose down` stops infrastructure without deleting its data. Never use `down -v` against a volume containing needed records.
+The dev runner generates ignored random local credentials, preserves existing credentials/volumes, starts PostgreSQL, Keycloak, Redis, Mailpit, credential-enforced SeaweedFS and local SNS/SQS with health checks, configures OIDC clients, builds/tests the Java services, and starts eight services plus Next.js. Windows uses checksum-verified workspace-local Maven 3.9.11. First startup downloads dependencies/images. Ctrl+C stops app processes; infrastructure persists. `docker compose down` stops infrastructure without deleting its data. Never use `down -v` against a volume containing needed records.
 
 | Component                                                      | Local endpoint                                           |
 | -------------------------------------------------------------- | -------------------------------------------------------- |
 | Workshop / BFF                                                 | http://127.0.0.1:3000                                    |
 | Tenant / Customer / Work Order / Booking / Inventory / Billing | 8081 / 8082 / 8083 / 8084 / 8085 / 8086 (loopback)       |
+| Notification / Analytics                                       | 8087 / 8088 (loopback)                                   |
+| SNS/SQS emulator                                               | http://127.0.0.1:4566                                    |
 | PostgreSQL                                                     | 55432 (loopback)                                         |
 | Keycloak                                                       | http://127.0.0.1:8180                                    |
 | Mailpit                                                        | http://127.0.0.1:8025 (SMTP 1025)                        |
@@ -68,8 +70,9 @@ Linux/macOS: use `mvn verify` instead of the PowerShell helper. `test:api` and P
 
 ## Repository boundaries
 
-- `services/{tenant,customer,workorder,booking,inventory,billing}-service`: independent Spring Boot APIs and owned Flyway migrations.
+- `services/{tenant,customer,workorder,booking,inventory,billing,notification,analytics}-service`: independent Spring Boot APIs and owned Flyway migrations.
 - `packages/service-security`: JWT/JWKS, verified service delegation and reusable permission checks.
+- `packages/service-foundation`: owned-record helpers, strict event contracts, fenced publishers, source verification, inboxes and reconciliation workers.
 - `apps/workshop-dashboard`: existing Next.js UI plus same-origin BFF; bearer/refresh tokens remain server-side.
 - `packages/api-contracts`: shared frontend types and exported OpenAPI snapshots.
 - `infrastructure/docker`: local schema/identity database setup and runtime image.
@@ -97,8 +100,31 @@ SeaweedFS 4.48 stores private objects on `motoros-objects`; only its S3 port is 
 
 Uploads allow PDF/PNG/JPEG up to 10 MB, request a five-minute checksummed URL, then require backend size/hash/magic validation before publication to a separate key. Downloads require fresh authorization and expire after 60 seconds. A copied authorized URL remains usable until its short expiry; archival stops new grants. MIME signature checking is not antivirus scanning. See [registry architecture](docs/architecture/customer-vehicle-registry.md) for production storage/IAM/retention prerequisites.
 
-Registry-specific checks: `node tests/integration/milestone3.mjs` and `npx playwright test tests/e2e/milestone3.spec.ts`. The aggregate API and browser commands now run Milestones 2–5. Prepare the M2, M3, M4 and M5 fixture manifests in order with `fixtures`, `fixtures:m3`, `fixtures:m4` and `fixtures:m5`, with the explicit development flag enabled. Fresh database verification covers 23 Flyway migrations across six services. AI orchestration remains future work.
+Registry-specific checks: `node tests/integration/milestone3.mjs` and `npx playwright test tests/e2e/milestone3.spec.ts`. The aggregate API command runs Milestones 2–5; `test:api:m6` adds messaging checks and the browser command covers Milestones 2–6. Prepare the M2, M3, M4 and M5 fixture manifests in order with `fixtures`, `fixtures:m3`, `fixtures:m4` and `fixtures:m5`, with the explicit development flag enabled. Fresh database verification covers 52 Flyway migrations across eight services. AI orchestration remains future work.
 
 ## Milestone 4 workshop operations
 
-Booking Service runs on 8084 with its own schema and service identity. Start all six services using the existing runners. Visit `/appointments`, `/check-in`, `/jobs`, `/operations`, `/mechanic` and `/workload`. See [operations architecture](docs/architecture/workshop-operations.md) and [Milestone 4 report](docs/milestones/MILESTONE_4_REPORT.md) for the original workshop verification. Legacy local repair fixtures use an explicitly audited manager development simulation. Milestone 5 uses actual customer-bound Billing approval and invoice/payment readiness; see [commercial operations](docs/architecture/commercial-operations.md). No cloud resources are created.
+Booking Service runs on 8084 with its own schema and service identity. Start all eight services using the existing runners. Visit `/appointments`, `/check-in`, `/jobs`, `/operations`, `/mechanic` and `/workload`. See [operations architecture](docs/architecture/workshop-operations.md) and [Milestone 4 report](docs/milestones/MILESTONE_4_REPORT.md) for the original workshop verification. Legacy local repair fixtures use an explicitly audited manager development simulation. Milestone 5 uses actual customer-bound Billing approval and invoice/payment readiness; see [commercial operations](docs/architecture/commercial-operations.md). No cloud resources are created.
+
+## Milestone 6 communications and reliability
+
+Visit `/notifications` for branch communication history, attempts, consent/preferences, English/Tamil templates and reminder queues. `/reporting` shows source-derived branch metrics with freshness. Platform administrators alone can open `/platform/operations` for queue/outbox/failure metadata and audited replay. Ordinary workshop staff cannot obtain platform authority through these screens.
+
+Local runners enable messaging against LocalStack with generated service identities and no AWS credentials. Each consumer has its own SQS copy and DLQ. Billing's legacy approval mailer yields to Notification while messaging is enabled. Email goes to Mailpit; SMS/WhatsApp are explicitly labeled local captures. Provider acceptance is not a delivery/read receipt.
+
+After preparing the existing fixtures, run:
+
+```powershell
+$env:MOTOROS_EXPECT_ASYNC_APPROVAL = '1'
+npm run test:api
+$env:MOTOROS_DEV_FIXTURES = '1'
+npm run test:api:m6
+$env:MOTOROS_FAILURE_TESTS = '1'
+npm run test:reliability
+npm run test:e2e
+npm run export:openapi
+```
+
+The first M6 fixture run creates a separately named synthetic local platform administrator, recorded only in ignored `.runtime/m6-fixtures.json`. Normal registration/invitation APIs never grant platform administration. Failure tests stop/restart only named local Docker services and restore them in finally blocks. They are not production fault-injection tools.
+
+The free emulator's ephemeral queues are recovered using each producer's local fourteen-day outbox journal and consumer inboxes; AWS mode does not run emulator bootstrap/recovery. Retain source proofs/inboxes for the documented scheduling/replay horizons. See [event reliability](docs/architecture/event-reliability.md) and the [unapplied SNS/SQS target](infrastructure/terraform/messaging/README.md) before deployment. No AWS apply, real messaging providers, centralized cloud telemetry or Milestone 7 implementation has been performed.

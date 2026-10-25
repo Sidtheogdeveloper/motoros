@@ -58,6 +58,8 @@ test('booking to intake, technician inspection, authorized repair and separate q
   await dialog.getByLabel('Customer complaint').fill(complaint);
   await dialog.getByRole('button', { name: 'Save', exact: true }).click();
   await expect(dialog).not.toBeVisible();
+  await page.getByRole('textbox', { name: 'Search appointments' }).fill(registration);
+  await page.getByRole('combobox', { name: 'Appointment status' }).selectOption('REQUESTED');
   await page
     .getByRole('article')
     .filter({ hasText: complaint })
@@ -193,7 +195,7 @@ test('booking to intake, technician inspection, authorized repair and separate q
   await page.goto('/operations');
   await page.getByRole('combobox', { name: 'Acting branch', exact: true }).selectOption(f.omr.id);
   mkdirSync('.runtime/previews', { recursive: true });
-  await expect(page.getByText('Loading authorized records…').first()).not.toBeVisible();
+  await expect(page.getByText('Loading authorized recordsâ€¦').first()).not.toBeVisible();
   await page.screenshot({ path: '.runtime/previews/m4-board-desktop.png', fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(jobUrl);

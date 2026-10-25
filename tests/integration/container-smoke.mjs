@@ -10,10 +10,16 @@ const env = localEnv(),
   ports = {};
 const network = process.env.MOTOROS_DOCKER_NETWORK || 'motoros_default';
 const names = Object.fromEntries(
-  ['tenant', 'customer', 'workorder', 'booking', 'inventory', 'billing'].map((s) => [
-    s,
-    `motoros-m5-${s}-${suffix}`,
-  ]),
+  [
+    'tenant',
+    'customer',
+    'workorder',
+    'booking',
+    'inventory',
+    'billing',
+    'notification',
+    'analytics',
+  ].map((s) => [s, `motoros-m6-${s}-${suffix}`]),
 );
 function docker(args, childEnv = env) {
   const r = spawnSync('docker', args, {
@@ -34,8 +40,10 @@ try {
     'booking',
     'inventory',
     'billing',
+    'notification',
+    'analytics',
   ].entries()) {
-    const image = `motoros/${service}:milestone5`;
+    const image = `motoros/${service}:milestone6`;
     const config = JSON.parse(docker(['image', 'inspect', image]))[0].Config;
     assert.equal(config.User, 'motoros');
     assert.ok(config.Env.includes('PORT=8080'));
@@ -43,8 +51,17 @@ try {
     const childEnv = {
       ...serviceEnv(env, service, index),
       PORT: '8080',
+      MESSAGING_ENABLED: 'true',
+      MESSAGING_ENDPOINT: 'http://localstack:4566',
+      MESSAGING_ACCOUNT: '000000000000',
+      MESSAGING_BOOTSTRAP: 'false',
+      MOTOROS_EVENTS_PUBLISH_ENABLED: 'false',
+      MOTOROS_EVENTS_CONSUME_ENABLED: 'false',
+      MOTOROS_ANALYTICS_RECONCILE_ENABLED: 'false',
+      NOTIFICATION_ENCRYPTION_KEY:
+        service === 'notification' ? env.NOTIFICATION_ENCRYPTION_KEY : undefined,
       DATABASE_URL: 'jdbc:postgresql://postgres:5432/motoros',
-      // This second six-service fleet shares the local database with the running app.
+      // This second eight-service fleet shares the local database with the running app.
       SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: '3',
       SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE: '1',
       TENANT_URL: `http://${names.tenant}:8080`,
@@ -53,6 +70,8 @@ try {
       BOOKING_URL: `http://${names.booking}:8080`,
       INVENTORY_URL: `http://${names.inventory}:8080`,
       BILLING_URL: `http://${names.billing}:8080`,
+      NOTIFICATION_URL: `http://${names.notification}:8080`,
+      ANALYTICS_URL: `http://${names.analytics}:8080`,
       S3_ENDPOINT: 'http://storage:8333',
       S3_PUBLIC_ENDPOINT: 'http://127.0.0.1:8333',
       S3_LOCAL_ACCESS_KEY: ['customer', 'workorder', 'billing'].includes(service)
@@ -71,6 +90,14 @@ try {
     };
     const settings = [
       'PORT',
+      'MESSAGING_ENABLED',
+      'MESSAGING_ENDPOINT',
+      'MESSAGING_ACCOUNT',
+      'MESSAGING_BOOTSTRAP',
+      'MOTOROS_EVENTS_PUBLISH_ENABLED',
+      'MOTOROS_EVENTS_CONSUME_ENABLED',
+      'MOTOROS_ANALYTICS_RECONCILE_ENABLED',
+      'NOTIFICATION_ENCRYPTION_KEY',
       'DATABASE_URL',
       'DATABASE_USER',
       'DATABASE_PASSWORD',
@@ -82,6 +109,8 @@ try {
       'BOOKING_URL',
       'INVENTORY_URL',
       'BILLING_URL',
+      'NOTIFICATION_URL',
+      'ANALYTICS_URL',
       'S3_ENDPOINT',
       'S3_PUBLIC_ENDPOINT',
       'S3_LOCAL_ACCESS_KEY',
@@ -129,7 +158,7 @@ try {
     if (!healthy) {
       const logs = spawnSync('docker', ['logs', names[service]], { encoding: 'utf8' });
       writeFileSync(
-        `.runtime/m5-container-${service}.log`,
+        `.runtime/m6-container-${service}.log`,
         (logs.stdout || '') + (logs.stderr || ''),
       );
     }
@@ -256,11 +285,11 @@ try {
   assert.equal((await fetch(privatePdf)).status, 200);
   assert.equal((await fetch(privatePdf.split('?')[0])).status, 403);
   writeFileSync(
-    '.runtime/m5-container-results.json',
+    '.runtime/m6-container-results.json',
     JSON.stringify(
       {
-        nonRootImages: 6,
-        healthEndpoints: 6,
+        nonRootImages: 8,
+        healthEndpoints: 8,
         realOidc: true,
         authenticatedServiceDelegation: true,
         crossBranchHistory: true,
@@ -276,7 +305,7 @@ try {
     ),
   );
   console.log(
-    'PASS: six non-root service containers, real JWKS, delegated live authority and cross-branch history.',
+    'PASS: eight non-root service containers, real JWKS, delegated live authority and cross-branch history.',
   );
 } finally {
   await browser.close();

@@ -14,6 +14,8 @@ try {
     ['booking', 8084],
     ['inventory', 8085],
     ['billing', 8086],
+    ['notification', 8087],
+    ['analytics', 8088],
   ]) {
     const r = await fetch(`http://127.0.0.1:${port}/v3/api-docs`, {
       headers: { Authorization: 'Bearer ' + accessToken },
@@ -23,9 +25,9 @@ try {
     contract.info = {
       ...contract.info,
       title: 'MotorOS ' + name + ' Service',
-      version: '0.5.0',
+      version: '0.6.0',
       description:
-        'Milestone 5 authenticated REST contract. Tenant and branch authority are independently verified by the backend. Commercial decimal quantities and monetary values use exact decimal strings.',
+        'Milestone 6 authenticated REST contract. Tenant and branch authority are independently verified by the backend. Commercial decimal quantities and monetary values use exact decimal strings.',
     };
     // Binding accepts an absent header to return a consistent domain error; the public operation requires it.
     for (const item of Object.values(contract.paths))
@@ -38,7 +40,33 @@ try {
                 'Required stable key for unchanged retries. Reusing a key with different input returns 409.';
               parameter.schema = { type: 'string', pattern: '^[A-Za-z0-9_-]{16,100}$' };
             }
-    if(name!=='tenant')for(const [path,item]of Object.entries(contract.paths))if(path.startsWith('/api/internal/'))for(const operation of Object.values(item)){if(!operation||typeof operation!=='object')continue;operation.parameters||=[];for(const [header,schema,description]of [['X-MotorOS-Tenant',{type:'string',format:'uuid'},'Selected tenant; live authority is independently verified'],['X-User-Token',{type:'string'},'Original user JWT. Accepted only with a trusted service bearer and internal scope']])if(!operation.parameters.some(p=>p.name===header))operation.parameters.push({name:header,in:'header',required:true,schema,description});}
+    if (name !== 'tenant')
+      for (const [path, item] of Object.entries(contract.paths))
+        if (path.startsWith('/api/internal/'))
+          for (const operation of Object.values(item)) {
+            if (!operation || typeof operation !== 'object') continue;
+            operation.parameters ||= [];
+            for (const [header, schema, description] of [
+              [
+                'X-MotorOS-Tenant',
+                { type: 'string', format: 'uuid' },
+                'Selected tenant; live authority is independently verified',
+              ],
+              [
+                'X-User-Token',
+                { type: 'string' },
+                'Original user JWT. Accepted only with a trusted service bearer and internal scope',
+              ],
+            ])
+              if (!operation.parameters.some((p) => p.name === header))
+                operation.parameters.push({
+                  name: header,
+                  in: 'header',
+                  required: true,
+                  schema,
+                  description,
+                });
+          }
     writeFileSync(
       `packages/api-contracts/openapi/${name}.json`,
       JSON.stringify(contract, null, 2) + '\n',

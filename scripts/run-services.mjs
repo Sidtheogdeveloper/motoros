@@ -6,8 +6,17 @@ mkdirSync('.runtime/logs', { recursive: true });
 const group = new ProcessGroup();
 handleSignals(group);
 try {
-  await assertPortsAvailable([8081, 8082, 8083,8084,8085,8086]);
-  const services = ['tenant', 'customer', 'workorder','booking','inventory','billing'].map((name, index) => ({
+  await assertPortsAvailable([8081, 8082, 8083, 8084, 8085, 8086, 8087, 8088]);
+  const services = [
+    'tenant',
+    'customer',
+    'workorder',
+    'booking',
+    'inventory',
+    'billing',
+    'notification',
+    'analytics',
+  ].map((name, index) => ({
     port: 8081 + index,
     child: group.start(
       java(env),

@@ -1,0 +1,399 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motoros.example/contracts/events/v1",
+  "title": "MotorOS durable event envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eventId",
+    "tenantId",
+    "aggregateId",
+    "causationId",
+    "branchId",
+    "eventType",
+    "eventVersion",
+    "aggregateType",
+    "aggregateVersion",
+    "occurredAt",
+    "correlationId",
+    "producer",
+    "payload"
+  ],
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "tenantId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "aggregateId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "causationId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "branchId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "eventType": {
+      "enum": [
+        "AppointmentBooked",
+        "AppointmentCancelled",
+        "AppointmentConfirmed",
+        "AppointmentReminderDue",
+        "AppointmentRescheduled",
+        "BranchCreated",
+        "CommercialSettingsUpdated",
+        "CustomerRegistered",
+        "EstimateApproved",
+        "EstimateCancelled",
+        "EstimateCreated",
+        "EstimateDraftUpdated",
+        "EstimateExpired",
+        "EstimateRejected",
+        "EstimateRevised",
+        "EstimateSubmitted",
+        "InspectionCompleted",
+        "InvoiceCreditRecorded",
+        "InvoiceDraftCreated",
+        "InvoiceIssued",
+        "NotificationFailed",
+        "NotificationRequested",
+        "NotificationSent",
+        "PartCatalogUpdated",
+        "PartReservationReleased",
+        "PartsConsumed",
+        "PartsReservationFailed",
+        "PartsReserved",
+        "PaymentReconciled",
+        "PaymentRecorded",
+        "PaymentRefunded",
+        "ProjectionSnapshot",
+        "StaffInvited",
+        "StockAdjusted",
+        "StockTransferApproved",
+        "StockTransferCancelled",
+        "StockTransferDispatched",
+        "StockTransferInTransit",
+        "StockTransferReceived",
+        "StockTransferRejected",
+        "StockTransferRequested",
+        "StockTransferStatusChanged",
+        "TechnicianAssigned",
+        "TenantCreated",
+        "VehicleCheckedIn",
+        "VehicleDelivered",
+        "VehicleReadyForDelivery",
+        "VehicleRegistered",
+        "VehicleUpdated",
+        "WorkOrderCompleted",
+        "WorkOrderCreated",
+        "WorkOrderStatusChanged"
+      ]
+    },
+    "eventVersion": {
+      "const": 1
+    },
+    "aggregateType": {
+      "type": "string",
+      "pattern": "^[a-z_]{1,80}$"
+    },
+    "aggregateVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "correlationId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9-]{1,64}$"
+    },
+    "producer": {
+      "enum": [
+        "billing",
+        "booking",
+        "customer",
+        "inventory",
+        "notification",
+        "tenant",
+        "workorder"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resourceId"
+      ],
+      "properties": {
+        "resourceId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "customerId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "vehicleId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "workOrderId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "invoiceId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "estimateId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "partId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sourceBranchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "destinationBranchId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "startsAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "checkInAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "amount": {
+          "type": "string",
+          "pattern": "^[0-9]{1,19}(\\.[0-9]{1,4})?$"
+        },
+        "quantity": {
+          "type": "string",
+          "pattern": "^[0-9]{1,19}(\\.[0-9]{1,4})?$"
+        },
+        "status": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "currency": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "recordType": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "channel": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "templateKey": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "resourceVersion": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "TenantCreated",
+              "BranchCreated",
+              "StaffInvited"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "producer": {
+            "const": "tenant"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "CustomerRegistered",
+              "VehicleRegistered",
+              "VehicleUpdated"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "producer": {
+            "const": "customer"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "AppointmentBooked",
+              "AppointmentConfirmed",
+              "AppointmentRescheduled",
+              "AppointmentCancelled",
+              "AppointmentReminderDue"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "producer": {
+            "const": "booking"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "VehicleCheckedIn",
+              "WorkOrderCreated",
+              "TechnicianAssigned",
+              "InspectionCompleted",
+              "WorkOrderStatusChanged",
+              "WorkOrderCompleted",
+              "VehicleReadyForDelivery",
+              "VehicleDelivered"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "producer": {
+            "const": "workorder"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "PartsReserved",
+              "PartsReservationFailed",
+              "PartsConsumed",
+              "PartReservationReleased",
+              "StockTransferRequested",
+              "StockTransferApproved",
+              "StockTransferDispatched",
+              "StockTransferReceived",
+              "StockTransferCancelled",
+              "StockTransferRejected",
+              "StockTransferInTransit",
+              "StockTransferStatusChanged",
+              "StockAdjusted",
+              "PartCatalogUpdated"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "producer": {
+            "const": "inventory"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "EstimateCreated",
+              "EstimateRevised",
+              "EstimateDraftUpdated",
+              "EstimateSubmitted",
+              "EstimateApproved",
+              "EstimateRejected",
+              "EstimateExpired",
+              "EstimateCancelled",
+              "InvoiceDraftCreated",
+              "InvoiceIssued",
+              "PaymentRecorded",
+              "PaymentReconciled",
+              "PaymentRefunded",
+              "InvoiceCreditRecorded",
+              "CommercialSettingsUpdated"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "producer": {
+            "const": "billing"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "eventType": {
+            "enum": [
+              "NotificationRequested",
+              "NotificationSent",
+              "NotificationFailed"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "producer": {
+            "const": "notification"
+          }
+        }
+      }
+    }
+  ]
+}

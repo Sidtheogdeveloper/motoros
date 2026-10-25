@@ -137,6 +137,15 @@ public class SecurityConfiguration {
                     trusted.contains(client)
                         && scopes != null
                         && Arrays.asList(scopes.split(" ")).contains(internalScope);
+                if (req.getRequestURI().startsWith("/api/automation/")) {
+                  boolean eventClient = Set.of("motoros-notification","motoros-analytics","motoros-customer","motoros-workorder").contains(client);
+                  String eventPath=req.getRequestURI();
+                  boolean allowedPath=eventPath.matches("/api/automation/event-proof/[0-9a-fA-F-]{36}")
+                    || (app.equals("motoros-customer") && eventPath.equals("/api/automation/communication-context") && "motoros-notification".equals(client))
+                    || eventPath.equals("/api/automation/reconciliation-events") && Set.of("motoros-analytics").contains(client);
+                  if(!service||!eventClient||!allowedPath||delegated!=null||!req.getMethod().equals("GET"))throw new ResponseStatusException(org.springframework.http.HttpStatus.FORBIDDEN,"Restricted event service identity required");
+                  chain.doFilter(req,res);return;
+                }
                 if (delegated != null) {
                   if (!service)
                     throw new ResponseStatusException(
@@ -168,7 +177,7 @@ public class SecurityConfiguration {
                 String path = req.getRequestURI();
                 boolean tenantService = app.equals("motoros-tenant");
                 boolean unscoped =
-                    tenantService
+                    path.startsWith("/api/platform/messaging") || tenantService
                         && (path.equals("/api/tenants")
                             || path.startsWith("/api/auth/")
                             || path.equals("/api/me/memberships")

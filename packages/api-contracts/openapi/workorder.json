@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "MotorOS workorder Service",
-    "version": "0.5.0",
-    "description": "Milestone 5 authenticated REST contract. Tenant and branch authority are independently verified by the backend. Commercial decimal quantities and monetary values use exact decimal strings."
+    "version": "0.6.0",
+    "description": "Milestone 6 authenticated REST contract. Tenant and branch authority are independently verified by the backend. Commercial decimal quantities and monetary values use exact decimal strings."
   },
   "servers": [
     {
@@ -1459,6 +1459,139 @@
         }
       }
     },
+    "/api/platform/messaging/outbox/{id}/retry": {
+      "post": {
+        "tags": [
+          "event-admin-controller"
+        ],
+        "operationId": "retryOutbox",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Action"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/platform/messaging/failures/{id}/{action}": {
+      "post": {
+        "tags": [
+          "event-admin-controller"
+        ],
+        "operationId": "action",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "action",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Action"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/platform/messaging/consumer/{action}": {
+      "post": {
+        "tags": [
+          "event-admin-controller"
+        ],
+        "operationId": "consuming",
+        "parameters": [
+          {
+            "name": "action",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Action"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/inspections/{id}/complete": {
       "post": {
         "tags": [
@@ -2267,6 +2400,122 @@
         }
       }
     },
+    "/api/platform/messaging/outbox": {
+      "get": {
+        "tags": [
+          "event-admin-controller"
+        ],
+        "operationId": "outbox",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 30
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/platform/messaging/health": {
+      "get": {
+        "tags": [
+          "event-admin-controller"
+        ],
+        "operationId": "health",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/platform/messaging/failures": {
+      "get": {
+        "tags": [
+          "event-admin-controller"
+        ],
+        "operationId": "failures",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 30
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/internal/work-orders/{id}": {
       "get": {
         "tags": [
@@ -2379,6 +2628,108 @@
           {
             "name": "id",
             "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-MotorOS-Tenant",
+            "in": "header",
+            "description": "Selected tenant; independently authorized against current membership. BFF supplies this from the server session.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/automation/reconciliation-events": {
+      "get": {
+        "tags": [
+          "event-source-controller"
+        ],
+        "operationId": "reconciliation",
+        "parameters": [
+          {
+            "name": "after",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "afterId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-MotorOS-Tenant",
+            "in": "header",
+            "description": "Selected tenant; independently authorized against current membership. BFF supplies this from the server session.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/automation/event-proof/{id}": {
+      "get": {
+        "tags": [
+          "event-source-controller"
+        ],
+        "operationId": "proof",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-MotorOS-Tenant",
+            "in": "header",
             "required": true,
             "schema": {
               "type": "string",
@@ -2754,6 +3105,19 @@
           "reason",
           "technicianId",
           "version"
+        ]
+      },
+      "Action": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 10
+          }
+        },
+        "required": [
+          "reason"
         ]
       },
       "Template": {

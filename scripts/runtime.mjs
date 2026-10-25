@@ -21,6 +21,7 @@ export function serviceEnv(env, name, index) {
     );
   if (['tenant', 'billing'].includes(name))
     allowed.push('INVITATION_ENCRYPTION_KEY', 'SMTP_PASSWORD');
+  if (name === 'notification') allowed.push('NOTIFICATION_ENCRYPTION_KEY', 'SMTP_PASSWORD');
   return {
     ...scopedEnv(env, allowed),
     PORT: String(8081 + index),
@@ -29,8 +30,14 @@ export function serviceEnv(env, name, index) {
     SERVICE_CLIENT_ID: name === 'tenant' ? '' : 'motoros-' + name,
     SERVICE_CLIENT_SECRET: name === 'tenant' ? '' : env[name.toUpperCase() + '_CLIENT_SECRET'],
     SPRING_PROFILES_ACTIVE: 'local',
+    SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: '5',
+    SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE: '1',
+    MESSAGING_ENABLED: env.MESSAGING_ENABLED || 'true',
+    MESSAGING_ENDPOINT: env.MESSAGING_ENDPOINT || 'http://127.0.0.1:4566',
+    MESSAGING_ACCOUNT: '000000000000',
+    MESSAGING_BOOTSTRAP: name === 'notification' ? 'true' : 'false',
     MOTOROS_DEVELOPMENT_APPROVAL: 'true',
-    MAIL_ENABLED: ['tenant', 'billing'].includes(name) ? 'true' : 'false',
+    MAIL_ENABLED: ['tenant', 'billing', 'notification'].includes(name) ? 'true' : 'false',
   };
 }
 // Operator commands need the full local bundle; application processes do not.

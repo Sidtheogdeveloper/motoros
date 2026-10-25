@@ -39,11 +39,11 @@ motoros:
     token-uri: ${OIDC_TOKEN_URI:http://127.0.0.1:8180/realms/motoros/protocol/openid-connect/token}
     userinfo-uri: ${OIDC_USERINFO_URI:http://127.0.0.1:8180/realms/motoros/protocol/openid-connect/userinfo}
     audience: ${OIDC_AUDIENCE:motoros-api}
-    accepted-clients: ${OIDC_ACCEPTED_CLIENTS:motoros-bff,motoros-customer,motoros-workorder,motoros-booking,motoros-inventory,motoros-billing}
+    accepted-clients: ${OIDC_ACCEPTED_CLIENTS:motoros-bff,motoros-customer,motoros-workorder,motoros-booking,motoros-inventory,motoros-billing,motoros-notification,motoros-analytics}
   service-client-id: ${SERVICE_CLIENT_ID:}
   service-client-secret: ${SERVICE_CLIENT_SECRET:}
   internal-scope: ${OIDC_INTERNAL_SCOPE:motoros.internal}
-  delegating-clients: ${DELEGATING_CLIENTS:motoros-customer,motoros-workorder,motoros-booking,motoros-inventory,motoros-billing}
+  delegating-clients: ${DELEGATING_CLIENTS:motoros-customer,motoros-workorder,motoros-booking,motoros-inventory,motoros-billing,motoros-notification,motoros-analytics}
   tenant-url: ${TENANT_URL:http://127.0.0.1:8081}
   customer-url: ${CUSTOMER_URL:http://127.0.0.1:8082}
   invitation-key: ${INVITATION_ENCRYPTION_KEY:}
@@ -51,3 +51,13 @@ motoros:
   mail-enabled: ${MAIL_ENABLED:false}
 
   workorder-url: ${WORKORDER_URL:http://127.0.0.1:8083}
+
+---
+motoros:
+  events:
+    enabled: ${MESSAGING_ENABLED:false}
+    endpoint: ${MESSAGING_ENDPOINT:}
+    account: ${MESSAGING_ACCOUNT:000000000000}
+    region: ${AWS_REGION:ap-south-1}
+    prefix: ${MESSAGING_PREFIX:motoros}
+    bootstrap: ${MESSAGING_BOOTSTRAP:false}

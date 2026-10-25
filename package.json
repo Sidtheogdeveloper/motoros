@@ -21,7 +21,9 @@
     "test:api:m4": "node tests/integration/milestone4.mjs",
     "fixtures:m4": "node scripts/milestone4-fixtures.mjs",
     "test:api:m5": "node tests/integration/milestone5.mjs",
-    "fixtures:m5": "node scripts/milestone5-fixtures.mjs"
+    "fixtures:m5": "node scripts/milestone5-fixtures.mjs",
+    "test:api:m6": "node tests/integration/milestone6.mjs",
+    "test:reliability": "node tests/integration/milestone6-reliability.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

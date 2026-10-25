@@ -28,6 +28,7 @@ for (const source of [
   '.runtime/m3-fixtures.json',
   '.runtime/m4-fixtures.json',
   '.runtime/m5-fixtures.json',
+  '.runtime/m6-fixtures.json',
 ])
   if (existsSync(source)) {
     const parsed = JSON.parse(readFileSync(source, 'utf8'));
@@ -47,6 +48,34 @@ for (const file of files) {
 const commitCount = Number(
   execFileSync('git', ['rev-list', '--all', '--count'], { encoding: 'utf8' }).trim() || 0,
 );
+let historyBlobsScanned = 0;
+if (commitCount > 0) {
+  const objects = execFileSync('git', ['rev-list', '--objects', '--all'], { encoding: 'utf8' })
+    .trim()
+    .split('\n')
+    .map((line) => line.split(' ')[0]);
+  const batch = execFileSync('git', ['cat-file', '--batch'], {
+    input: objects.join('\n') + '\n',
+    maxBuffer: 64 * 1024 * 1024,
+  });
+  let offset = 0;
+  for (const object of objects) {
+    const end = batch.indexOf(10, offset);
+    assert.ok(end >= offset, 'Invalid Git object batch');
+    const [sha, type, size] = batch.subarray(offset, end).toString('utf8').split(' ');
+    assert.equal(sha, object);
+    const bytes = Number(size);
+    offset = end + 1;
+    const data = batch.subarray(offset, offset + bytes).toString('utf8');
+    offset += bytes + 1;
+    if (type !== 'blob') continue;
+    historyBlobsScanned++;
+    if (known.some((value) => data.includes(value)))
+      findings.push({ object: sha, reason: 'generated local secret in reachable Git history' });
+    if (patterns.some((pattern) => pattern.test(data)))
+      findings.push({ object: sha, reason: 'credential pattern in reachable Git history' });
+  }
+}
 const tracked = execFileSync('git', ['ls-files', '-z'], { encoding: 'utf8' })
   .split('\0')
   .filter(Boolean);
@@ -59,6 +88,7 @@ for (const file of [
   '.runtime/m3-fixtures.json',
   '.runtime/m4-fixtures.json',
   '.runtime/m5-fixtures.json',
+  '.runtime/m6-fixtures.json',
   '.runtime/keycloak/motoros-realm.json',
 ]) {
   const r = execFileSync('git', ['check-ignore', file], { encoding: 'utf8' });
@@ -70,11 +100,12 @@ const result = {
   trackedFiles: tracked.length,
   commitCount,
   generatedSecretValuesChecked: known.length,
+  historyBlobsScanned,
   findings,
   historyScan:
     commitCount === 0
       ? 'No commits exist; committed secret check is vacuous'
-      : 'History scanner required separately',
+      : 'All reachable Git blobs scanned against generated secrets and credential patterns',
 };
 mkdirSync('.runtime', { recursive: true });
 writeFileSync('.runtime/review-secrets-results.json', JSON.stringify(result, null, 2));

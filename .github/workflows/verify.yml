@@ -1,4 +1,4 @@
-name: Verify MotorOS Milestone 5
+name: Verify MotorOS Milestone 6
 on: [push, pull_request]
 permissions:
   contents: read
@@ -28,12 +28,14 @@ jobs:
       - run: npm run infra
       - run: npm run storage:configure
       - run: node scripts/run-services.mjs > .runtime/services.log 2>&1 &
-      - run: node scripts/wait.mjs 8081 8082 8083 8084 8085 8086
+      - run: node scripts/wait.mjs 8081 8082 8083 8084 8085 8086 8087 8088
       - run: node scripts/frontend.mjs --production > .runtime/frontend.log 2>&1 &
       - run: node scripts/wait.mjs 3000
       - run: MOTOROS_DEV_FIXTURES=1 npm run fixtures
       - run: MOTOROS_DEV_FIXTURES=1 npm run fixtures:m3
-      - run: npm run test:api
+      - run: MOTOROS_EXPECT_ASYNC_APPROVAL=1 npm run test:api
+      - run: MOTOROS_DEV_FIXTURES=1 npm run test:api:m6
+      - run: MOTOROS_FAILURE_TESTS=1 npm run test:reliability
       - run: npm run test:e2e
       - run: npm run test:secrets
       - uses: hashicorp/setup-terraform@v3
@@ -42,5 +44,8 @@ jobs:
       - run: terraform -chdir=infrastructure/terraform/cognito fmt -check
       - run: terraform -chdir=infrastructure/terraform/cognito init -backend=false
       - run: terraform -chdir=infrastructure/terraform/cognito validate
+      - run: terraform -chdir=infrastructure/terraform/messaging fmt -check
+      - run: terraform -chdir=infrastructure/terraform/messaging init -backend=false
+      - run: terraform -chdir=infrastructure/terraform/messaging validate
       - if: always()
         run: docker compose down

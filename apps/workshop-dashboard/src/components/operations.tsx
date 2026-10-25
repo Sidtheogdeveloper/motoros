@@ -8,6 +8,8 @@ import { Jobs, JobDetail, Workload } from './operations/jobs';
 import { Intake } from './operations/intake';
 import { Inventory } from './commercial/inventory';
 import { Transfers } from './commercial/transfers';
+import { NotificationCenter } from './communications/notification-center';
+import { BranchReporting } from './communications/reporting';
 import { Estimates, EstimateDetail, Invoices, InvoiceDetail } from './commercial/billing';
 export function OperationsPage({
   view,
@@ -23,7 +25,9 @@ export function OperationsPage({
     | 'inventory'
     | 'transfers'
     | 'estimates'
-    | 'invoices';
+    | 'invoices'
+    | 'notifications'
+    | 'reporting';
   id?: string;
 }) {
   const [me, setMe] = useState<Account | null>(null),
@@ -64,17 +68,21 @@ export function OperationsPage({
       </main>
     );
   const permission =
-    view === 'inventory' || view === 'transfers'
-      ? 'INVENTORY_READ'
-      : view === 'estimates'
-        ? 'ESTIMATE_READ'
-        : view === 'invoices'
-          ? 'INVOICE_READ'
-          : view === 'appointments'
-            ? 'BOOKING_READ'
-            : view === 'check-in'
-              ? 'WORKORDER_CREATE'
-              : 'WORKORDER_READ';
+    view === 'notifications'
+      ? 'NOTIFICATION_READ'
+      : view === 'reporting'
+        ? 'ANALYTICS_BRANCH_READ'
+        : view === 'inventory' || view === 'transfers'
+          ? 'INVENTORY_READ'
+          : view === 'estimates'
+            ? 'ESTIMATE_READ'
+            : view === 'invoices'
+              ? 'INVOICE_READ'
+              : view === 'appointments'
+                ? 'BOOKING_READ'
+                : view === 'check-in'
+                  ? 'WORKORDER_CREATE'
+                  : 'WORKORDER_READ';
   if (!allowed(me, permission))
     return (
       <main className="account-page">
@@ -123,6 +131,9 @@ export function OperationsPage({
           )}
           {allowed(me, 'ESTIMATE_READ') && <a href="/estimates">Estimates</a>}
           {allowed(me, 'INVOICE_READ') && <a href="/invoices">Invoices</a>}
+          {allowed(me, 'NOTIFICATION_READ') && <a href="/notifications">Communications</a>}
+          {allowed(me, 'ANALYTICS_BRANCH_READ') && <a href="/reporting">Reporting</a>}
+          {me.user.platformAdmin && <a href="/platform/operations">Event operations</a>}
         </nav>
         <Issue error={error} />
         <Operations view={view} id={id} />
@@ -153,6 +164,8 @@ function Operations({ view, id }: { view: string; id?: string }) {
                   : 'Job card'
               : (
                   {
+                    notifications: 'Customer communications',
+                    reporting: 'Branch reporting',
                     inventory: 'Inventory',
                     transfers: 'Stock transfers',
                     estimates: 'Estimates',
@@ -197,6 +210,10 @@ function Operations({ view, id }: { view: string; id?: string }) {
           ) : (
             <JobDetail key={id} id={id} branches={active} />
           )
+        ) : view === 'notifications' ? (
+          <NotificationCenter key={branch} branch={branch} />
+        ) : view === 'reporting' ? (
+          <BranchReporting key={branch} branch={branch} />
         ) : view === 'inventory' ? (
           <Inventory key={branch} branch={branch} />
         ) : view === 'transfers' ? (

@@ -3,6 +3,8 @@ import { readLimitedBody, RequestBodyError } from '@/lib/limited-body';
 import { requireSession, SessionMissing, origin, destroy } from '@/lib/session';
 export const dynamic = 'force-dynamic';
 const endpoints: Record<string, string> = {
+  notification: process.env.NOTIFICATION_URL || 'http://127.0.0.1:8087',
+  analytics: process.env.ANALYTICS_URL || 'http://127.0.0.1:8088',
   inventory: process.env.INVENTORY_URL || 'http://127.0.0.1:8085',
   billing: process.env.BILLING_URL || 'http://127.0.0.1:8086',
   tenant: process.env.TENANT_URL || 'http://127.0.0.1:8081',
@@ -26,12 +28,13 @@ async function proxy(req: NextRequest, context: { params: Promise<{ path: string
       throw new RequestBodyError(413, 'Request too large');
     const s = await requireSession();
     const unscoped =
-      service === 'tenant' &&
-      ((segments.length === 1 && segments[0] === 'tenants') ||
-        segments[0] === 'auth' ||
-        (segments[0] === 'invitations' && segments[1] === 'accept') ||
-        (segments[0] === 'me' && segments[1] === 'memberships') ||
-        segments[0] === 'platform');
+      (segments[0] === 'platform' && segments[1] === 'messaging') ||
+      (service === 'tenant' &&
+        ((segments.length === 1 && segments[0] === 'tenants') ||
+          segments[0] === 'auth' ||
+          (segments[0] === 'invitations' && segments[1] === 'accept') ||
+          (segments[0] === 'me' && segments[1] === 'memberships') ||
+          segments[0] === 'platform'));
     if (!unscoped && req.headers.get('X-MotorOS-Expected-Tenant') !== s.activeTenant)
       return NextResponse.json(
         {
@@ -52,7 +55,9 @@ async function proxy(req: NextRequest, context: { params: Promise<{ path: string
           Authorization: 'Bearer ' + s.accessToken,
           'Content-Type': 'application/json',
           'X-Correlation-ID': crypto.randomUUID(),
-        ...(req.headers.get('Idempotency-Key')?{'Idempotency-Key':req.headers.get('Idempotency-Key')!}:{}),
+          ...(req.headers.get('Idempotency-Key')
+            ? { 'Idempotency-Key': req.headers.get('Idempotency-Key')! }
+            : {}),
           ...(s.activeTenant ? { 'X-MotorOS-Tenant': s.activeTenant } : {}),
         },
         body,

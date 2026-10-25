@@ -65,3 +65,13 @@ Dated Mumbai planning totals are $598.42/month always-on staging, $373.56/month 
 Milestone 8 remains unstarted. No bootstrap, Terraform apply, ECR push, SES message or AWS recovery exercise was performed.
 
 The implementation/report are intended for the existing MotorOS repository; the final handoff records the pushed commit. Remote Actions success is not implied by local checks. Production deployment needs a separate review and authorization.
+
+## GitHub CI follow-up — 2026-10-25
+
+The initial push (`56b9ae3`) produced ten failed checks: eight backend image scanners, infrastructure validation and the regression workflow. Java builds, TypeScript, Node tests, the frontend build and frontend image checks passed remotely. Local success did not cover these three CI configuration differences:
+
+- The provider lockfiles contained the Windows `h1` checksum but omitted Linux's unpacked-package checksum. With `-lockfile=readonly`, Linux initialization could not add it and subsequent validation rejected the cached provider. Official Terraform `providers lock` output now supplies both platform checksums to every root/module.
+- Trivy's YAML setting is `vulnerability.vex`, not a top-level `vex`. CI therefore reported the same two previously reviewed Spring advisories. The corrected configuration is tested through the actual CLI configuration path; the feature/expiry applicability guard remains active and no severity gate is disabled.
+- The fresh-schema harness starts only PostgreSQL. Spring's SMTP health contributor was still enabled even though test mail delivery was disabled, so clean runners without SMTP reported unhealthy. Only this schema harness now excludes SMTP health; full application/provider checks and actual registration verification email remain enabled. The harness passed with SMTP explicitly unreachable.
+
+Shared scanner-policy changes now select all nine application images for validation, with a regression test for changed-service detection. Security workflows fetch complete Git history. Follow-up unit checks pass 16 tests. Remote workflow outcomes must be checked on the corrective commit; none of these changes authorize AWS deployment.

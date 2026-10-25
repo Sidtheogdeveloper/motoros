@@ -1,3 +1,4 @@
+import { affectedServices } from '../../scripts/changed-services.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync, readFileSync } from 'node:fs';
@@ -104,4 +105,16 @@ test('Terraform keeps services stopped until the migration/deployment coordinato
     d.resource.aws_ecs_task_definition.app.container_definitions,
     '${jsonencode(local.containers[each.key])}',
   );
+});
+
+test('shared image security policy changes rescan every workload while isolated changes stay scoped', () => {
+  assert.deepEqual(new Set(affectedServices(['infrastructure/trivy.yaml'])), new Set(names));
+  assert.deepEqual(
+    new Set(affectedServices(['docs/deployment/motoros.openvex.json'])),
+    new Set(names),
+  );
+  assert.deepEqual(affectedServices(['services/customer-service/src/main/java/Example.java']), [
+    'customer',
+  ]);
+  assert.deepEqual(affectedServices(['docs/deployment/troubleshooting.md']), []);
 });

@@ -6,7 +6,7 @@
     "errors": 0,
     "skipped": 0
   },
-  "nodeTests": 15,
+  "nodeTests": 16,
   "browserTests": 20,
   "liveApiChecks": {
     "m2": 72,
@@ -73,5 +73,18 @@
     "parsing_errors": 0,
     "resource_count": 193,
     "checkov_version": "3.3.30"
+  },
+  "ciFollowUp": {
+    "initialCommit": "56b9ae3",
+    "initialFailedChecks": 10,
+    "fixes": [
+      "official Windows/Linux provider h1 checksums",
+      "vulnerability.vex configuration",
+      "SMTP-independent fresh schema health",
+      "full history security scans",
+      "shared scanner policy rebuild coverage"
+    ],
+    "freshSchemaWithoutSmtp": "passed",
+    "remoteCorrectiveRun": "See the corrective commit checks; local results do not imply remote success"
   }
 }

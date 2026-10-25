@@ -79,6 +79,8 @@ try {
         MOTOROS_EVENTS_CONSUME_ENABLED: 'false',
         MOTOROS_ANALYTICS_RECONCILE_ENABLED: 'false',
         MAIL_ENABLED: 'false',
+        // This schema-only harness starts PostgreSQL, not SMTP. Real mail health stays enabled in the full stack.
+        MANAGEMENT_HEALTH_MAIL_ENABLED: 'false',
         PORT: String(httpPort),
         DATABASE_URL: `jdbc:postgresql://127.0.0.1:${databasePort}/motoros`,
         DATABASE_USER: service + '_app',
@@ -89,6 +91,7 @@ try {
       `.runtime/logs/fresh-${service}.log`,
     );
     await group.waitHttp(child, `http://127.0.0.1:${httpPort}/actuator/health`);
+    console.log(`Ready: fresh ${service} schema and database health`);
   }
   const sql =
     "SELECT nspname || ':' || pg_get_userbyid(nspowner) FROM pg_namespace WHERE nspname IN ('tenant','customer','workorder','booking','inventory','billing') ORDER BY nspname; SELECT 'tenant:' || count(*) FROM tenant.flyway_schema_history WHERE success AND version='1'; SELECT 'tenant-v2:' || count(*) FROM tenant.flyway_schema_history WHERE success AND version='2'; SELECT 'tenant-v3:' || count(*) FROM tenant.flyway_schema_history WHERE success AND version='3'; SELECT 'customer-v2:' || count(*) FROM customer.flyway_schema_history WHERE success AND version='2'; SELECT 'customer:' || count(*) FROM customer.flyway_schema_history WHERE success AND version='1'; SELECT 'customer-v3:' || count(*) FROM customer.flyway_schema_history WHERE success AND version='3'; SELECT 'workorder-v2:' || count(*) FROM workorder.flyway_schema_history WHERE success AND version='2'; SELECT 'workorder:' || count(*) FROM workorder.flyway_schema_history WHERE success AND version='1'; SELECT r.rolname || ':' || n.nspname || ':' || has_schema_privilege(r.rolname,n.oid,'USAGE') FROM pg_roles r CROSS JOIN pg_namespace n WHERE r.rolname IN ('tenant_app','customer_app','workorder_app','booking_app','inventory_app','billing_app') AND n.nspname IN ('tenant','customer','workorder','booking','inventory','billing') ORDER BY r.rolname,n.nspname;";

@@ -1,2 +1,3 @@
-vex:
-  - docs/deployment/motoros.openvex.json
+vulnerability:
+  vex:
+    - docs/deployment/motoros.openvex.json

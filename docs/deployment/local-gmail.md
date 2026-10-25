@@ -16,6 +16,14 @@ Workshop notifications continue using Mailpit. Gmail is not enabled by default.
 4. Use registration or resend verification for an address you control. Check Inbox
    and Spam. Configuration success does not establish successful delivery.
 
+For an existing unfinished account, an operator can run
+`node scripts/send-account-setup.mjs your-own-address@example.com` after running
+the normal identity configuration scripts. This sends only outstanding verification
+and password-setup actions and returns to `/login`. Never use `/api/auth/callback`
+as the return address of an administrative action email: that route requires an
+active browser sign-in transaction. Keep the local frontend running while following
+email links. A verified account with no pending actions can sign in directly.
+
 The transport is authenticated STARTTLS at smtp.gmail.com:587. Existing users and
 verification requirements are preserved. Normal startup retains the configured
 identity transport. Browser tests and fixtures must use a separate Mailpit realm;

@@ -26,7 +26,11 @@ const clients = [
     publicClient: false,
     standardFlowEnabled: true,
     directAccessGrantsEnabled: false,
-    redirectUris: ['http://127.0.0.1:3000/api/auth/callback'],
+    redirectUris: [
+      'http://127.0.0.1:3000/api/auth/callback',
+      // Administrative action emails finish at login, outside an OIDC transaction.
+      'http://127.0.0.1:3000/login',
+    ],
     webOrigins: ['http://127.0.0.1:3000'],
     attributes: {
       'pkce.code.challenge.method': 'S256',

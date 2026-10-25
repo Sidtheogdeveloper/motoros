@@ -72,6 +72,8 @@ npm run export:openapi
 node tests/integration/fresh-compose.mjs
 ```
 
+Local setup records the host UID for Keycloak so its generated realm stays private (mode 0600) and readable by the matching non-root container user on Linux. Use `npm run infra` to prepare local identity configuration.
+
 Linux/macOS: use `mvn verify` instead of the PowerShell helper. `test:api` and Playwright require the running app, local OIDC/Mailpit/Redis and synthetic fixtures. Fresh Compose verification creates and removes only its uniquely named temporary project/volume; it preserves the primary database. Historical custom-password tests are retained under `tests/legacy/` and excluded from active test commands. GitHub CI runs the new OIDC suites on a clean database. No GitHub run or AWS deployment is implied by local validation.
 
 ## Repository boundaries

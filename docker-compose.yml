@@ -51,6 +51,8 @@ services:
       retries: 30
   keycloak:
     image: quay.io/keycloak/keycloak:26.8.1
+    # Match the owner of the mode-0600 generated import; retain the image's writable group.
+    user: '${LOCAL_UID:-1000}:0'
     command: ['start-dev', '--import-realm']
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: motoros-local-admin

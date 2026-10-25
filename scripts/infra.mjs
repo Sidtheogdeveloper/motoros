@@ -5,7 +5,35 @@ import { loadEnv } from './env.mjs';
 const env = { ...process.env, ...loadEnv() };
 function run(args) {
   const r = spawnSync('docker', args, { env, stdio: 'inherit' });
-  if (r.status !== 0) throw new Error('Local infrastructure startup failed');
+  if (r.status !== 0) {
+    const diagnostic = spawnSync(
+      'docker',
+      [
+        'compose',
+        'logs',
+        '--no-color',
+        '--tail',
+        '60',
+        'postgres',
+        'keycloak',
+        'redis',
+        'mailpit',
+        'storage',
+        'localstack',
+      ],
+      { env, encoding: 'utf8', maxBuffer: 2 * 1024 * 1024 },
+    );
+    let text = diagnostic.stdout || '';
+    for (const [key, value] of Object.entries(env))
+      if (/(?:PASSWORD|SECRET|KEY|TOKEN)/.test(key) && value?.length >= 8)
+        text = text.replaceAll(value, '[REDACTED]');
+    const errors = text
+      .split('\n')
+      .filter((line) => /ERROR|FATAL|Permission denied|Caused by:/i.test(line))
+      .slice(-20);
+    if (errors.length) console.error(errors.join('\n'));
+    throw new Error('Local infrastructure startup failed; review redacted component errors above');
+  }
 }
 const previousPostgres = spawnSync('docker', ['compose', 'ps', '-q', 'postgres'], {
   env,

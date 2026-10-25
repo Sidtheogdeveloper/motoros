@@ -13,6 +13,14 @@ export function loadEnv() {
       )
     : {};
   let changed = false;
+  // Keep private import files readable by the same non-root UID inside Keycloak on Linux.
+  const hostUid = process.getuid?.();
+  const localUid = hostUid > 0 ? String(hostUid) : '1000';
+  if (values.LOCAL_UID !== localUid) {
+    values.LOCAL_UID = localUid;
+    changed = true;
+  }
+
   for (const name of [
     'S3_LOCAL_ACCESS_KEY',
     'S3_LOCAL_SECRET_KEY',

@@ -1,9 +1,10 @@
+import { Brand } from '@/components/brand';
 import { Button } from '@/components/ui/button';
 export default function Page() {
   return (
     <main className="account-page narrow">
       <a className="brand" href="/login">
-        motor<span>os</span>
+        <Brand />
       </a>
       <span className="eyebrow">IDENTITY & ACCESS</span>
       <h1>Create your MotorOS account.</h1>

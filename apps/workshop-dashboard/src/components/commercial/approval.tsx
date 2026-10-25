@@ -1,4 +1,6 @@
 'use client';
+import { Brand } from '@/components/brand';
+
 import { useEffect, useState } from 'react';
 import type { Account } from '@/lib/account';
 import { api } from '@/lib/api';
@@ -74,7 +76,7 @@ export function ApprovalPage() {
   return (
     <main className="management-page">
       <a className="brand" href="/">
-        motor<span>os</span>
+        <Brand />
       </a>
       <h1>Review your repair estimate</h1>
       <p>

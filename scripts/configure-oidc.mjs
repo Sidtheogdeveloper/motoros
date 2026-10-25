@@ -57,6 +57,9 @@ for (const client of realm.clients) client.defaultClientScopes.push('basic');
 const current = await admin('motoros');
 const changes = {};
 for (const key of [
+  'displayName',
+  'displayNameHtml',
+  'loginTheme',
   'requiredCredentials',
   'registrationAllowed',
   'registrationEmailAsUsername',

@@ -1,4 +1,6 @@
 'use client';
+import { Brand } from '@/components/brand';
+
 import { useState, useEffect } from 'react';
 import { account, allowed, switchBrand, type Account } from '@/lib/account';
 import { Context, Issue, useData } from './registry/shared';
@@ -95,7 +97,7 @@ export function OperationsPage({
       <main className="management-page operations-page">
         <header className="management-header">
           <a className="brand" href="/">
-            motor<span>os</span>
+            <Brand />
           </a>
           <label className="brand-picker">
             Active brand

@@ -59,6 +59,9 @@ for (const [name, secret] of [
   });
 const realm = {
   realm: 'motoros',
+  displayName: 'MotorOS',
+  displayNameHtml: 'motor<span class="motoros-os">os</span>',
+  loginTheme: 'motoros',
   enabled: true,
   requiredCredentials: ['password'],
   registrationAllowed: true,

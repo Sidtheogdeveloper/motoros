@@ -135,21 +135,6 @@ p {
   font-weight: 750;
   gap: 0;
 }
-.brand > span:not(.brand-icon) {
-  font-weight: 400;
-  color: var(--muted);
-}
-.brand-icon {
-  width: 32px;
-  height: 32px;
-  border: 1px solid #665337;
-  border-radius: 8px;
-  background: #c8943b17;
-  color: var(--amber);
-  display: grid;
-  place-items: center;
-  margin-right: 10px;
-}
 .brand sup {
   font-size: 9px;
   align-self: flex-start;

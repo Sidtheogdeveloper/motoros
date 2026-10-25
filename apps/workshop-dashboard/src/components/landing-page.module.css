@@ -39,21 +39,6 @@
   font-weight: 700;
   letter-spacing: -1.4px;
 }
-.brandMark {
-  display: inline-grid;
-  place-items: center;
-  background: #f4a06d12;
-  border: 1px solid #f4a06d55;
-  color: var(--accent);
-  width: 35px;
-  height: 35px;
-  border-radius: 9px;
-  margin-right: 10px;
-}
-.os {
-  font-weight: 400;
-  color: #a2a7a4;
-}
 .navigation,
 .headerActions {
   display: flex;
@@ -930,11 +915,6 @@
   }
   .wordmark {
     font-size: 23px;
-  }
-  .brandMark {
-    width: 30px;
-    height: 30px;
-    margin-right: 7px;
   }
   .headerActions {
     gap: 12px;

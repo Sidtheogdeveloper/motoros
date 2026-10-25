@@ -1,4 +1,6 @@
 'use client';
+import { Brand } from '@/components/brand';
+
 import { useState, useEffect } from 'react';
 import { account, switchBrand, signOut, allowed, type Account } from '@/lib/account';
 import { WorkshopChooser } from '@/components/workshop-chooser';
@@ -12,7 +14,6 @@ import {
   Car,
   Check,
   ChevronDown,
-  Command,
   LayoutDashboard,
   LogOut,
   Plus,
@@ -205,11 +206,7 @@ function Dashboard({ me }: { me: Account }) {
     <div className={'workspace ' + (theme ? 'light' : '')}>
       <aside className="sidebar">
         <a href="/" className="brand">
-          <span className="brand-icon">
-            <Command size={22} />
-          </span>
-          motor<span>os</span>
-          <sup>®</sup>
+          <Brand />
         </a>
         <div className="tenant-box">
           <span className="tenant-avatar">{tenant.data?.name?.slice(0, 1) || 'M'}</span>

@@ -1,0 +1,30 @@
+/* Keep the provider's forms, accessibility and security behavior inherited. */
+#keycloak-bg {
+  background: #111415;
+}
+#kc-header-wrapper {
+  background: url('../img/motoros-mark.svg') no-repeat left center / 44px 44px;
+  padding: 6px 0 6px 55px;
+  min-height: 48px;
+  font:
+    750 32px/1 Arial,
+    Helvetica,
+    sans-serif;
+  letter-spacing: -1.5px;
+  text-transform: none;
+  color: #eeefed;
+}
+#kc-header-wrapper .motoros-os {
+  color: #ff9857;
+  font-weight: 500;
+}
+.pf-v5-c-login__main {
+  border-radius: 12px;
+  border-top-color: #ff9857;
+}
+.pf-v5-c-button.pf-m-primary {
+  --pf-v5-c-button--m-primary--BackgroundColor: #ff9857;
+  --pf-v5-c-button--m-primary--Color: #151819;
+  --pf-v5-c-button--m-primary--hover--BackgroundColor: #ffab76;
+  --pf-v5-c-button--m-primary--hover--Color: #151819;
+}

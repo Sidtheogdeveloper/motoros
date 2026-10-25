@@ -1,4 +1,6 @@
 'use client';
+import { Brand } from '@/components/brand';
+
 import { useEffect, useState } from 'react';
 import { account, signOut, type Account } from '@/lib/account';
 import { send } from '@/lib/api';
@@ -29,7 +31,7 @@ export default function Profile() {
   return (
     <main className="account-page narrow">
       <a className="brand" href="/">
-        motor<span>os</span>
+        <Brand />
       </a>
       <span className="eyebrow">YOUR ACCOUNT</span>
       <h1>Your profile.</h1>

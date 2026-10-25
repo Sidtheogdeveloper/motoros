@@ -1,4 +1,6 @@
 'use client';
+import { Brand } from '@/components/brand';
+
 import { useEffect, useState, useCallback } from 'react';
 import { ArrowLeft, Plus, RefreshCw, Building2, Users, Check, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -249,7 +251,7 @@ export function Management({ mode, branchId }: { mode: Mode; branchId?: string }
     <main className="management-page">
       <header className="management-header">
         <a href="/" className="brand">
-          motor<span>os</span>
+          <Brand />
         </a>
         <label className="brand-picker">
           <span>Active brand</span>

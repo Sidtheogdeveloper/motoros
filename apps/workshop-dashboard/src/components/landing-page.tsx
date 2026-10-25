@@ -8,7 +8,6 @@ import {
   ChevronRight,
   CircleCheck,
   ClipboardList,
-  Command,
   GitBranch,
   Layers3,
   Package,
@@ -17,6 +16,7 @@ import {
   Wrench,
 } from 'lucide-react';
 import styles from './landing-page.module.css';
+import { Brand } from './brand';
 
 const features = [
   {
@@ -77,10 +77,7 @@ const steps = [
 function Wordmark() {
   return (
     <a className={styles.wordmark} href="/" aria-label="MotorOS home">
-      <span className={styles.brandMark}>
-        <Command size={21} strokeWidth={1.7} aria-hidden="true" />
-      </span>
-      motor<span className={styles.os}>os</span>
+      <Brand />
     </a>
   );
 }
@@ -370,9 +367,7 @@ export function LandingPage() {
             aria-label="Example of three branches connected within one workshop brand"
           >
             <div className={styles.mapBrand}>
-              <span className={styles.brandMark}>
-                <Command size={22} aria-hidden="true" />
-              </span>
+              <Brand markOnly />
               <span>
                 Your workshop brand<small>One brand. Connected operations.</small>
               </span>

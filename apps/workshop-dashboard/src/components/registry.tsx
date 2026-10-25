@@ -1,4 +1,6 @@
 'use client';
+import { Brand } from '@/components/brand';
+
 import { useState, useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { account, allowed, switchBrand, type Account } from '@/lib/account';
@@ -65,7 +67,7 @@ export function RegistryPage({
       <main className="management-page registry-page">
         <header className="management-top">
           <a className="brand" href="/">
-            motor<span>os</span>
+            <Brand />
           </a>
           <label className="brand-switch">
             Active brand

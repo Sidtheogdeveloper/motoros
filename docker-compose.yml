@@ -68,6 +68,7 @@ services:
     volumes:
       [
         './.runtime/keycloak:/opt/keycloak/data/import:ro',
+        './infrastructure/keycloak/themes:/opt/keycloak/themes:ro',
         './infrastructure/docker/keycloak-health.sh:/opt/keycloak/motoros-health.sh:ro',
       ]
     depends_on:

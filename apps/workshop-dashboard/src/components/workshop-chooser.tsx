@@ -1,4 +1,6 @@
 'use client';
+import { Brand } from '@/components/brand';
+
 import { useState } from 'react';
 import { Building2, ArrowRight, Plus, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,7 +10,7 @@ export function WorkshopChooser({ me }: { me: Account }) {
   return (
     <main className="account-page">
       <a href="/" className="brand">
-        motor<span>os</span>
+        <Brand />
       </a>
       <span className="eyebrow">YOUR CONNECTED WORKSHOPS</span>
       <h1>{me.memberships.length ? 'Choose your workspace.' : 'Welcome to MotorOS.'}</h1>

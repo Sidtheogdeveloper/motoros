@@ -1,4 +1,6 @@
 'use client';
+import { Brand } from '@/components/brand';
+
 import { useEffect, useState } from 'react';
 import { account, switchBrand, type Account } from '@/lib/account';
 import { send } from '@/lib/api';
@@ -44,7 +46,7 @@ export default function Onboarding() {
   return (
     <main className="account-page narrow">
       <a className="brand" href="/">
-        motor<span>os</span>
+        <Brand />
       </a>
       <span className="eyebrow">WORKSHOP ONBOARDING</span>
       <h1>Your workshop starts here.</h1>

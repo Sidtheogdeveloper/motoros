@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 export const metadata: Metadata = {
+  applicationName: 'MotorOS',
   title: 'MotorOS — Workshop Operations',
   description: 'The operating system for your workshop. Local development edition.',
 };

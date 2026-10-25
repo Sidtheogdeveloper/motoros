@@ -1,4 +1,6 @@
 'use client';
+import { Brand } from '@/components/brand';
+
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { account, switchBrand, signOut, type Account } from '@/lib/account';
@@ -35,7 +37,7 @@ function Invitation() {
   return (
     <main className="account-page narrow">
       <a className="brand" href="/login">
-        motor<span>os</span>
+        <Brand />
       </a>
       <span className="eyebrow">WORKSHOP INVITATION</span>
       <h1>Join your workshop.</h1>

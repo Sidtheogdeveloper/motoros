@@ -1,4 +1,6 @@
 'use client';
+import { Brand } from '@/components/brand';
+
 import { useEffect, useState } from 'react';
 import { account, type Account } from '@/lib/account';
 import { api, send } from '@/lib/api';
@@ -102,9 +104,7 @@ export function PlatformHealth() {
   }
   return (
     <main className="management-page operations-page">
-      <a className="brand" href="/">
-        motoros
-      </a>
+      <a className="brand" href="/"><Brand /></a>
       <h1>Event operations</h1>
       {error && <p role="alert">{error}</p>}
       {!me && !error && <p role="status">Checking platform authority…</p>}

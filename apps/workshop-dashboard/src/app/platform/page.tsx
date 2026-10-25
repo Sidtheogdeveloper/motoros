@@ -1,4 +1,6 @@
 'use client';
+import { Brand } from '@/components/brand';
+
 import { useEffect, useState } from 'react';
 import { account, type Account } from '@/lib/account';
 import { api, send } from '@/lib/api';
@@ -38,7 +40,7 @@ export default function Platform() {
   return (
     <main className="account-page">
       <a href="/" className="brand">
-        motor<span>os</span>
+        <Brand />
       </a>
       <h1>Platform administration.</h1>
       <p>These controls change brand availability. They do not grant access to customer records.</p>

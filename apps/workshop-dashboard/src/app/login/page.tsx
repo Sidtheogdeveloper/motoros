@@ -1,4 +1,5 @@
-import { Command, ArrowUpRight, ShieldCheck, Wrench } from 'lucide-react';
+import { Brand } from '@/components/brand';
+import { ArrowUpRight, ShieldCheck, Wrench } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 export default async function Login({
   searchParams,
@@ -10,10 +11,7 @@ export default async function Login({
     <main className="login">
       <section className="login-story">
         <a className="brand" href="/login">
-          <span className="brand-icon">
-            <Command size={22} />
-          </span>
-          motor<span>os</span>
+          <Brand />
           <small>WORKSHOP OPERATING SYSTEM</small>
         </a>
         <div>

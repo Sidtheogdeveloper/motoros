@@ -25,6 +25,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: node scripts/env.mjs
       - run: node tests/integration/fresh-compose.mjs
+      - run: node tests/integration/cloud-migrations.mjs
       - run: npm run infra
       - run: npm run storage:configure
       - run: node scripts/run-services.mjs > .runtime/services.log 2>&1 &

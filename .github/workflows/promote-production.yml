@@ -1,0 +1,62 @@
+name: Promote verified staging digests
+on:
+  workflow_dispatch:
+    inputs:
+      staging_run_id:
+        type: string
+        required: true
+      source_sha:
+        type: string
+        required: true
+permissions:
+  contents: read
+  actions: read
+  id-token: write
+concurrency:
+  group: motoros-production-publication
+  cancel-in-progress: false
+jobs:
+  promote:
+    if: github.ref == 'refs/heads/main'
+    environment: production-publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+      - run: go install github.com/google/go-containerregistry/cmd/crane@v0.20.3
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ap-south-1
+      - uses: actions/download-artifact@v4
+        with:
+          name: verified-release-${{ inputs.source_sha }}
+          run-id: ${{ inputs.staging_run_id }}
+          github-token: ${{ github.token }}
+          path: .runtime
+      - name: Verify staging workflow provenance and promote without rebuilding
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN_ID: ${{ inputs.staging_run_id }}
+          CONFIG_JSON: ${{ vars.MOTOROS_CONFIG_JSON }}
+          MOTOROS_DEPLOY_AUTHORIZATION: production
+        run: |
+          node -e 'require("fs").writeFileSync(".runtime/production-config.json",JSON.stringify(JSON.parse(process.env.CONFIG_JSON)))'
+          gh api repos/$GITHUB_REPOSITORY/actions/runs/$SOURCE_RUN_ID > .runtime/source-run.json
+          node -e 'const fs=require("fs"),r=JSON.parse(fs.readFileSync(".runtime/source-run.json")),m=JSON.parse(fs.readFileSync(".runtime/release.json"));if(r.conclusion!=="success"||r.event!=="workflow_dispatch"||r.head_branch!=="main"||!r.path.endsWith("/deploy.yml")||m.stagingSmokePassed!==true)process.exit(1)'
+          aws ecr get-login-password --region ap-south-1 | crane auth login --username AWS --password-stdin "$(node -e 'console.log(JSON.parse(process.env.CONFIG_JSON).account_id+".dkr.ecr.ap-south-1.amazonaws.com")')"
+          node infrastructure/scripts/promote.mjs .runtime/production-config.json .runtime/release.json .runtime/promoted/release.json
+      - name: Scan release artifacts before upload
+        env:
+          MOTOROS_RELEASE_ARTIFACTS: .runtime/promoted/release.json
+        run: node scripts/check-secrets.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: production-release-${{ inputs.source_sha }}
+          path: .runtime/promoted/release.json
+          retention-days: 90

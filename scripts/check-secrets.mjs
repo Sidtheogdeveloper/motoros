@@ -21,6 +21,10 @@ const patterns = [
   /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,
   /\b(?:AKIA|ASIA)[A-Z0-9]{16}\b/,
   /\bsk-proj-[A-Za-z0-9_-]{30,}/,
+  /\bgh[pousr]_[A-Za-z0-9]{30,}\b/,
+  /\bgithub_pat_[A-Za-z0-9_]{60,}\b/,
+  /\bxox[baprs]-[A-Za-z0-9-]{20,}\b/,
+  /\beyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\b/,
 ];
 for (const source of [
   '.runtime/fixture-logins.json',
@@ -37,6 +41,11 @@ for (const source of [
         known.push(fixture.password);
     }
   }
+const artifacts = (process.env.MOTOROS_RELEASE_ARTIFACTS || '').split(',').filter(Boolean);
+for (const artifact of artifacts) {
+  assert.ok(existsSync(artifact), 'Declared release artifact must exist');
+  files.push(artifact);
+}
 const findings = [];
 for (const file of files) {
   const data = readFileSync(file).toString('utf8');
@@ -97,6 +106,7 @@ for (const file of [
 }
 const result = {
   sourceFilesScanned: files.length,
+  releaseArtifactsScanned: artifacts.length,
   trackedFiles: tracked.length,
   commitCount,
   generatedSecretValuesChecked: known.length,

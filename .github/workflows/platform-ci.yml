@@ -1,0 +1,91 @@
+name: Platform validation
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.detect.outputs.matrix }}
+      changed: ${{ steps.detect.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: detect
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          MATRIX=$(node scripts/changed-services.mjs "$BASE_SHA" HEAD)
+          echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
+          echo "changed=$(node -e 'console.log(JSON.parse(process.argv[1]).include.length>0)' "$MATRIX")" >> "$GITHUB_OUTPUT"
+  infrastructure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: node --test tests/unit/infrastructure.test.mjs
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.13.5'
+      - run: node infrastructure/scripts/cloud.mjs validate
+      - run: terraform -chdir=infrastructure/terraform/modules/environment init -backend=false
+      - name: Check generated infrastructure matches the source model
+        run: |
+          terraform -chdir=infrastructure/terraform/modules/environment providers schema -json > /tmp/motoros-provider-schema.json
+          node infrastructure/scripts/render-terraform.mjs /tmp/motoros-provider-schema.json
+          terraform fmt -recursive infrastructure/terraform
+          git diff --exit-code -- infrastructure/terraform
+      - run: terraform -chdir=infrastructure/terraform/modules/environment test
+      - uses: terraform-linters/setup-tflint@v4
+        with:
+          tflint_version: v0.59.1
+      - run: tflint --init && tflint --recursive
+      - uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: infrastructure/terraform
+          quiet: true
+          soft_fail: false
+      - name: Scan populated task templates as well as the empty initial rollout
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: infrastructure/terraform/modules/environment
+          var_file: tests/fixtures/m7-infrastructure.tfvars
+          quiet: true
+          soft_fail: false
+      - run: npm run test:secrets
+  images:
+    needs: changes
+    if: needs.changes.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.changes.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build actual service image
+        env:
+          SERVICE: ${{ matrix.service }}
+        run: |
+          if [ "$SERVICE" = api-bff ]; then
+            docker build -f infrastructure/docker/frontend.Dockerfile -t motoros/check:${{ github.sha }} .
+          else
+            docker build -f infrastructure/docker/service.Dockerfile --build-arg SERVICE="$SERVICE" -t motoros/check:${{ github.sha }} .
+          fi
+      - name: Verify standalone frontend runtime
+        if: matrix.service == 'api-bff'
+        env:
+          MOTOROS_FRONTEND_IMAGE: motoros/check:${{ github.sha }}
+        run: node tests/integration/frontend-container.mjs
+      - run: node scripts/check-vex.mjs
+      - uses: aquasecurity/trivy-action@0.35.0
+        with:
+          version: v0.76.1
+          image-ref: motoros/check:${{ github.sha }}
+          severity: HIGH,CRITICAL
+          trivy-config: infrastructure/trivy.yaml
+          exit-code: '1'

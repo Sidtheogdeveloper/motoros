@@ -17,7 +17,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 @EnableScheduling
 @ConditionalOnProperty(name = "motoros.events.enabled", havingValue = "true")
-@Import({EventSourceController.class, EventAdminController.class})
+@Import({EventSourceController.class, EventAdminController.class, CloudMetrics.class})
 public class EventConfiguration {
   @Bean
   static org.springframework.beans.factory.config.BeanPostProcessor eventTransactionCorrelation(

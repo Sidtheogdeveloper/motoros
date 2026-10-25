@@ -13,10 +13,15 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 public class EventSourceController {
   private final EventStore store;
+  private final com.motoros.security.MachineClients machines;
   private final List<EventContextContributor> contributors;
 
-  public EventSourceController(EventStore store, List<EventContextContributor> contributors) {
+  public EventSourceController(
+      EventStore store,
+      List<EventContextContributor> contributors,
+      com.motoros.security.MachineClients machines) {
     this.store = store;
+    this.machines = machines;
     this.contributors = contributors;
   }
 
@@ -27,6 +32,7 @@ public class EventSourceController {
       @RequestParam UUID afterId) {
     String client = jwt.getClaimAsString("azp");
     if (client == null) client = jwt.getClaimAsString("client_id");
+    client = machines.logical(client);
     if (!"motoros-analytics".equals(client)) throw new ResponseStatusException(FORBIDDEN);
     return Map.of(
         "content",
@@ -51,6 +57,7 @@ public class EventSourceController {
       @RequestHeader("X-MotorOS-Tenant") UUID tenant) {
     String client = jwt.getClaimAsString("azp");
     if (client == null) client = jwt.getClaimAsString("client_id");
+    client = machines.logical(client);
     if (!Set.of(
             "motoros-notification", "motoros-analytics", "motoros-customer", "motoros-workorder")
         .contains(client)) throw new ResponseStatusException(FORBIDDEN);

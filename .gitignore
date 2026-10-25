@@ -15,3 +15,8 @@ test-results/
 *.tfstate*
 *.tfplan
 terraform.tfvars
+
+# Private cloud operator inputs and release plans
+infrastructure/*.local.json
+*.tfvars.json
+/infrastructure/terraform/bootstrap/backend.runtime.tf

@@ -43,7 +43,7 @@ try {
     'notification',
     'analytics',
   ].entries()) {
-    const image = `motoros/${service}:milestone6`;
+    const image = `motoros/${service}:${process.env.MOTOROS_IMAGE_TAG || 'milestone7'}`;
     const config = JSON.parse(docker(['image', 'inspect', image]))[0].Config;
     assert.equal(config.User, 'motoros');
     assert.ok(config.Env.includes('PORT=8080'));
@@ -130,6 +130,13 @@ try {
       [
         'run',
         '-d',
+        '--read-only',
+        '--user',
+        '1000:1000',
+        '--memory',
+        '1g',
+        '--cpus',
+        '0.5',
         '--name',
         names[service],
         '--network',

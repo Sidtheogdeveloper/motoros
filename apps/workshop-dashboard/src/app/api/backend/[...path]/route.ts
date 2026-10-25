@@ -54,7 +54,7 @@ async function proxy(req: NextRequest, context: { params: Promise<{ path: string
         headers: {
           Authorization: 'Bearer ' + s.accessToken,
           'Content-Type': 'application/json',
-          'X-Correlation-ID': crypto.randomUUID(),
+          'X-Correlation-ID': req.headers.get('X-Correlation-ID') || crypto.randomUUID(),
           ...(req.headers.get('Idempotency-Key')
             ? { 'Idempotency-Key': req.headers.get('Idempotency-Key')! }
             : {}),

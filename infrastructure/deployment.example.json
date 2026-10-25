@@ -1,0 +1,15 @@
+{
+  "environment": "staging",
+  "region": "ap-south-1",
+  "account_id": "SUPPLY_ACCOUNT_ID",
+  "app_origin": "SUPPLY_HTTPS_ORIGIN",
+  "certificate_arn": "SUPPLY_ISSUED_CERTIFICATE_ARN",
+  "owner": "SUPPLY_OWNER",
+  "cost_center": "SUPPLY_COST_CENTER",
+  "alert_email": "SUPPLY_APPROVED_ALERT_EMAIL",
+  "monthly_budget": 0,
+  "mail_identity": "SUPPLY_SES_VERIFIED_IDENTITY",
+  "mail_from": "SUPPLY_VERIFIED_SENDER",
+  "smtp_host": "email-smtp.ap-south-1.amazonaws.com",
+  "postgres_version": "SUPPLY_REGION_VERIFIED_VERSION"
+}

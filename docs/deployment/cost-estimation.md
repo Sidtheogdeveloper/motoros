@@ -1,0 +1,15 @@
+# Mumbai cost estimate — 2026-10-25
+
+This is a planning estimate, not deployment approval or a spending cap. AWS Pricing GetProducts was successfully queried for Mumbai products; committed snapshots retain SKUs, publication dates, units and tier boundaries. No AWS resources or paid usage were created to gather prices. `node infrastructure/scripts/estimate-costs.mjs docs/deployment/cost-estimate.json` reproduces the calculation.
+
+The generated JSON lists every quantity/rate and separates priced subtotals from an explicitly **unpriced planning reserve**. The reserve is not an invented AWS unit price. Reprice its dashboard/alarm/observability, transfer, backup, human-MAU and production-WAF components in AWS Pricing Calculator before requesting deployment approval. No free credits, private-CA trial, Savings Plans, reserved capacity or currency conversion are assumed. Tax/support/domain registration are excluded.
+
+Scenarios use 730 always-on hours, or 220 application hours (22 weekdays x 10 hours). Persistent resources remain on in both scenarios. Nine 0.5-vCPU/1-GiB application tasks include Service Connect overhead. Staging uses db.t4g.small, one Valkey node and one NAT; production prepares db.m7g.large Multi-AZ, two app/cache replicas and two NATs. Connection pools are bounded to five per app; production sizing and maximum scale still require live connection/headroom verification.
+
+Costs include ALB/LCU, public IPv4, RDS/gp3, cache, NAT/data processing, short-lived CA/certificates, secrets/API calls, Cognito M2M, SNS/SQS, S3/version/audit assumptions, ECR, log ingestion, bounded custom metrics, KMS and SES. No interface endpoints/read replicas/AI are selected. Compare endpoint hourly/data costs against NAT before enabling additional endpoints.
+
+Cognito's current Mumbai price is per successful client-credentials token response, not a fixed app-client registration fee. The conservative model assumes seven continuously active token caches, up to thirteen refreshes per hour per replica. Idle real traffic may cost less because token retrieval is lazy. The five-minute token lifetime is preserved rather than silently relaxed to make the estimate smaller. [Cognito pricing](https://aws.amazon.com/cognito/pricing/).
+
+CloudWatch export filters out general JVM/route metric cardinality and keeps event/connection signals with static service/environment dimensions. The metric-series and data-volume quantities are assumptions, not measured production usage. Budgets alert on actual and forecast spend but do not stop charges. Scheduled staging scale-down stops application tasks only: RDS, cache, NAT, ALB, private CA, storage, logs and secrets still incur charges. Scheduled staging is suitable for synthetic testing, not a customer availability promise.
+
+See `cost-estimate.json` for current scenario totals. Review them with the owner, choose a monthly budget and alert recipient, then obtain approval for an exact resource plan before any bootstrap/apply/publication. Separate-account production is preferred; shared-account bootstrap costs must not be double counted when combining scenario estimates.

@@ -1,0 +1,62 @@
+name: Authorized ECR publication
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        options: [staging]
+        required: true
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: motoros-cloud-${{ inputs.environment }}
+  cancel-in-progress: false
+jobs:
+  authorized:
+    if: github.ref == 'refs/heads/main'
+    environment: ${{ inputs.environment }}-publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.13.5'
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ap-south-1
+      - name: Materialize nonsecret reviewed configuration
+        env:
+          CONFIG_JSON: ${{ vars.MOTOROS_CONFIG_JSON }}
+          DEPLOYMENT_JSON: ${{ vars.MOTOROS_DEPLOYMENT_JSON }}
+        run: |
+          mkdir -p .runtime
+          node -e 'const fs=require("fs");for(const [n,v] of [["cloud-config",process.env.CONFIG_JSON],["deployment",process.env.DEPLOYMENT_JSON]])fs.writeFileSync(".runtime/"+n+".json",JSON.stringify(JSON.parse(v)),{mode:0o600})'
+      - run: node infrastructure/scripts/cloud.mjs preflight .runtime/cloud-config.json
+      - run: node infrastructure/scripts/cloud.mjs build
+      - uses: aquasecurity/setup-trivy@v0.2.5
+        with:
+          version: v0.76.1
+      - name: Publish verified images
+        env:
+          MOTOROS_DEPLOY_AUTHORIZATION: ${{ inputs.environment }}
+        run: node infrastructure/scripts/cloud.mjs publish .runtime/cloud-config.json .runtime/deployment.json .runtime/release.json
+      - name: Publish separately reviewed private initializer
+        env:
+          MOTOROS_DEPLOY_AUTHORIZATION: ${{ inputs.environment }}
+        run: node infrastructure/scripts/cloud.mjs publish-operator .runtime/cloud-config.json .runtime/deployment.json .runtime/operator-release.json
+      - name: Scan release artifacts before upload
+        env:
+          MOTOROS_RELEASE_ARTIFACTS: .runtime/release.json,.runtime/operator-release.json
+        run: node scripts/check-secrets.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ github.sha }}
+          path: |
+            .runtime/release.json
+            .runtime/operator-release.json
+          retention-days: 30

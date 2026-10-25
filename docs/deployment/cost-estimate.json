@@ -1,0 +1,627 @@
+{
+  "date": "2026-10-25",
+  "region": "ap-south-1",
+  "currency": "USD",
+  "taxesIncluded": false,
+  "source": "Committed AWS Pricing API product/rate snapshots; reprice before deployment approval",
+  "scenarios": [
+    {
+      "scenario": "staging-always-on",
+      "applicationHours": 730,
+      "rows": [
+        {
+          "item": "Fargate vCPU-hours",
+          "quantity": 3285,
+          "unitRateUSD": 0.04256,
+          "costUSD": 139.8096,
+          "assumption": "Nine application/BFF tasks; 0.5 vCPU each including Service Connect"
+        },
+        {
+          "item": "Fargate GB-hours",
+          "quantity": 6570,
+          "unitRateUSD": 0.004655,
+          "costUSD": 30.5834,
+          "assumption": "1 GiB each; no Fargate Spot or commitments assumed"
+        },
+        {
+          "item": "RDS instance-hours",
+          "quantity": 730,
+          "unitRateUSD": 0.042,
+          "costUSD": 30.66,
+          "assumption": "Single-AZ db.t4g.small remains on during app scale-down"
+        },
+        {
+          "item": "RDS gp3 GB-month",
+          "quantity": 20,
+          "unitRateUSD": 0.131,
+          "costUSD": 2.62,
+          "assumption": "20 GiB initial allocation; autoscaling storage increases charges"
+        },
+        {
+          "item": "Valkey node-hours",
+          "quantity": 730,
+          "unitRateUSD": 0.016,
+          "costUSD": 11.68,
+          "assumption": "Private node-based cache, one node staging / two production"
+        },
+        {
+          "item": "NAT gateway-hours",
+          "quantity": 730,
+          "unitRateUSD": 0.056,
+          "costUSD": 40.88,
+          "assumption": "Persistent egress gateways, not stopped with ECS"
+        },
+        {
+          "item": "NAT data processing GB",
+          "quantity": 10,
+          "unitRateUSD": 0.056,
+          "costUSD": 0.56,
+          "assumption": "10 GiB monthly egress-processing assumption, separate from transfer charges"
+        },
+        {
+          "item": "ALB hours",
+          "quantity": 730,
+          "unitRateUSD": 0.0239,
+          "costUSD": 17.447,
+          "assumption": "One internet-facing ALB spans two AZs"
+        },
+        {
+          "item": "ALB LCU-hours",
+          "quantity": 730,
+          "unitRateUSD": 0.008,
+          "costUSD": 5.84,
+          "assumption": "One average LCU assumption"
+        },
+        {
+          "item": "Public IPv4 hours",
+          "quantity": 2190,
+          "unitRateUSD": 0.005,
+          "costUSD": 10.95,
+          "assumption": "Two ALB addresses plus one/two NAT Elastic IPs; actual allocation may vary"
+        },
+        {
+          "item": "Short-lived CA month",
+          "quantity": 1,
+          "unitRateUSD": 50,
+          "costUSD": 50,
+          "assumption": "Private CA persists during scale-down; no trial assumed"
+        },
+        {
+          "item": "TLS certificates",
+          "quantity": 54,
+          "unitRateUSD": 0.058,
+          "costUSD": 3.132,
+          "assumption": "Six renewals per service/month; verify actual issuance with ECS"
+        },
+        {
+          "item": "Secrets-month",
+          "quantity": 29,
+          "unitRateUSD": 0.4,
+          "costUSD": 11.6,
+          "assumption": "20 application/migrator/master/SMTP/smoke bundles plus nine assumed Service Connect TLS secrets"
+        },
+        {
+          "item": "Secrets API calls",
+          "quantity": 10000,
+          "unitRateUSD": 0.000005,
+          "costUSD": 0.05,
+          "assumption": "10,000 calls; generated TLS secret rotation is additional"
+        },
+        {
+          "item": "Cognito M2M requests",
+          "quantity": 66430,
+          "unitRateUSD": 0.00225,
+          "costUSD": 149.4675,
+          "assumption": "Upper-bound steady activity of seven client caches refreshing up to 13 times/hour; no per-client registration fee"
+        },
+        {
+          "item": "SNS publishes",
+          "quantity": 100000,
+          "unitRateUSD": 5e-7,
+          "costUSD": 0.05,
+          "assumption": "Conservative paid-tier price without assuming free credits"
+        },
+        {
+          "item": "SQS standard requests",
+          "quantity": 5000000,
+          "unitRateUSD": 4e-7,
+          "costUSD": 2,
+          "assumption": "Includes idle polls, deliveries, deletes and retries; 64 KiB request billing applies"
+        },
+        {
+          "item": "Private S3 GB-month",
+          "quantity": 10,
+          "unitRateUSD": 0.025,
+          "costUSD": 0.25,
+          "assumption": "10 GiB including versioning/audit assumptions; version growth adds usage"
+        },
+        {
+          "item": "S3 PUT/LIST requests",
+          "quantity": 10000,
+          "unitRateUSD": 0.000005,
+          "costUSD": 0.05,
+          "assumption": "Includes uploads and audit writes"
+        },
+        {
+          "item": "S3 GET requests",
+          "quantity": 100000,
+          "unitRateUSD": 4e-7,
+          "costUSD": 0.04,
+          "assumption": "Includes authorized reads and operator artifacts"
+        },
+        {
+          "item": "ECR GB-month",
+          "quantity": 10,
+          "unitRateUSD": 0.1,
+          "costUSD": 1,
+          "assumption": "Nine apps, operator tool and retained rollback layers"
+        },
+        {
+          "item": "CloudWatch ingested GB",
+          "quantity": 5,
+          "unitRateUSD": 0.67,
+          "costUSD": 3.35,
+          "assumption": "Application, VPC and audit log-volume assumption"
+        },
+        {
+          "item": "CloudWatch unique metrics",
+          "quantity": 80,
+          "unitRateUSD": 0.3,
+          "costUSD": 24,
+          "assumption": "Exporter filters unbounded/JVM route dimensions; verify series count after deployment"
+        },
+        {
+          "item": "KMS active key versions",
+          "quantity": 2,
+          "unitRateUSD": 1,
+          "costUSD": 2,
+          "assumption": "One environment key plus one allocated bootstrap key share; rotations add active versions"
+        },
+        {
+          "item": "KMS requests",
+          "quantity": 100000,
+          "unitRateUSD": 0.000003,
+          "costUSD": 0.3,
+          "assumption": "100,000 symmetric-key calls; no free tier assumed"
+        },
+        {
+          "item": "SES outbound recipients",
+          "quantity": 1000,
+          "unitRateUSD": 0.0001,
+          "costUSD": 0.1,
+          "assumption": "Traditional SES SMTP sending, no dedicated IP or advanced SES plan"
+        }
+      ],
+      "pricedSubtotalUSD": 538.42,
+      "unpricedBudgetReserveUSD": 60,
+      "planningTotalUSD": 598.42,
+      "reserveCovers": [
+        "CloudWatch dashboards/alarms/API calls/stored logs/Container Insights",
+        "Internet and cross-AZ data transfer",
+        "Backup/snapshot overages",
+        "Cognito human MAUs/MFA delivery",
+        "WAF in production",
+        "Service Connect certificate-secret storage",
+        "One-off migration/restore/initialization tasks"
+      ],
+      "notProvisioned": [
+        "Interface VPC endpoints",
+        "Read replicas",
+        "AI/Bedrock services"
+      ],
+      "approvalStatus": "NOT_APPROVED"
+    },
+    {
+      "scenario": "staging-weekdays",
+      "applicationHours": 220,
+      "rows": [
+        {
+          "item": "Fargate vCPU-hours",
+          "quantity": 990,
+          "unitRateUSD": 0.04256,
+          "costUSD": 42.1344,
+          "assumption": "Nine application/BFF tasks; 0.5 vCPU each including Service Connect"
+        },
+        {
+          "item": "Fargate GB-hours",
+          "quantity": 1980,
+          "unitRateUSD": 0.004655,
+          "costUSD": 9.2169,
+          "assumption": "1 GiB each; no Fargate Spot or commitments assumed"
+        },
+        {
+          "item": "RDS instance-hours",
+          "quantity": 730,
+          "unitRateUSD": 0.042,
+          "costUSD": 30.66,
+          "assumption": "Single-AZ db.t4g.small remains on during app scale-down"
+        },
+        {
+          "item": "RDS gp3 GB-month",
+          "quantity": 20,
+          "unitRateUSD": 0.131,
+          "costUSD": 2.62,
+          "assumption": "20 GiB initial allocation; autoscaling storage increases charges"
+        },
+        {
+          "item": "Valkey node-hours",
+          "quantity": 730,
+          "unitRateUSD": 0.016,
+          "costUSD": 11.68,
+          "assumption": "Private node-based cache, one node staging / two production"
+        },
+        {
+          "item": "NAT gateway-hours",
+          "quantity": 730,
+          "unitRateUSD": 0.056,
+          "costUSD": 40.88,
+          "assumption": "Persistent egress gateways, not stopped with ECS"
+        },
+        {
+          "item": "NAT data processing GB",
+          "quantity": 10,
+          "unitRateUSD": 0.056,
+          "costUSD": 0.56,
+          "assumption": "10 GiB monthly egress-processing assumption, separate from transfer charges"
+        },
+        {
+          "item": "ALB hours",
+          "quantity": 730,
+          "unitRateUSD": 0.0239,
+          "costUSD": 17.447,
+          "assumption": "One internet-facing ALB spans two AZs"
+        },
+        {
+          "item": "ALB LCU-hours",
+          "quantity": 730,
+          "unitRateUSD": 0.008,
+          "costUSD": 5.84,
+          "assumption": "One average LCU assumption"
+        },
+        {
+          "item": "Public IPv4 hours",
+          "quantity": 2190,
+          "unitRateUSD": 0.005,
+          "costUSD": 10.95,
+          "assumption": "Two ALB addresses plus one/two NAT Elastic IPs; actual allocation may vary"
+        },
+        {
+          "item": "Short-lived CA month",
+          "quantity": 1,
+          "unitRateUSD": 50,
+          "costUSD": 50,
+          "assumption": "Private CA persists during scale-down; no trial assumed"
+        },
+        {
+          "item": "TLS certificates",
+          "quantity": 54,
+          "unitRateUSD": 0.058,
+          "costUSD": 3.132,
+          "assumption": "Six renewals per service/month; verify actual issuance with ECS"
+        },
+        {
+          "item": "Secrets-month",
+          "quantity": 29,
+          "unitRateUSD": 0.4,
+          "costUSD": 11.6,
+          "assumption": "20 application/migrator/master/SMTP/smoke bundles plus nine assumed Service Connect TLS secrets"
+        },
+        {
+          "item": "Secrets API calls",
+          "quantity": 10000,
+          "unitRateUSD": 0.000005,
+          "costUSD": 0.05,
+          "assumption": "10,000 calls; generated TLS secret rotation is additional"
+        },
+        {
+          "item": "Cognito M2M requests",
+          "quantity": 20020,
+          "unitRateUSD": 0.00225,
+          "costUSD": 45.045,
+          "assumption": "Upper-bound steady activity of seven client caches refreshing up to 13 times/hour; no per-client registration fee"
+        },
+        {
+          "item": "SNS publishes",
+          "quantity": 100000,
+          "unitRateUSD": 5e-7,
+          "costUSD": 0.05,
+          "assumption": "Conservative paid-tier price without assuming free credits"
+        },
+        {
+          "item": "SQS standard requests",
+          "quantity": 1500000,
+          "unitRateUSD": 4e-7,
+          "costUSD": 0.6,
+          "assumption": "Includes idle polls, deliveries, deletes and retries; 64 KiB request billing applies"
+        },
+        {
+          "item": "Private S3 GB-month",
+          "quantity": 10,
+          "unitRateUSD": 0.025,
+          "costUSD": 0.25,
+          "assumption": "10 GiB including versioning/audit assumptions; version growth adds usage"
+        },
+        {
+          "item": "S3 PUT/LIST requests",
+          "quantity": 10000,
+          "unitRateUSD": 0.000005,
+          "costUSD": 0.05,
+          "assumption": "Includes uploads and audit writes"
+        },
+        {
+          "item": "S3 GET requests",
+          "quantity": 100000,
+          "unitRateUSD": 4e-7,
+          "costUSD": 0.04,
+          "assumption": "Includes authorized reads and operator artifacts"
+        },
+        {
+          "item": "ECR GB-month",
+          "quantity": 10,
+          "unitRateUSD": 0.1,
+          "costUSD": 1,
+          "assumption": "Nine apps, operator tool and retained rollback layers"
+        },
+        {
+          "item": "CloudWatch ingested GB",
+          "quantity": 5,
+          "unitRateUSD": 0.67,
+          "costUSD": 3.35,
+          "assumption": "Application, VPC and audit log-volume assumption"
+        },
+        {
+          "item": "CloudWatch unique metrics",
+          "quantity": 80,
+          "unitRateUSD": 0.3,
+          "costUSD": 24,
+          "assumption": "Exporter filters unbounded/JVM route dimensions; verify series count after deployment"
+        },
+        {
+          "item": "KMS active key versions",
+          "quantity": 2,
+          "unitRateUSD": 1,
+          "costUSD": 2,
+          "assumption": "One environment key plus one allocated bootstrap key share; rotations add active versions"
+        },
+        {
+          "item": "KMS requests",
+          "quantity": 100000,
+          "unitRateUSD": 0.000003,
+          "costUSD": 0.3,
+          "assumption": "100,000 symmetric-key calls; no free tier assumed"
+        },
+        {
+          "item": "SES outbound recipients",
+          "quantity": 1000,
+          "unitRateUSD": 0.0001,
+          "costUSD": 0.1,
+          "assumption": "Traditional SES SMTP sending, no dedicated IP or advanced SES plan"
+        }
+      ],
+      "pricedSubtotalUSD": 313.56,
+      "unpricedBudgetReserveUSD": 60,
+      "planningTotalUSD": 373.56,
+      "reserveCovers": [
+        "CloudWatch dashboards/alarms/API calls/stored logs/Container Insights",
+        "Internet and cross-AZ data transfer",
+        "Backup/snapshot overages",
+        "Cognito human MAUs/MFA delivery",
+        "WAF in production",
+        "Service Connect certificate-secret storage",
+        "One-off migration/restore/initialization tasks"
+      ],
+      "notProvisioned": [
+        "Interface VPC endpoints",
+        "Read replicas",
+        "AI/Bedrock services"
+      ],
+      "approvalStatus": "NOT_APPROVED"
+    },
+    {
+      "scenario": "production-baseline",
+      "applicationHours": 730,
+      "rows": [
+        {
+          "item": "Fargate vCPU-hours",
+          "quantity": 6570,
+          "unitRateUSD": 0.04256,
+          "costUSD": 279.6192,
+          "assumption": "Nine application/BFF tasks; 0.5 vCPU each including Service Connect"
+        },
+        {
+          "item": "Fargate GB-hours",
+          "quantity": 13140,
+          "unitRateUSD": 0.004655,
+          "costUSD": 61.1667,
+          "assumption": "1 GiB each; no Fargate Spot or commitments assumed"
+        },
+        {
+          "item": "RDS instance-hours",
+          "quantity": 730,
+          "unitRateUSD": 0.479,
+          "costUSD": 349.67,
+          "assumption": "Multi-AZ db.m7g.large; does not imply tested capacity"
+        },
+        {
+          "item": "RDS gp3 GB-month",
+          "quantity": 20,
+          "unitRateUSD": 0.262,
+          "costUSD": 5.24,
+          "assumption": "20 GiB initial allocation; autoscaling storage increases charges"
+        },
+        {
+          "item": "Valkey node-hours",
+          "quantity": 1460,
+          "unitRateUSD": 0.016,
+          "costUSD": 23.36,
+          "assumption": "Private node-based cache, one node staging / two production"
+        },
+        {
+          "item": "NAT gateway-hours",
+          "quantity": 1460,
+          "unitRateUSD": 0.056,
+          "costUSD": 81.76,
+          "assumption": "Persistent egress gateways, not stopped with ECS"
+        },
+        {
+          "item": "NAT data processing GB",
+          "quantity": 10,
+          "unitRateUSD": 0.056,
+          "costUSD": 0.56,
+          "assumption": "10 GiB monthly egress-processing assumption, separate from transfer charges"
+        },
+        {
+          "item": "ALB hours",
+          "quantity": 730,
+          "unitRateUSD": 0.0239,
+          "costUSD": 17.447,
+          "assumption": "One internet-facing ALB spans two AZs"
+        },
+        {
+          "item": "ALB LCU-hours",
+          "quantity": 730,
+          "unitRateUSD": 0.008,
+          "costUSD": 5.84,
+          "assumption": "One average LCU assumption"
+        },
+        {
+          "item": "Public IPv4 hours",
+          "quantity": 2920,
+          "unitRateUSD": 0.005,
+          "costUSD": 14.6,
+          "assumption": "Two ALB addresses plus one/two NAT Elastic IPs; actual allocation may vary"
+        },
+        {
+          "item": "Short-lived CA month",
+          "quantity": 1,
+          "unitRateUSD": 50,
+          "costUSD": 50,
+          "assumption": "Private CA persists during scale-down; no trial assumed"
+        },
+        {
+          "item": "TLS certificates",
+          "quantity": 54,
+          "unitRateUSD": 0.058,
+          "costUSD": 3.132,
+          "assumption": "Six renewals per service/month; verify actual issuance with ECS"
+        },
+        {
+          "item": "Secrets-month",
+          "quantity": 29,
+          "unitRateUSD": 0.4,
+          "costUSD": 11.6,
+          "assumption": "20 application/migrator/master/SMTP/smoke bundles plus nine assumed Service Connect TLS secrets"
+        },
+        {
+          "item": "Secrets API calls",
+          "quantity": 10000,
+          "unitRateUSD": 0.000005,
+          "costUSD": 0.05,
+          "assumption": "10,000 calls; generated TLS secret rotation is additional"
+        },
+        {
+          "item": "Cognito M2M requests",
+          "quantity": 132860,
+          "unitRateUSD": 0.00225,
+          "costUSD": 298.935,
+          "assumption": "Upper-bound steady activity of seven client caches refreshing up to 13 times/hour; no per-client registration fee"
+        },
+        {
+          "item": "SNS publishes",
+          "quantity": 100000,
+          "unitRateUSD": 5e-7,
+          "costUSD": 0.05,
+          "assumption": "Conservative paid-tier price without assuming free credits"
+        },
+        {
+          "item": "SQS standard requests",
+          "quantity": 10000000,
+          "unitRateUSD": 4e-7,
+          "costUSD": 4,
+          "assumption": "Includes idle polls, deliveries, deletes and retries; 64 KiB request billing applies"
+        },
+        {
+          "item": "Private S3 GB-month",
+          "quantity": 10,
+          "unitRateUSD": 0.025,
+          "costUSD": 0.25,
+          "assumption": "10 GiB including versioning/audit assumptions; version growth adds usage"
+        },
+        {
+          "item": "S3 PUT/LIST requests",
+          "quantity": 10000,
+          "unitRateUSD": 0.000005,
+          "costUSD": 0.05,
+          "assumption": "Includes uploads and audit writes"
+        },
+        {
+          "item": "S3 GET requests",
+          "quantity": 100000,
+          "unitRateUSD": 4e-7,
+          "costUSD": 0.04,
+          "assumption": "Includes authorized reads and operator artifacts"
+        },
+        {
+          "item": "ECR GB-month",
+          "quantity": 10,
+          "unitRateUSD": 0.1,
+          "costUSD": 1,
+          "assumption": "Nine apps, operator tool and retained rollback layers"
+        },
+        {
+          "item": "CloudWatch ingested GB",
+          "quantity": 5,
+          "unitRateUSD": 0.67,
+          "costUSD": 3.35,
+          "assumption": "Application, VPC and audit log-volume assumption"
+        },
+        {
+          "item": "CloudWatch unique metrics",
+          "quantity": 80,
+          "unitRateUSD": 0.3,
+          "costUSD": 24,
+          "assumption": "Exporter filters unbounded/JVM route dimensions; verify series count after deployment"
+        },
+        {
+          "item": "KMS active key versions",
+          "quantity": 2,
+          "unitRateUSD": 1,
+          "costUSD": 2,
+          "assumption": "One environment key plus one allocated bootstrap key share; rotations add active versions"
+        },
+        {
+          "item": "KMS requests",
+          "quantity": 100000,
+          "unitRateUSD": 0.000003,
+          "costUSD": 0.3,
+          "assumption": "100,000 symmetric-key calls; no free tier assumed"
+        },
+        {
+          "item": "SES outbound recipients",
+          "quantity": 1000,
+          "unitRateUSD": 0.0001,
+          "costUSD": 0.1,
+          "assumption": "Traditional SES SMTP sending, no dedicated IP or advanced SES plan"
+        }
+      ],
+      "pricedSubtotalUSD": 1238.12,
+      "unpricedBudgetReserveUSD": 100,
+      "planningTotalUSD": 1338.12,
+      "reserveCovers": [
+        "CloudWatch dashboards/alarms/API calls/stored logs/Container Insights",
+        "Internet and cross-AZ data transfer",
+        "Backup/snapshot overages",
+        "Cognito human MAUs/MFA delivery",
+        "WAF in production",
+        "Service Connect certificate-secret storage",
+        "One-off migration/restore/initialization tasks"
+      ],
+      "notProvisioned": [
+        "Interface VPC endpoints",
+        "Read replicas",
+        "AI/Bedrock services"
+      ],
+      "approvalStatus": "NOT_APPROVED"
+    }
+  ]
+}

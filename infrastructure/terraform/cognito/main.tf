@@ -4,7 +4,7 @@ terraform {
     aws = { source = "hashicorp/aws", version = "~> 6.7" }
   }
 }
-provider "aws" { region = var.region }
+
 variable "region" { type = string }
 variable "name" { type = string }
 variable "domain_prefix" { type = string }
@@ -88,7 +88,7 @@ resource "aws_cognito_user_pool_client" "bff" {
   depends_on       = [aws_cognito_resource_server.motoros]
 }
 resource "aws_cognito_user_pool_client" "services" {
-  for_each                             = toset(["customer", "workorder"])
+  for_each                             = toset(["customer", "workorder", "booking", "inventory", "billing", "notification", "analytics"])
   name                                 = "motoros-${each.key}"
   user_pool_id                         = aws_cognito_user_pool.motoros.id
   generate_secret                      = true
@@ -106,3 +106,5 @@ output "pool_id" { value = aws_cognito_user_pool.motoros.id }
 output "bff_client_id" { value = aws_cognito_user_pool_client.bff.id }
 output "service_client_ids" { value = { for name, client in aws_cognito_user_pool_client.services : name => client.id } }
 # No secret outputs. App-client secrets and state must stay in an encrypted, access-controlled deployment pipeline.
+
+output "domain" { value = "${aws_cognito_user_pool_domain.motoros.domain}.auth.${var.region}.amazoncognito.com" }

@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { randomBytes, createHash, createCipheriv, createDecipheriv } from 'node:crypto';
 import { createClient } from 'redis';
 import * as oidc from 'openid-client';
+import { cacheConnection } from './cache-credentials';
 export const origin = process.env.APP_ORIGIN || 'http://127.0.0.1:3000';
 export const issuer = process.env.OIDC_ISSUER || 'http://127.0.0.1:8180/realms/motoros';
 export const callback = origin + '/api/auth/callback';
@@ -13,9 +14,7 @@ export async function redis() {
   if (!globalRedis.motorosRedis) {
     globalRedis.motorosRedis = (async () => {
       const c = createClient({
-        url:
-          process.env.REDIS_URL ||
-          `redis://:${encodeURIComponent(process.env.REDIS_PASSWORD || '')}@127.0.0.1:16379`,
+        ...cacheConnection(),
         socket: { connectTimeout: 3000, reconnectStrategy: false },
       });
       c.on('error', () => {

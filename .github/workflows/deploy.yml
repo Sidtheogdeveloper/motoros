@@ -1,0 +1,87 @@
+name: Authorized application rollout
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        options: [staging, production]
+        required: true
+      release_run_id:
+        type: string
+        required: true
+      source_sha:
+        type: string
+        required: true
+permissions:
+  actions: read
+  contents: read
+  id-token: write
+concurrency:
+  group: motoros-cloud-${{ inputs.environment }}
+  cancel-in-progress: false
+jobs:
+  authorized:
+    if: github.ref == 'refs/heads/main'
+    environment: ${{ inputs.environment }}
+    runs-on: ${{ fromJSON(vars.MOTOROS_DEPLOY_RUNNERS || '["self-hosted","linux","x64","motoros-deploy"]') }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.13.5'
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ap-south-1
+      - name: Materialize nonsecret reviewed configuration
+        env:
+          CONFIG_JSON: ${{ vars.MOTOROS_CONFIG_JSON }}
+          DEPLOYMENT_JSON: ${{ vars.MOTOROS_DEPLOYMENT_JSON }}
+        run: |
+          mkdir -p .runtime
+          node -e 'const fs=require("fs");for(const [n,v] of [["cloud-config",process.env.CONFIG_JSON],["deployment",process.env.DEPLOYMENT_JSON]])fs.writeFileSync(".runtime/"+n+".json",JSON.stringify(JSON.parse(v)),{mode:0o600})'
+      - run: node infrastructure/scripts/cloud.mjs preflight .runtime/cloud-config.json
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.environment == 'production' && 'production-release-' || 'release-' }}${{ inputs.source_sha }}
+          run-id: ${{ inputs.release_run_id }}
+          github-token: ${{ github.token }}
+          path: .runtime
+      - name: Enforce production approvals and staging evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEPLOY_ENV: ${{ inputs.environment }}
+          SOURCE_RUN_ID: ${{ inputs.release_run_id }}
+        run: node infrastructure/scripts/release-gates.mjs .runtime/cloud-config.json .runtime/release.json
+      - name: Serial migrations and rollout
+        env:
+          MOTOROS_DEPLOY_AUTHORIZATION: ${{ inputs.environment }}
+        run: |
+          node infrastructure/scripts/cloud.mjs prepare-release .runtime/cloud-config.json .runtime/deployment.json .runtime/release.json .runtime/release-deployment.json
+          node infrastructure/scripts/cloud.mjs migrate .runtime/cloud-config.json .runtime/release-deployment.json .runtime/migrations.json
+          node infrastructure/scripts/cloud.mjs deploy .runtime/cloud-config.json .runtime/release-deployment.json .runtime/release.json .runtime/migrations.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci && npx playwright install --with-deps chromium
+      - name: Verify private runtime secret resolver
+        run: command -v asm-exec >/dev/null
+      - name: Cloud staging verification
+        env:
+          MOTOROS_CLOUD_SMOKE: 'true'
+          MOTOROS_SMOKE_SECRET_REFERENCE: ${{ vars.MOTOROS_SMOKE_SECRET_REFERENCE }}
+        run: node infrastructure/scripts/smoke-test.mjs .runtime/cloud-config.json .runtime/release-deployment.json .runtime/release.json
+      - name: Scan release artifacts before upload
+        env:
+          MOTOROS_RELEASE_ARTIFACTS: .runtime/release.json,.runtime/migrations.json
+        run: node scripts/check-secrets.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verified-release-${{ inputs.source_sha }}
+          path: |
+            .runtime/release.json
+            .runtime/migrations.json
+          retention-days: 90

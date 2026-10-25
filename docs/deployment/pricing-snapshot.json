@@ -1,0 +1,1232 @@
+{
+  "retrievedAt": "2026-10-25",
+  "source": "AWS Pricing GetProducts, us-east-1; Mumbai products",
+  "products": {
+    "fargate_cpu": [
+      {
+        "sku": "KV4FGA39G96M59TH",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonECS",
+          "tenancy": "Shared",
+          "usagetype": "APS3-Fargate-vCPU-Hours:perCPU",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Container Service",
+          "cputype": "perCPU",
+          "operation": ""
+        },
+        "publicationDate": "2026-10-19T22:43:17Z",
+        "prices": [
+          {
+            "unit": "hours",
+            "endRange": "Inf",
+            "description": "AWS Fargate - vCPU  - Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "KV4FGA39G96M59TH.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0425600000"
+            }
+          }
+        ]
+      }
+    ],
+    "fargate_memory": [
+      {
+        "sku": "N4Q5MGA6V9TFA2MG",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonECS",
+          "tenancy": "Shared",
+          "usagetype": "APS3-Fargate-GB-Hours",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Container Service",
+          "memorytype": "perGB",
+          "operation": ""
+        },
+        "publicationDate": "2026-10-19T22:43:17Z",
+        "prices": [
+          {
+            "unit": "hours",
+            "endRange": "Inf",
+            "description": "AWS Fargate - Memory  - Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "N4Q5MGA6V9TFA2MG.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0046550000"
+            }
+          }
+        ]
+      }
+    ],
+    "nat": [
+      {
+        "sku": "357EHK9N9ANFHP42",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Charge for per GB data processed by NAT Gateways - TransitGatewayPeering",
+          "usagetype": "APS3-RegionalNatGateway-Bytes",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "TransitGatewayPeering",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "endRange": "Inf",
+            "description": "$0.056 per GB data processed by Regional NAT Gateways (TransitGatewayPeering)",
+            "appliesTo": [],
+            "rateCode": "357EHK9N9ANFHP42.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "5NZKRA7Z83EJXBJR",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Hourly charge for Regional NAT Gateways - CloudWANConnect",
+          "usagetype": "APS3-RegionalNatGateway-Hours",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "CloudWANConnect",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.056 per Regional NAT Gateway Hour (CloudWANConnect)",
+            "appliesTo": [],
+            "rateCode": "5NZKRA7Z83EJXBJR.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "64BEAW3X74JHEHG2",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Charge for per GB data processed by NAT Gateways",
+          "usagetype": "APS3-RegionalNatGateway-Bytes",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "RegionalNatGateway",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "endRange": "Inf",
+            "description": "Charge for per GB data processed by NAT Gateways",
+            "appliesTo": [],
+            "rateCode": "64BEAW3X74JHEHG2.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "8PC9PPP6ZQRKQMBU",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Charge for per GB data processed by NAT Gateways - Transit Gateway",
+          "usagetype": "APS3-RegionalNatGateway-Bytes",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "TransitGatewayVPC",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "endRange": "Inf",
+            "description": "$0.056 per GB data processed by Regional NAT Gateways (TransitGatewayVPC)",
+            "appliesTo": [],
+            "rateCode": "8PC9PPP6ZQRKQMBU.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "9ZEP3MPC8TVPZ4NX",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Hourly charge for Regional NAT Gateways - TransitGatewayConcentratorVPN",
+          "usagetype": "APS3-RegionalNatGateway-Hours",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "TransitGatewayConcentratorVPN",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.056 per Regional NAT Gateway Hour (TransitGatewayConcentratorVPN)",
+            "appliesTo": [],
+            "rateCode": "9ZEP3MPC8TVPZ4NX.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "AMR7XUVHXHT5B3HJ",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Charge for per GB data processed by NAT Gateways - CloudWANConnect",
+          "usagetype": "APS3-RegionalNatGateway-Bytes",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "CloudWANConnect",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "endRange": "Inf",
+            "description": "$0.056 per GB data processed by Regional NAT Gateways (CloudWANConnect)",
+            "appliesTo": [],
+            "rateCode": "AMR7XUVHXHT5B3HJ.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "BR62MFJMH8EW59J4",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Charge for per GB data processed by NAT Gateways - TransitGatewayConnect",
+          "usagetype": "APS3-RegionalNatGateway-Bytes",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "TransitGatewayConnect",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "endRange": "Inf",
+            "description": "$0.056 per GB data processed by Regional NAT Gateways (TransitGatewayConnect)",
+            "appliesTo": [],
+            "rateCode": "BR62MFJMH8EW59J4.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "CNUR73JTW2WFBAHS",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Charge for per GB data processed by NAT Gateways - CloudWANDirectConnect",
+          "usagetype": "APS3-RegionalNatGateway-Bytes",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "CloudWANDirectConnect",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "endRange": "Inf",
+            "description": "$0.056 per GB data processed by Regional NAT Gateways (CloudWANDirectConnect)",
+            "appliesTo": [],
+            "rateCode": "CNUR73JTW2WFBAHS.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "CVKCNA7F5Q3N6KKT",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Hourly charge for Regional NAT Gateways - CloudWANDirectConnect",
+          "usagetype": "APS3-RegionalNatGateway-Hours",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "CloudWANDirectConnect",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.056 per Regional NAT Gateway Hour (CloudWANDirectConnect)",
+            "appliesTo": [],
+            "rateCode": "CVKCNA7F5Q3N6KKT.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "DBW8BYVM6STKV3XX",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Hourly charge for Regional NAT Gateways - CloudWANS2SVPN",
+          "usagetype": "APS3-RegionalNatGateway-Hours",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "CloudWANS2SVPN",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.056 per Regional NAT Gateway Hour (CloudWANS2SVPN)",
+            "appliesTo": [],
+            "rateCode": "DBW8BYVM6STKV3XX.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "DJ4GYZ29AWV3WFQX",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Hourly charge for NAT Gateways",
+          "usagetype": "APS3-NatGateway-Hours",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "NatGateway",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.056 per NAT Gateway Hour",
+            "appliesTo": [],
+            "rateCode": "DJ4GYZ29AWV3WFQX.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "HSDDHBGVH9J34TE2",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Charge for per GB data processed by NAT Gateways - TransitGatewayDirectConnect",
+          "usagetype": "APS3-RegionalNatGateway-Bytes",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "TransitGatewayDirectConnect",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "endRange": "Inf",
+            "description": "$0.056 per GB data processed by Regional NAT Gateways (TransitGatewayDirectConnect)",
+            "appliesTo": [],
+            "rateCode": "HSDDHBGVH9J34TE2.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "JXX9KQ82VWHNVRA2",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Charge for per GB data processed by NAT Gateways - TransitGatewayVPN",
+          "usagetype": "APS3-RegionalNatGateway-Bytes",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "TransitGatewayVPN",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "endRange": "Inf",
+            "description": "$0.056 per GB data processed by Regional NAT Gateways (TransitGatewayVPN)",
+            "appliesTo": [],
+            "rateCode": "JXX9KQ82VWHNVRA2.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "KEYUAXA8S7KU76KP",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Hourly charge for Regional NAT Gateways - TransitGatewayDirectConnect",
+          "usagetype": "APS3-RegionalNatGateway-Hours",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "TransitGatewayDirectConnect",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.056 per Regional NAT Gateway Hour (TransitGatewayDirectConnect)",
+            "appliesTo": [],
+            "rateCode": "KEYUAXA8S7KU76KP.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "PECZM5QN6GRSM5DH",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Hourly charge for Regional NAT Gateways",
+          "usagetype": "APS3-RegionalNatGateway-Hours",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "RegionalNatGateway",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "Hourly charge for Regional NAT Gateways",
+            "appliesTo": [],
+            "rateCode": "PECZM5QN6GRSM5DH.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "RKV7XDQY9FWVTBEK",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Hourly charge for Regional NAT Gateways - CloudWAN",
+          "usagetype": "APS3-RegionalNatGateway-Hours",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "CloudWANVPC",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.056 per Regional NAT Gateway Hour (CloudWANVPC)",
+            "appliesTo": [],
+            "rateCode": "RKV7XDQY9FWVTBEK.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "U3B5F5D6AU5THP8V",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Charge for per GB data processed by NatGateways",
+          "usagetype": "APS3-NatGateway-Bytes",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "NatGateway",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "endRange": "Inf",
+            "description": "$0.056 per GB Data Processed by NAT Gateways",
+            "appliesTo": [],
+            "rateCode": "U3B5F5D6AU5THP8V.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "U5U9MRUA6Q73AZ8M",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Hourly charge for Regional NAT Gateways - TransitGatewayConnect",
+          "usagetype": "APS3-RegionalNatGateway-Hours",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "TransitGatewayConnect",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.056 per Regional NAT Gateway Hour (TransitGatewayConnect)",
+            "appliesTo": [],
+            "rateCode": "U5U9MRUA6Q73AZ8M.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "XFUJSMZR8TD44VWQ",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Charge for per GB data processed by NAT Gateways - TransitGatewayConcentratorVPN",
+          "usagetype": "APS3-RegionalNatGateway-Bytes",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "TransitGatewayConcentratorVPN",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "endRange": "Inf",
+            "description": "$0.056 per GB data processed by Regional NAT Gateways (TransitGatewayConcentratorVPN)",
+            "appliesTo": [],
+            "rateCode": "XFUJSMZR8TD44VWQ.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "YHXCU3BHTZCB3SWJ",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Hourly charge for Regional NAT Gateways - TransitGatewayVPN",
+          "usagetype": "APS3-RegionalNatGateway-Hours",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "TransitGatewayVPN",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.056 per Regional NAT Gateway Hour (TransitGatewayVPN)",
+            "appliesTo": [],
+            "rateCode": "YHXCU3BHTZCB3SWJ.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "YW4GRPW9URQ864KA",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Charge for per GB data processed by NAT Gateways - CloudWAN",
+          "usagetype": "APS3-RegionalNatGateway-Bytes",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "CloudWANVPC",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "endRange": "Inf",
+            "description": "$0.056 per GB data processed by Regional NAT Gateways (CloudWANVPC)",
+            "appliesTo": [],
+            "rateCode": "YW4GRPW9URQ864KA.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "YWT2CHZ9DES24AUK",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Charge for per GB data processed by NAT Gateways - CloudWANS2SVPN",
+          "usagetype": "APS3-RegionalNatGateway-Bytes",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "CloudWANS2SVPN",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "endRange": "Inf",
+            "description": "$0.056 per GB data processed by Regional NAT Gateways (CloudWANS2SVPN)",
+            "appliesTo": [],
+            "rateCode": "YWT2CHZ9DES24AUK.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "Z4YWXGWXD69GVQYS",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Hourly charge for Regional NAT Gateways - Transit Gateway",
+          "usagetype": "APS3-RegionalNatGateway-Hours",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "TransitGatewayVPC",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.056 per Regional NAT Gateway Hour (TransitGatewayVPC)",
+            "appliesTo": [],
+            "rateCode": "Z4YWXGWXD69GVQYS.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "ZAYCEHAHWWHP84AF",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonEC2",
+          "groupDescription": "Hourly charge for Regional NAT Gateways - TransitGatewayPeering",
+          "usagetype": "APS3-RegionalNatGateway-Hours",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Elastic Compute Cloud",
+          "operation": "TransitGatewayPeering",
+          "group": "NGW:NatGateway"
+        },
+        "publicationDate": "2026-10-23T22:13:55Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.056 per Regional NAT Gateway Hour (TransitGatewayPeering)",
+            "appliesTo": [],
+            "rateCode": "ZAYCEHAHWWHP84AF.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0560000000"
+            }
+          }
+        ]
+      }
+    ],
+    "alb": [
+      {
+        "sku": "47P5JUQVXYPSBXFF",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSELB",
+          "groupDescription": "LoadBalancer hourly usage by Application Load Balancer on Outposts",
+          "usagetype": "APS3-Outposts-LoadBalancerUsage",
+          "locationType": "AWS Outposts",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Elastic Load Balancing",
+          "operation": "LoadBalancing:Application",
+          "group": "ELB:Balancing"
+        },
+        "publicationDate": "2026-09-11T12:45:44Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.0239 per Hrs for Outposts-LoadBalancerUsage:LoadBalancing:Application in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "47P5JUQVXYPSBXFF.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0239000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "85KUR6TVZSMFSKY8",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSELB",
+          "groupDescription": "TS hourly usage by Application Load Balancer",
+          "usagetype": "APS3-TS-LoadBalancerUsage",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Elastic Load Balancing",
+          "operation": "LoadBalancing:Application",
+          "group": "ELB:Balancing"
+        },
+        "publicationDate": "2026-09-11T12:45:44Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.0053 per associated Application load balancer Trust Store unit-hour ",
+            "appliesTo": [],
+            "rateCode": "85KUR6TVZSMFSKY8.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0053000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "9NWEG8RPMZ9GY4E9",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSELB",
+          "groupDescription": "LoadBalancer hourly usage by Network Load Balancer",
+          "usagetype": "APS3-LoadBalancerUsage",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Elastic Load Balancing",
+          "operation": "LoadBalancing:Network",
+          "group": "ELB:Balancing"
+        },
+        "publicationDate": "2026-09-11T12:45:44Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.0239per Network LoadBalancer-hour (or partial hour)",
+            "appliesTo": [],
+            "rateCode": "9NWEG8RPMZ9GY4E9.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0239000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "GW7GQSZ3UDNAPCRM",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSELB",
+          "groupDescription": "LoadBalancer hourly usage by Classic Load Balancer",
+          "usagetype": "APS3-LoadBalancerUsage",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Elastic Load Balancing",
+          "operation": "LoadBalancing",
+          "group": "ELB:Balancing"
+        },
+        "publicationDate": "2026-09-11T12:45:44Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.0266 per LoadBalancer-hour (or partial hour)",
+            "appliesTo": [],
+            "rateCode": "GW7GQSZ3UDNAPCRM.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0266000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "HFFD75W4GFXQPHZR",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSELB",
+          "groupDescription": "Used Application Load Balancer capacity units-hr",
+          "usagetype": "APS3-LCUUsage",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Elastic Load Balancing",
+          "operation": "LoadBalancing:Application",
+          "group": "ELB:Balancing"
+        },
+        "publicationDate": "2026-09-11T12:45:44Z",
+        "prices": [
+          {
+            "unit": "LCU-Hrs",
+            "endRange": "Inf",
+            "description": "$0.008 per used Application load balancer capacity unit-hour (or partial hour)",
+            "appliesTo": [],
+            "rateCode": "HFFD75W4GFXQPHZR.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0080000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "J3J9BZ7RPU58PCNV",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSELB",
+          "groupDescription": "Used Network Load Balancer capacity units-hr",
+          "usagetype": "APS3-LCUUsage",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Elastic Load Balancing",
+          "operation": "LoadBalancing:Network",
+          "group": "ELB:Balancing"
+        },
+        "publicationDate": "2026-09-11T12:45:44Z",
+        "prices": [
+          {
+            "unit": "LCU-Hrs",
+            "endRange": "Inf",
+            "description": "$0.006 per used Network load balancer capacity unit-hour (or partial hour)",
+            "appliesTo": [],
+            "rateCode": "J3J9BZ7RPU58PCNV.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0060000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "KYYA9H758MN2649H",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSELB",
+          "groupDescription": "Reserved Application Load Balancer capacity units-hr",
+          "usagetype": "APS3-ReservedLCUUsage",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Elastic Load Balancing",
+          "operation": "LoadBalancing:Application",
+          "group": "ELB:Balancing"
+        },
+        "publicationDate": "2026-09-11T12:45:44Z",
+        "prices": [
+          {
+            "unit": "ReservedLCU-Hr",
+            "endRange": "Inf",
+            "description": "$0.008 per reserved Application load balancer capacity unit-hour",
+            "appliesTo": [],
+            "rateCode": "KYYA9H758MN2649H.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0080000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "SXSGM54V3XBP4Z5Y",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSELB",
+          "groupDescription": "Used Application Load Balancer capacity On Outposts units-hr",
+          "usagetype": "APS3-Outposts-LCUUsage",
+          "locationType": "AWS Outposts",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Elastic Load Balancing",
+          "operation": "LoadBalancing:Application",
+          "group": "ELB:Balancing"
+        },
+        "publicationDate": "2026-09-11T12:45:44Z",
+        "prices": [
+          {
+            "unit": "LCU-Hrs",
+            "endRange": "Inf",
+            "description": "$0.0 per LCU-Hrs for Outposts-LCUUsage:LoadBalancing:Application in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "SXSGM54V3XBP4Z5Y.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0000000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "UYRYKW9MKSNJBEEA",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSELB",
+          "groupDescription": "Data processed by Classic Load Balancer",
+          "usagetype": "APS3-DataProcessing-Bytes",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Elastic Load Balancing",
+          "operation": "LoadBalancing",
+          "group": "ELB:Balancing"
+        },
+        "publicationDate": "2026-09-11T12:45:44Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "endRange": "Inf",
+            "description": "$0.008 per GB Data Processed by the LoadBalancer",
+            "appliesTo": [],
+            "rateCode": "UYRYKW9MKSNJBEEA.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0080000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "VTN6JTDRTJ347GSS",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSELB",
+          "groupDescription": "LoadBalancer hourly usage by Gateway Load Balancer",
+          "usagetype": "APS3-LoadBalancerUsage",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Elastic Load Balancing",
+          "operation": "LoadBalancing:Gateway",
+          "group": "ELB:Balancing"
+        },
+        "publicationDate": "2026-09-11T12:45:44Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.0133 per Gateway LoadBalancer-hour (or partial hour) in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "VTN6JTDRTJ347GSS.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0133000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "WGMKTDUVKHXZ6357",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSELB",
+          "groupDescription": "Used Gateway Load Balancer capacity units-hr",
+          "usagetype": "APS3-LCUUsage",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Elastic Load Balancing",
+          "operation": "LoadBalancing:Gateway",
+          "group": "ELB:Balancing"
+        },
+        "publicationDate": "2026-09-11T12:45:44Z",
+        "prices": [
+          {
+            "unit": "LCU-Hrs",
+            "endRange": "Inf",
+            "description": "$0.0040 per used Gateway load balancer capacity unit-hour (or partial hour) in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "WGMKTDUVKHXZ6357.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0040000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "WJ2MHASNP2ZNKFXX",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSELB",
+          "groupDescription": "LoadBalancer hourly usage by Application Load Balancer",
+          "usagetype": "APS3-LoadBalancerUsage",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Elastic Load Balancing",
+          "operation": "LoadBalancing:Application",
+          "group": "ELB:Balancing"
+        },
+        "publicationDate": "2026-09-11T12:45:44Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.0239 per Application LoadBalancer-hour (or partial hour)",
+            "appliesTo": [],
+            "rateCode": "WJ2MHASNP2ZNKFXX.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0239000000"
+            }
+          }
+        ]
+      }
+    ],
+    "rds": [
+      {
+        "sku": "G9TBJHECSCYNG22J",
+        "attributes": {
+          "engineCode": "14",
+          "instanceTypeFamily": "T4G",
+          "memory": "2 GiB",
+          "vcpu": "2",
+          "instanceType": "db.t4g.small",
+          "unbundledLicensing": "FALSE",
+          "usagetype": "APS3-Multi-AZUsage:db.t4g.small",
+          "locationType": "AWS Region",
+          "storage": "EBS Only",
+          "normalizationSizeFactor": "2",
+          "instanceFamily": "General purpose",
+          "databaseEngine": "PostgreSQL",
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonRDS",
+          "physicalProcessor": "AWS Graviton2",
+          "licenseModel": "No license required",
+          "currentGeneration": "Yes",
+          "networkPerformance": "Up to 5 Gigabit",
+          "deploymentOption": "Multi-AZ",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Relational Database Service",
+          "processorArchitecture": "64-bit",
+          "operation": "CreateDBInstance:0014"
+        },
+        "publicationDate": "2026-10-20T00:32:32Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$ 0.084 per RDS db.t4g.small Multi-AZ instance hour (or partial hour) running PostgreSQL",
+            "appliesTo": [],
+            "rateCode": "G9TBJHECSCYNG22J.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0840000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "URPGPYXRJEHCT95J",
+        "attributes": {
+          "engineCode": "14",
+          "instanceType": "db.t4g.small",
+          "usagetype": "APS3-UnusedBox:db.t4g.small",
+          "locationType": "AWS Region",
+          "normalizationSizeFactor": "1",
+          "databaseEngine": "PostgreSQL",
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonRDS",
+          "licenseModel": "No license required",
+          "deploymentOption": "Single-AZ",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Relational Database Service",
+          "operation": "CreateDBInstance:0014"
+        },
+        "publicationDate": "2026-10-20T00:32:32Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$ 0.042 per RDS db.t4g.small Single-AZ unused capacity reservation hour (or partial hour) for PostgreSQL",
+            "appliesTo": [],
+            "rateCode": "URPGPYXRJEHCT95J.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0420000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "YA9RJG9UAYJKR7G8",
+        "attributes": {
+          "engineCode": "14",
+          "instanceTypeFamily": "T4G",
+          "memory": "2 GiB",
+          "vcpu": "2",
+          "instanceType": "db.t4g.small",
+          "unbundledLicensing": "FALSE",
+          "usagetype": "APS3-InstanceUsage:db.t4g.small",
+          "locationType": "AWS Region",
+          "storage": "EBS Only",
+          "normalizationSizeFactor": "1",
+          "instanceFamily": "General purpose",
+          "databaseEngine": "PostgreSQL",
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonRDS",
+          "physicalProcessor": "AWS Graviton2",
+          "licenseModel": "No license required",
+          "currentGeneration": "Yes",
+          "networkPerformance": "Up to 5 Gigabit",
+          "deploymentOption": "Single-AZ",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Relational Database Service",
+          "processorArchitecture": "64-bit",
+          "operation": "CreateDBInstance:0014"
+        },
+        "publicationDate": "2026-10-20T00:32:32Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$ 0.042 per RDS db.t4g.small Single-AZ instance hour (or partial hour) running PostgreSQL",
+            "appliesTo": [],
+            "rateCode": "YA9RJG9UAYJKR7G8.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0420000000"
+            }
+          }
+        ]
+      }
+    ],
+    "cache": [
+      {
+        "sku": "E68VEE3CY86GR977",
+        "attributes": {
+          "memory": "0.5 GiB",
+          "vcpu": "2",
+          "instanceType": "cache.t4g.micro",
+          "usagetype": "APS3-NodeUsage:cache.t4g.micro",
+          "locationType": "AWS Region",
+          "normalizationSizeFactor": "0.4",
+          "instanceFamily": "Standard",
+          "cacheEngine": "Valkey",
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonElastiCache",
+          "currentGeneration": "Yes",
+          "networkPerformance": "Up to 5 Gigabit",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon ElastiCache",
+          "operation": "CreateCacheCluster:Valkey"
+        },
+        "publicationDate": "2026-10-14T22:11:39Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.016 per T4G Micro Cache node-hour (or partial hour) running Valkey",
+            "appliesTo": [],
+            "rateCode": "E68VEE3CY86GR977.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0160000000"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

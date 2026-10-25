@@ -1,0 +1,52 @@
+name: Reviewed infrastructure plan
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        options: [staging, production]
+        required: true
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: motoros-cloud-${{ inputs.environment }}
+  cancel-in-progress: false
+jobs:
+  authorized:
+    if: github.ref == 'refs/heads/main'
+    environment: ${{ inputs.environment }}-plan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.13.5'
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ap-south-1
+      - name: Materialize nonsecret reviewed configuration
+        env:
+          CONFIG_JSON: ${{ vars.MOTOROS_CONFIG_JSON }}
+          DEPLOYMENT_JSON: ${{ vars.MOTOROS_DEPLOYMENT_JSON }}
+        run: |
+          mkdir -p .runtime
+          node -e 'const fs=require("fs");for(const [n,v] of [["cloud-config",process.env.CONFIG_JSON],["deployment",process.env.DEPLOYMENT_JSON]])fs.writeFileSync(".runtime/"+n+".json",JSON.stringify(JSON.parse(v)),{mode:0o600})'
+      - run: node infrastructure/scripts/cloud.mjs preflight .runtime/cloud-config.json
+      - name: Initialize environment state
+        env:
+          STATE_BUCKET: ${{ vars.STATE_BUCKET }}
+          DEPLOY_ENV: ${{ inputs.environment }}
+        run: terraform -chdir=infrastructure/terraform/environments/$DEPLOY_ENV init -backend-config="bucket=$STATE_BUCKET" -backend-config="key=motoros/$DEPLOY_ENV/terraform.tfstate" -backend-config=region=ap-south-1 -backend-config=encrypt=true
+      - name: Create private plan
+        env:
+          DEPLOY_ENV: ${{ inputs.environment }}
+          PLAN_BUCKET: ${{ vars.STATE_BUCKET }}
+          PLAN_KMS_KEY: ${{ vars.STATE_KMS_KEY_ARN }}
+        run: |
+          node infrastructure/scripts/cloud.mjs plan .runtime/cloud-config.json .runtime/approved.tfplan
+          aws s3 cp .runtime/approved.tfplan "s3://$PLAN_BUCKET/motoros/$DEPLOY_ENV/plans/${{ github.run_id }}.tfplan" --sse aws:kms --sse-kms-key-id "$PLAN_KMS_KEY"

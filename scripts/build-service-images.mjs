@@ -18,7 +18,7 @@ for (const service of [
       '--build-arg',
       'SERVICE=' + service,
       '-t',
-      'motoros/' + service + ':milestone6',
+      'motoros/' + service + ':' + (process.env.MOTOROS_IMAGE_TAG || 'milestone7'),
       '.',
     ],
     { stdio: 'inherit' },

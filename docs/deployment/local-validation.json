@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-25",
+  "java": {
+    "tests": 87,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "nodeTests": 15,
+  "browserTests": 20,
+  "liveApiChecks": {
+    "m2": 72,
+    "m3": 91,
+    "m4": 105,
+    "m5WithAsyncApproval": 109,
+    "m6": 46
+  },
+  "controlledRecoveryChecks": 22,
+  "migrationMode": {
+    "migrations": 52,
+    "launches": 16,
+    "privilegeDenials": 72,
+    "runtimeValidationRuns": 24
+  },
+  "terraformMockRuns": 8,
+  "checkov": {
+    "passed": 492,
+    "failed": 0,
+    "skipped": 36,
+    "parsing_errors": 0,
+    "resource_count": 214,
+    "checkov_version": "3.3.30"
+  },
+  "imageScans": {
+    "tenant": {
+      "highCriticalFindingsAfterReviewedVex": 0
+    },
+    "customer": {
+      "highCriticalFindingsAfterReviewedVex": 0
+    },
+    "workorder": {
+      "highCriticalFindingsAfterReviewedVex": 0
+    },
+    "booking": {
+      "highCriticalFindingsAfterReviewedVex": 0
+    },
+    "inventory": {
+      "highCriticalFindingsAfterReviewedVex": 0
+    },
+    "billing": {
+      "highCriticalFindingsAfterReviewedVex": 0
+    },
+    "notification": {
+      "highCriticalFindingsAfterReviewedVex": 0
+    },
+    "analytics": {
+      "highCriticalFindingsAfterReviewedVex": 0
+    },
+    "frontend": {
+      "highCriticalFindingsAfterReviewedVex": 0
+    },
+    "operator": {
+      "highCriticalFindingsAfterReviewedVex": 0
+    }
+  },
+  "vexReviewExpires": "2026-11-25",
+  "awsResourcesCreated": false,
+  "awsDeploymentVerified": false,
+  "checkovPopulatedTasks": {
+    "passed": 414,
+    "failed": 0,
+    "skipped": 18,
+    "parsing_errors": 0,
+    "resource_count": 193,
+    "checkov_version": "3.3.30"
+  }
+}

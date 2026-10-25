@@ -1,0 +1,32 @@
+server:
+  address: 0.0.0.0
+  shutdown: graceful
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 90s
+  flyway:
+    enabled: false
+  datasource:
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:5}
+      minimum-idle: 1
+      connection-timeout: 5000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+motoros:
+  events:
+    enabled: true
+    bootstrap: false
+
+motoros.cloud: true

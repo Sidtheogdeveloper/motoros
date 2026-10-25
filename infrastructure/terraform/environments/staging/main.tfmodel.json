@@ -1,0 +1,183 @@
+{
+  "terraform": {
+    "required_version": "= 1.13.5",
+    "backend": {
+      "s3": {
+        "use_lockfile": true
+      }
+    },
+    "required_providers": {
+      "aws": {
+        "source": "hashicorp/aws",
+        "version": "~> 6.7"
+      }
+    }
+  },
+  "provider": {
+    "aws": {
+      "region": "${var.region}",
+      "allowed_account_ids": [
+        "${var.account_id}"
+      ],
+      "default_tags": [
+        {
+          "tags": {
+            "Project": "MotorOS",
+            "Environment": "staging",
+            "ManagedBy": "Terraform",
+            "Owner": "${var.owner}",
+            "CostCenter": "${var.cost_center}"
+          }
+        }
+      ]
+    }
+  },
+  "variable": {
+    "account_id": {
+      "type": "string",
+      "validation": [
+        {
+          "condition": "${can(regex(\"^[0-9]{12}$\", var.account_id))}",
+          "error_message": "A verified deployment account ID is required."
+        }
+      ]
+    },
+    "app_origin": {
+      "type": "string",
+      "validation": [
+        {
+          "condition": "${can(regex(\"^https://[a-zA-Z0-9.-]+$\", var.app_origin))}",
+          "error_message": "Supply the exact real HTTPS application origin."
+        }
+      ]
+    },
+    "certificate_arn": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "cost_center": {
+      "type": "string"
+    },
+    "alert_email": {
+      "type": "string"
+    },
+    "smtp_host": {
+      "type": "string"
+    },
+    "mail_from": {
+      "type": "string"
+    },
+    "postgres_version": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string",
+      "default": "ap-south-1"
+    },
+    "image_digests": {
+      "type": "map(string)",
+      "default": {},
+      "validation": [
+        {
+          "condition": "${alltrue([for image in values(var.image_digests) : can(regex(\"@sha256:[a-f0-9]{64}$\",image))])}",
+          "error_message": "Only immutable image digests are accepted."
+        }
+      ]
+    },
+    "monthly_budget": {
+      "type": "number",
+      "validation": [
+        {
+          "condition": "${var.monthly_budget > 0}",
+          "error_message": "Approve a positive monthly USD budget before provisioning."
+        }
+      ]
+    },
+    "db_instance_class": {
+      "type": "string",
+      "default": "db.t4g.small"
+    },
+    "cache_node_type": {
+      "type": "string",
+      "default": "cache.t4g.micro"
+    },
+    "schedule_scale_down": {
+      "type": "bool",
+      "default": false
+    },
+    "operator_image": {
+      "type": "string",
+      "default": ""
+    },
+    "ses_smtp_secret_arn": {
+      "type": "string",
+      "default": ""
+    },
+    "github_oidc_provider_arn": {
+      "type": "string",
+      "default": ""
+    },
+    "github_repository": {
+      "type": "string",
+      "default": "Sidtheogdeveloper/motoros"
+    },
+    "state_bucket_arn": {
+      "type": "string",
+      "default": ""
+    },
+    "state_kms_key_arn": {
+      "type": "string",
+      "default": ""
+    },
+    "provisioning_policy_json": {
+      "type": "string",
+      "default": ""
+    },
+    "vpc_cidr": {
+      "type": "string",
+      "default": "10.60.0.0/16"
+    },
+    "service_sizes": {
+      "type": "map(object({cpu=number,memory=number}))",
+      "default": {}
+    }
+  },
+  "module": {
+    "platform": {
+      "source": "../../modules/environment",
+      "account_id": "${var.account_id}",
+      "app_origin": "${var.app_origin}",
+      "certificate_arn": "${var.certificate_arn}",
+      "owner": "${var.owner}",
+      "cost_center": "${var.cost_center}",
+      "alert_email": "${var.alert_email}",
+      "smtp_host": "${var.smtp_host}",
+      "mail_from": "${var.mail_from}",
+      "postgres_version": "${var.postgres_version}",
+      "region": "${var.region}",
+      "image_digests": "${var.image_digests}",
+      "monthly_budget": "${var.monthly_budget}",
+      "db_instance_class": "${var.db_instance_class}",
+      "cache_node_type": "${var.cache_node_type}",
+      "schedule_scale_down": "${var.schedule_scale_down}",
+      "environment": "staging",
+      "production": false,
+      "operator_image": "${var.operator_image}",
+      "ses_smtp_secret_arn": "${var.ses_smtp_secret_arn}",
+      "github_oidc_provider_arn": "${var.github_oidc_provider_arn}",
+      "github_repository": "${var.github_repository}",
+      "state_bucket_arn": "${var.state_bucket_arn}",
+      "state_kms_key_arn": "${var.state_kms_key_arn}",
+      "provisioning_policy_json": "${var.provisioning_policy_json}",
+      "vpc_cidr": "${var.vpc_cidr}",
+      "service_sizes": "${var.service_sizes}"
+    }
+  },
+  "output": {
+    "deployment": {
+      "value": "${module.platform}"
+    }
+  }
+}

@@ -1,0 +1,2045 @@
+{
+  "retrievedAt": "2026-10-25",
+  "source": "AWS Pricing GetProducts; Mumbai on-demand products",
+  "products": {
+    "production_rds": [
+      {
+        "sku": "HFNZW7VBD7GQ6C96",
+        "attributes": {
+          "engineCode": "14",
+          "instanceTypeFamily": "M7G",
+          "memory": "8 GiB",
+          "vcpu": "2",
+          "instanceType": "db.m7g.large",
+          "unbundledLicensing": "FALSE",
+          "usagetype": "APS3-Multi-AZUsage:db.m7g.large",
+          "locationType": "AWS Region",
+          "storage": "EBS Only",
+          "normalizationSizeFactor": "8",
+          "instanceFamily": "General purpose",
+          "databaseEngine": "PostgreSQL",
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonRDS",
+          "physicalProcessor": "AWS Graviton3",
+          "licenseModel": "No license required",
+          "currentGeneration": "Yes",
+          "networkPerformance": "Up to 12.5 Gigabit",
+          "deploymentOption": "Multi-AZ",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Relational Database Service",
+          "processorArchitecture": "64-bit",
+          "operation": "CreateDBInstance:0014"
+        },
+        "publicationDate": "2026-10-20T00:32:32Z",
+        "prices": [
+          {
+            "unit": "Hrs",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$ 0.479 per RDS db.m7g.large Multi-AZ instance hour (or partial hour) running PostgreSQL",
+            "USD": "0.4790000000"
+          }
+        ]
+      }
+    ],
+    "ses": [
+      {
+        "sku": "2YBQAM8CJHRJEBRY",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "AddOnExecution-TRENDMICRO_VSAPI",
+          "usagetype": "APS3-Enterprise-AddOnExecution-TRENDMICRO_VSAPI",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Processing"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Enterprise-AddOnExecution-TRENDMICRO_VSAPI in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "3CKRFXR539UTGZPK",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "AddOnExecution-SPAMHAUS_DBL",
+          "usagetype": "APS3-Enterprise-AddOnExecution-SPAMHAUS_DBL",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Processing"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Enterprise-AddOnExecution-SPAMHAUS_DBL in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "3GHJ84XGTS4QMNU5",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Domain-VirtDelivMgr",
+          "usagetype": "APS3-Pro-Domain-VirtDelivMgr",
+          "pricingPlans": "Pro",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "1",
+            "description": "$0.00 per Count from 0 to 1 for Pro-Domain-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "1",
+            "endRange": "Inf",
+            "description": "$25.00 per Count from 1 for Pro-Domain-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "25.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "3UWEWTCC9QFDDAKU",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Message",
+          "usagetype": "APS3-Pro-Message",
+          "pricingPlans": "Pro",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Processing"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "100000000",
+            "endRange": "Inf",
+            "description": "$0.00012 per Count from 100,000,000 for Pro-Message in Asia Pacific (Mumbai)",
+            "USD": "0.0001200000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "10000000",
+            "description": "$0.00022 per Count from 0 to 10,000,000 for Pro-Message in Asia Pacific (Mumbai)",
+            "USD": "0.0002200000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "10000000",
+            "endRange": "100000000",
+            "description": "$0.00017 per Count from 10,000,000 to 100,000,000 for Pro-Message in Asia Pacific (Mumbai)",
+            "USD": "0.0001700000"
+          }
+        ]
+      },
+      {
+        "sku": "4A7QPSWKBNW4BAYT",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Domain-VirtDelivMgr",
+          "usagetype": "APS3-Enterprise-Domain-VirtDelivMgr",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "5",
+            "description": "$0.00 per Count from 0 to 5 for Enterprise-Domain-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "5",
+            "endRange": "Inf",
+            "description": "$25.00 per Count from 5 for Enterprise-Domain-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "25.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "5DP29T7S8JU7XYZW",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "usagetype": "APS3-ReceivedChunk",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Processing",
+          "contentType": "Full Message Chunk"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "ReceivedChunk",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00009 per ReceivedChunk for Mail Manager Processed email in Asia Pacific (Mumbai)",
+            "USD": "0.0000900000"
+          }
+        ]
+      },
+      {
+        "sku": "64V2N8XMJBNQBEW5",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "VirtDelivMgr",
+          "usagetype": "APS3-Enterprise-VirtDelivMgr",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Query"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Enterprise-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "6EMGQGWY99GZRTM6",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "usagetype": "APS3-AddOnExecution-SPAMHAUS_DBL",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Processing",
+          "contentType": "Message Body SpamHaus"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.000125 per Count for Message processed by Spamhaus Add on in Asia Pacific (Mumbai)",
+            "USD": "0.0001250000"
+          }
+        ]
+      },
+      {
+        "sku": "6Y6FAGGF3VYAZ4W4",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "usagetype": "APS3-AddOnExecution-VADE_ADVANCED_EMAIL_SECURITY",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Processing",
+          "contentType": "Message Body Vade"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.000415 per Count for APS3-AddOnExecution-VADE_ADVANCED_EMAIL_SECURITY in Asia Pacific (Mumbai)",
+            "USD": "0.0004150000"
+          }
+        ]
+      },
+      {
+        "sku": "6YQYDR8R8DZEJGH2",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Other",
+          "usagetype": "APS3-Recipients-DIP-Managed",
+          "recipient": "Other",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send",
+          "contentType": "Dedicated IPs (managed)"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "50000000",
+            "endRange": "100000000",
+            "description": "Dedicated IPs (managed) pricing for between 50 Million and 100 Million emails per month in APS3",
+            "USD": "0.0000200000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "10000000",
+            "description": "Dedicated IPs (managed) pricing for less than 10 Million emails per month in APS3",
+            "USD": "0.0000800000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "100000000",
+            "endRange": "Inf",
+            "description": "Dedicated IPs (managed) pricing for more than 100 Million emails per month in APS3",
+            "USD": "0.0000040000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "10000000",
+            "endRange": "50000000",
+            "description": "Dedicated IPs (managed) pricing for between 10 Million and 50 Million emails per month in APS3",
+            "USD": "0.0000400000"
+          }
+        ]
+      },
+      {
+        "sku": "79RW49GBTCS4TA9G",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Recipients-DIP-Managed",
+          "usagetype": "APS3-Enterprise-Recipients-DIP-Managed",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Enterprise-Recipients-DIP-Managed in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "7DYC2Q352NS3AY29",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Recipients-Validation",
+          "usagetype": "APS3-Enterprise-Recipients-Validation",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Enterprise-Recipients-Validation in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "7QWKSZECF6HAQ58Z",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "usagetype": "APS3-Recipients-Validation",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "recipientValidation": "Insight",
+          "operation": "Insight"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.01 per Count for Recipients-Validation in Asia Pacific (Mumbai)",
+            "USD": "0.0100000000"
+          }
+        ]
+      },
+      {
+        "sku": "8AWP8KKQWDB52PSS",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Other",
+          "usagetype": "APS3-ReceivedChunk",
+          "recipient": "Amazon SES",
+          "description": "Charged for chunks of 256 KB, applicable to incoming mail",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Receive",
+          "contentType": "Full Message"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "ReceivedChunk",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "USD9.0E-5 per ReceivedChunk for ReceivedChunk:Receive in Asia Pacific (Mumbai)",
+            "USD": "0.0000900000"
+          }
+        ]
+      },
+      {
+        "sku": "8K4VZPJ5JKR5QR6F",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "DIP-Managed-Acc-Sub-Hours",
+          "usagetype": "APS3-Pro-DIP-Managed-Acc-Sub-Hours",
+          "pricingPlans": "Pro",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Subscription"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Mo",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Mo for Pro-DIP-Managed-Acc-Sub-Hours in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "8VZQY674JRBJ4GX5",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Any",
+          "usagetype": "APS3-Recipients-VirtDelivMgr",
+          "recipient": "Any",
+          "description": "Charged for each email sent",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send",
+          "contentType": "Message Body"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "10000000",
+            "endRange": "100000000",
+            "description": "$0.00005 per Count from 10,000,000 to 100,000,000 for Outbound emails processed by Virtual Deliverability Manager in Asia Pacific (Mumbai)",
+            "USD": "0.0000500000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "100000000",
+            "endRange": "Inf",
+            "description": "$0.00002 per Count from 100,000,000 for Outbound emails processed by Virtual Deliverability Manager in Asia Pacific (Mumbai)",
+            "USD": "0.0000200000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "10000000",
+            "description": "$0.00007 per Count from 0 to 10,000,000 for Outbound emails processed by Virtual Deliverability Manager in Asia Pacific (Mumbai)",
+            "USD": "0.0000700000"
+          }
+        ]
+      },
+      {
+        "sku": "94EKM3HN8CXAXCJE",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "IngressPoint-Subscription",
+          "usagetype": "APS3-Enterprise-IngressPoint-Subscription",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "IngressPoint"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Mo",
+            "beginRange": "0",
+            "endRange": "1",
+            "description": "$0.00 per Mo from 0 to 1 for Enterprise-IngressPoint-Subscription in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          },
+          {
+            "unit": "Mo",
+            "beginRange": "1",
+            "endRange": "Inf",
+            "description": "$50.00 per Mo from 1 for Enterprise-IngressPoint-Subscription in Asia Pacific (Mumbai)",
+            "USD": "50.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "988JXTAXRDTQSG3T",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "usagetype": "APS3-Tenant-Count",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Tenant"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Mo",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.005 per Mo for Tenant-Count in Asia Pacific (Mumbai)",
+            "USD": "0.0050000000"
+          }
+        ]
+      },
+      {
+        "sku": "9Y6Z8TSAP5JMTMTM",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Recipients-Validation-Insight",
+          "usagetype": "APS3-Enterprise-Recipients-Validation",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Insight"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "5000",
+            "description": "$0.00 per Count from 0 to 5,000 for Enterprise-Recipients-Validation in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "5000",
+            "endRange": "Inf",
+            "description": "$0.01 per Count from 5,000 for Enterprise-Recipients-Validation in Asia Pacific (Mumbai)",
+            "USD": "0.0100000000"
+          }
+        ]
+      },
+      {
+        "sku": "A8HYSGP2DNQPMF7K",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "usagetype": "APS3-AddOnExecution-ABUSIX_MAIL_INTELLIGENCE",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Processing",
+          "contentType": "Message Body Abusix"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.000125 per Count for Message processed by Abusix Add on in Asia Pacific (Mumbai)",
+            "USD": "0.0001250000"
+          }
+        ]
+      },
+      {
+        "sku": "AA7RPXV69XRWN7UA",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Recipients-Tenant",
+          "usagetype": "APS3-Enterprise-Recipients-Tenant",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Enterprise-Recipients-Tenant in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "AAMMHJG7DFGYWNRH",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "VirtDelivMgr",
+          "usagetype": "APS3-Essentials-VirtDelivMgr",
+          "pricingPlans": "Essentials",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Query"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Essentials-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "APV7D8B2GY5TABUZ",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "DIP-Managed-Acc-Sub-Hours",
+          "usagetype": "APS3-Enterprise-DIP-Managed-Acc-Sub-Hours",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Subscription"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Mo",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Mo for Enterprise-DIP-Managed-Acc-Sub-Hours in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "AZHJ7H8WBUB2FGAW",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Any",
+          "usagetype": "APS3-Recipients-MultiRegnEP",
+          "recipient": "Any",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send",
+          "contentType": "Global Endpoint Message"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00003 per Count for Global Endpoint Message in Asia Pacific (Mumbai)",
+            "USD": "0.0000300000"
+          }
+        ]
+      },
+      {
+        "sku": "BRH89DUNVMQJ96UY",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "IP-VirtDelivMgr",
+          "usagetype": "APS3-Pro-IP-VirtDelivMgr",
+          "pricingPlans": "Pro",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "1",
+            "endRange": "Inf",
+            "description": "$12.50 per Count from 1 for Pro-IP-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "12.5000000000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "1",
+            "description": "$0.00 per Count from 0 to 1 for Pro-IP-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "BTEXTCW2WWUZ3GTH",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Any",
+          "usagetype": "APS3-IP-VirtDelivMgr",
+          "recipient": "Any",
+          "description": "Monthly charge for global sending IP monitoring in Virtual Deliverability Manager.",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "",
+          "contentType": "IP Monitor Virtual Deliverability Manager"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "12",
+            "endRange": "Inf",
+            "description": "$12.50 per Count from 12 for Monthly charge for global sending IP monitoring in Virtual Deliverability Manager. in Asia Pacific (Mumbai)",
+            "USD": "12.5000000000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "12",
+            "description": "$0.00 per Count from 0 to 12 for Monthly charge for global sending IP monitoring in Virtual Deliverability Manager. in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "C8823VN4TK4DU52M",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Recipients-VirtDelivMgr",
+          "usagetype": "APS3-Essentials-Recipients-VirtDelivMgr",
+          "pricingPlans": "Essentials",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Essentials-Recipients-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "CV6NYV9NUMJDBASQ",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "usagetype": "APS3-Message",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Processing",
+          "contentType": "Message Body Processing"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00015 per Count for Message processed in Asia Pacific (Mumbai)",
+            "USD": "0.0001500000"
+          }
+        ]
+      },
+      {
+        "sku": "D55E2SDM8PK6VKWT",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Amazon EC2",
+          "usagetype": "APS3-Recipients-MailboxSim-EC2",
+          "recipient": "Amazon SES Mailbox Simulator",
+          "description": "Charged for each email sent from AmazonEC2 to SES Mailbox Simulator",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send",
+          "contentType": "Message Body"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "USD1.0E-4 per Count for Recipients-MailboxSim-EC2:Send in Asia Pacific (Mumbai)",
+            "USD": "0.0001000000"
+          }
+        ]
+      },
+      {
+        "sku": "DC93HUAYN4KPAY87",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "InboxTest-VirtDelivMgr",
+          "usagetype": "APS3-Pro-InboxTest-VirtDelivMgr",
+          "pricingPlans": "Pro",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "5",
+            "description": "$0.00 per Count from 0 to 5 for Pro-InboxTest-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "5",
+            "endRange": "Inf",
+            "description": "$10.00 per Count from 5 for Pro-InboxTest-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "10.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "DJUGD9NHAJ7ZUA2X",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Subscription-VirtDelivMgr",
+          "usagetype": "APS3-Enterprise-Subscription-VirtDelivMgr",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Enterprise-Subscription-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "DKPU3PDY8VSV54XR",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Message",
+          "usagetype": "APS3-Enterprise-Message",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Processing"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "10000000",
+            "description": "$0.00023 per Count from 0 to 10,000,000 for Enterprise-Message in Asia Pacific (Mumbai)",
+            "USD": "0.0002300000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "10000000",
+            "endRange": "100000000",
+            "description": "$0.00018 per Count from 10,000,000 to 100,000,000 for Enterprise-Message in Asia Pacific (Mumbai)",
+            "USD": "0.0001800000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "100000000",
+            "endRange": "Inf",
+            "description": "$0.00013 per Count from 100,000,000 for Enterprise-Message in Asia Pacific (Mumbai)",
+            "USD": "0.0001300000"
+          }
+        ]
+      },
+      {
+        "sku": "DWYNBFF24CDVZERE",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Subscription-VirtDelivMgr",
+          "usagetype": "APS3-Pro-Subscription-VirtDelivMgr",
+          "pricingPlans": "Pro",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Pro-Subscription-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "EPGJK9UGZ5MUPMWM",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Recipients-VirtDelivMgr",
+          "usagetype": "APS3-Pro-Recipients-VirtDelivMgr",
+          "pricingPlans": "Pro",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Pro-Recipients-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "F66WM9ZGPCCPZ2SJ",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Any",
+          "usagetype": "APS3-InboxTest-VirtDelivMgr",
+          "recipient": "Any",
+          "description": "Charge for inbox placement testing in Virtual Deliverability Manager.",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "",
+          "contentType": "Inbox Placement Test Virtual Deliverability Manager"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "25",
+            "endRange": "Inf",
+            "description": "$10.00 per Count from 25 for Charge for inbox placement testing in Virtual Deliverability Manager. in Asia Pacific (Mumbai)",
+            "USD": "10.0000000000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "25",
+            "description": "$0.00 per Count from 0 to 25 for Charge for inbox placement testing in Virtual Deliverability Manager. in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "FJQ88GX7GP4SHDVC",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "InboxTest-VirtDelivMgr",
+          "usagetype": "APS3-Enterprise-InboxTest-VirtDelivMgr",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "25",
+            "endRange": "Inf",
+            "description": "$10.00 per Count from 25 for Enterprise-InboxTest-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "10.0000000000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "25",
+            "description": "$0.00 per Count from 0 to 25 for Enterprise-InboxTest-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "FWRZ8K2FVV335Y72",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "IP-VirtDelivMgr",
+          "usagetype": "APS3-Enterprise-IP-VirtDelivMgr",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "12",
+            "description": "$0.00 per Count from 0 to 12 for Enterprise-IP-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "12",
+            "endRange": "Inf",
+            "description": "$12.50 per Count from 12 for Enterprise-IP-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "12.5000000000"
+          }
+        ]
+      },
+      {
+        "sku": "G6HFDDW5X2SKBKJH",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "usagetype": "APS3-ArchiveIngestedSize-Byte",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "ArchiveIngestion",
+          "contentType": "Archive Ingestion"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$2.00 per GB for data acceptance into archive in Asia Pacific (Mumbai)",
+            "USD": "2.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "G8F7Z3736GNGRZ8G",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Recipients-Validation",
+          "usagetype": "APS3-Pro-Recipients-Validation",
+          "pricingPlans": "Pro",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Pro-Recipients-Validation in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "GND8KHJN2KXCT7AG",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Recipients-MultiRegnEP",
+          "usagetype": "APS3-Enterprise-Recipients-MultiRegnEP",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Enterprise-Recipients-MultiRegnEP in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "H9FD8P6N58ZX9CRX",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Outbound-Email",
+          "usagetype": "APS3-Enterprise-Outbound-Email",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "10000000",
+            "description": "$0.00023 per Count from 0 to 10,000,000 for Enterprise-Outbound-Email in Asia Pacific (Mumbai)",
+            "USD": "0.0002300000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "10000000",
+            "endRange": "100000000",
+            "description": "$0.00018 per Count from 10,000,000 to 100,000,000 for Enterprise-Outbound-Email in Asia Pacific (Mumbai)",
+            "USD": "0.0001800000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "100000000",
+            "endRange": "Inf",
+            "description": "$0.00013 per Count from 100,000,000 for Enterprise-Outbound-Email in Asia Pacific (Mumbai)",
+            "USD": "0.0001300000"
+          }
+        ]
+      },
+      {
+        "sku": "J27762WQPSE4YNWE",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Any",
+          "usagetype": "APS3-Subscription-VirtDelivMgr",
+          "recipient": "Any",
+          "description": "Monthly subscription charge for global sending monitoring in Virtual Deliverability Manager",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "",
+          "contentType": "Subscription Virtual Deliverability Manager"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$1,250.00 per Count for Monthly subscription charge for global sending monitoring in Virtual Deliverability Manager in Asia Pacific (Mumbai)",
+            "USD": "1250.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "JHWZ338PHT3RBFJN",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Any",
+          "usagetype": "APS3-AttachmentsSize-Bytes",
+          "recipient": "Any",
+          "description": "Charged for attachments sent",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send",
+          "contentType": "Mail Attachment"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "USD0.12 per GB for AttachmentsSize-Bytes:Send in Asia Pacific (Mumbai)",
+            "USD": "0.1200000000"
+          }
+        ]
+      },
+      {
+        "sku": "K9AHRR2NZ2B8HBS6",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "usagetype": "APS3-Recipients-MailManager",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send",
+          "contentType": "Full Message Send"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for emails with single recipient sent by Mail Manager in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "N8UBGA8B5DD9VQUG",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "usagetype": "APS3-ArchiveStorageSize-ByteHrs",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "ArchiveStorage",
+          "contentType": "Archive Storage"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.19 per GB for archive storage in Asia Pacific (Mumbai)",
+            "USD": "0.1900000000"
+          }
+        ]
+      },
+      {
+        "sku": "NEU3YGA3VYD5H52E",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Any",
+          "usagetype": "APS3-Domain-VirtDelivMgr",
+          "recipient": "Any",
+          "description": "Monthly charge for global sending domain monitoring in Virtual Deliverability Manager.",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "",
+          "contentType": "Domain Monitor Virtual Deliverability Manager"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "5",
+            "description": "$0.00 per Count from 0 to 5 for Monthly charge for global sending domain monitoring in Virtual Deliverability Manager. in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "5",
+            "endRange": "Inf",
+            "description": "$25.00 per Count from 5 for Monthly charge for global sending domain monitoring in Virtual Deliverability Manager. in Asia Pacific (Mumbai)",
+            "USD": "25.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "NFPBUCR79VXFBPC3",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Other",
+          "usagetype": "APS3-Recipients",
+          "recipient": "Other",
+          "description": "Charged for each email sent to an external recipient",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send",
+          "contentType": "Message Body"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "USD1.0E-4 per Count for Recipients:Send in Asia Pacific (Mumbai)",
+            "USD": "0.0001000000"
+          }
+        ]
+      },
+      {
+        "sku": "NQEFG6SJJK4BW5KN",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "usagetype": "APS3-AddOnExecution-TRENDMICRO_VSAPI",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Processing",
+          "contentType": "Full Message Trend Micro"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.0001875 per Count for Message scanned by Trend Micro in Asia Pacific (Mumbai)",
+            "USD": "0.0001875000"
+          }
+        ]
+      },
+      {
+        "sku": "PHXG7ZM3XHE2QHQE",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "AddOnExecution-TRENDMICRO_VSAPI",
+          "usagetype": "APS3-Pro-AddOnExecution-TRENDMICRO_VSAPI",
+          "pricingPlans": "Pro",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Processing"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Pro-AddOnExecution-TRENDMICRO_VSAPI in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "QDCNQXBUZ6DWCB9C",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Tenant-Count",
+          "usagetype": "APS3-Enterprise-Tenant-Count",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Tenant"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Mo",
+            "beginRange": "1000",
+            "endRange": "Inf",
+            "description": "$0.005 per Mo from 1,000 for Enterprise-Tenant-Count in Asia Pacific (Mumbai)",
+            "USD": "0.0050000000"
+          },
+          {
+            "unit": "Mo",
+            "beginRange": "0",
+            "endRange": "1000",
+            "description": "$0.00 per Mo from 0 to 1,000 for Enterprise-Tenant-Count in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "QNZ75RY48EV9QQ2K",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Recipients-DIP-Managed",
+          "usagetype": "APS3-Pro-Recipients-DIP-Managed",
+          "pricingPlans": "Pro",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Pro-Recipients-DIP-Managed in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "R3SJRTCUFAVG9KFF",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Message",
+          "usagetype": "APS3-Essentials-Message",
+          "pricingPlans": "Essentials",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Processing"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "10000000",
+            "endRange": "100000000",
+            "description": "$0.00014 per Count from 10,000,000 to 100,000,000 for Essentials-Message in Asia Pacific (Mumbai)",
+            "USD": "0.0001400000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "10000000",
+            "description": "$0.00016 per Count from 0 to 10,000,000 for Essentials-Message in Asia Pacific (Mumbai)",
+            "USD": "0.0001600000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "100000000",
+            "endRange": "Inf",
+            "description": "$0.00011 per Count from 100,000,000 for Essentials-Message in Asia Pacific (Mumbai)",
+            "USD": "0.0001100000"
+          }
+        ]
+      },
+      {
+        "sku": "R984F29DJFENPHKW",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Any",
+          "usagetype": "APS3-DIP-Managed-Acc-Sub-Hours",
+          "recipient": "Any",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Subscription",
+          "contentType": "Dedicated IPs (managed)"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Mo",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "Cost of Dedicated IPs (managed) subscription in APAC South 3",
+            "USD": "15.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "SC8P4H8QP8WNSMGM",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Outbound-Email",
+          "usagetype": "APS3-Pro-Outbound-Email",
+          "pricingPlans": "Pro",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "10000000",
+            "description": "$0.00022 per Count from 0 to 10,000,000 for Pro-Outbound-Email in Asia Pacific (Mumbai)",
+            "USD": "0.0002200000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "10000000",
+            "endRange": "100000000",
+            "description": "$0.00017 per Count from 10,000,000 to 100,000,000 for Pro-Outbound-Email in Asia Pacific (Mumbai)",
+            "USD": "0.0001700000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "100000000",
+            "endRange": "Inf",
+            "description": "$0.00012 per Count from 100,000,000 for Pro-Outbound-Email in Asia Pacific (Mumbai)",
+            "USD": "0.0001200000"
+          }
+        ]
+      },
+      {
+        "sku": "SER4P7R4DFFENTBG",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "usagetype": "APS3-IngressPoint-Subscription",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "IngressPoint",
+          "contentType": "Ingress Endpoint"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Mo",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$50.00 per dedicated ingress endpoint subscription in Asia Pacific (Mumbai)",
+            "USD": "50.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "SGWC9DBP7SYY9XPA",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "usagetype": "APS3-Recipients-Tenant",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.000005 per Count for Recipients-Tenant in Asia Pacific (Mumbai)",
+            "USD": "0.0000050000"
+          }
+        ]
+      },
+      {
+        "sku": "T6YZPAHAEP7Y964A",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Other",
+          "usagetype": "APS3-Recipients-MailboxSim",
+          "recipient": "Amazon SES Mailbox Simulator",
+          "description": "Charged for each email sent to SES Mailbox Simulator",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send",
+          "contentType": "Message Body"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "USD1.0E-4 per Count for Recipients-MailboxSim:Send in Asia Pacific (Mumbai)",
+            "USD": "0.0001000000"
+          }
+        ]
+      },
+      {
+        "sku": "TJ39DP2RN84SPD5Q",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Recipients-Validation-Insight",
+          "usagetype": "APS3-Pro-Recipients-Validation",
+          "pricingPlans": "Pro",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Insight"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "2500",
+            "endRange": "Inf",
+            "description": "$0.01 per Count from 2,500 for Pro-Recipients-Validation in Asia Pacific (Mumbai)",
+            "USD": "0.0100000000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "2500",
+            "description": "$0.00 per Count from 0 to 2,500 for Pro-Recipients-Validation in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "UVMAHFAAB8FTHRWR",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Recipients-VirtDelivMgr",
+          "usagetype": "APS3-Enterprise-Recipients-VirtDelivMgr",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Enterprise-Recipients-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "UZ7FV2X9TEDY6Z82",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Amazon EC2",
+          "usagetype": "APS3-Recipients-EC2",
+          "recipient": "Other",
+          "description": "Charged for each email sent from AmazonEC2 to an external recipient",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send",
+          "contentType": "Message Body"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "USD1.0E-4 per Count for Recipients-EC2:Send in Asia Pacific (Mumbai)",
+            "USD": "0.0001000000"
+          }
+        ]
+      },
+      {
+        "sku": "V3PYYA5BQ2KQWBCX",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Outbound-Email",
+          "usagetype": "APS3-Essentials-Outbound-Email",
+          "pricingPlans": "Essentials",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Send"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "100000000",
+            "endRange": "Inf",
+            "description": "$0.00011 per Count from 100,000,000 for Essentials-Outbound-Email in Asia Pacific (Mumbai)",
+            "USD": "0.0001100000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "10000000",
+            "description": "$0.00016 per Count from 0 to 10,000,000 for Essentials-Outbound-Email in Asia Pacific (Mumbai)",
+            "USD": "0.0001600000"
+          },
+          {
+            "unit": "Count",
+            "beginRange": "10000000",
+            "endRange": "100000000",
+            "description": "$0.00014 per Count from 10,000,000 to 100,000,000 for Essentials-Outbound-Email in Asia Pacific (Mumbai)",
+            "USD": "0.0001400000"
+          }
+        ]
+      },
+      {
+        "sku": "WQ3RT72ZA75NVPQ2",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "VirtDelivMgr",
+          "usagetype": "APS3-Pro-VirtDelivMgr",
+          "pricingPlans": "Pro",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Query"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 per Count for Pro-VirtDelivMgr in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "WW23TBA4RZJ87A5W",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Other",
+          "usagetype": "APS3-Message",
+          "recipient": "Amazon SES",
+          "description": "Charged for each received e-mail communication",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Receive"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "USD1.0E-4 per Count for Message:Receive in Asia Pacific (Mumbai)",
+            "USD": "0.0001000000"
+          }
+        ]
+      },
+      {
+        "sku": "WWEWV6JTFNJ7JY3U",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Plan-Hours",
+          "usagetype": "APS3-Pro-Plan-Hours",
+          "pricingPlans": "Pro",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Subscription"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Mo",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$105.00 per Mo for Pro-Plan-Hours in Asia Pacific (Mumbai)",
+            "USD": "105.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "Y38YHMPFWMCRYG22",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "origin": "Any",
+          "usagetype": "APS3-DIP-Hours",
+          "recipient": "Any",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Lease",
+          "contentType": "Dedicated IPs"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Mo",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "USD24.95 per Mo for DIP-Hours:Lease in Asia Pacific (Mumbai)",
+            "USD": "24.9500000000"
+          }
+        ]
+      },
+      {
+        "sku": "YSCF2HRSESSE4MZE",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "usagetype": "APS3-Recipients-Validation",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "recipientValidation": "Send",
+          "operation": "Send"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00001 per Count for Recipients-Validation in Asia Pacific (Mumbai)",
+            "USD": "0.0000100000"
+          }
+        ]
+      },
+      {
+        "sku": "YVPF5JTJAX9WWW84",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "feature": "Plan-Hours",
+          "usagetype": "APS3-Enterprise-Plan-Hours",
+          "pricingPlans": "Enterprise",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Subscription"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Mo",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$500.00 per Mo for Enterprise-Plan-Hours in Asia Pacific (Mumbai)",
+            "USD": "500.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "ZN3PQ3JCJ9VDKNQA",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSES",
+          "usagetype": "APS3-VirtDelivMgr",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Email Service",
+          "operation": "Query",
+          "apiCategory": "Query"
+        },
+        "publicationDate": "2026-09-11T12:45:07Z",
+        "prices": [
+          {
+            "unit": "Count",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "Queries for Virtual Deliverability Manager in Asia Pacific (Mumbai)",
+            "USD": "0.0000005000"
+          }
+        ]
+      }
+    ],
+    "kms": [
+      {
+        "sku": "7KGYDE5YTPE5DCZV",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "awskms",
+          "groupDescription": "AWS KMS Asymmetric Requests RSA_2048",
+          "usagetype": "ap-south-1-KMS-Requests-Asymmetric-RSA_2048",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "AWS Key Management Service",
+          "operation": "",
+          "group": "aws-kms-Requests-Asymmetric-RSA_2048"
+        },
+        "publicationDate": "2026-09-11T12:46:01Z",
+        "prices": [
+          {
+            "unit": "Requests",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.03 per 10000 KMS RSA 2048 requests in Asia Pacific (Mumbai)",
+            "USD": "0.0000030000"
+          }
+        ]
+      },
+      {
+        "sku": "C7JZRTSGCPF9VEGG",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "awskms",
+          "usagetype": "ap-south-1-KMS-Keys",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "AWS Key Management Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-11T12:46:01Z",
+        "prices": [
+          {
+            "unit": "Keys",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$1 per customer managed KMS key version in Asia Pacific (Mumbai)",
+            "USD": "1.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "GAG46BCKTJNCPRCD",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "awskms",
+          "groupDescription": "All AWS KMS API requests",
+          "usagetype": "ap-south-1-KMS-Requests",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "AWS Key Management Service",
+          "operation": "",
+          "group": "awskms-APIRequest-All"
+        },
+        "publicationDate": "2026-09-11T12:46:01Z",
+        "prices": [
+          {
+            "unit": "Requests",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.03 per 10000 KMS requests in Asia Pacific (Mumbai)",
+            "USD": "0.0000030000"
+          }
+        ]
+      },
+      {
+        "sku": "JHVV2VEST6BVP4VV",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "awskms",
+          "groupDescription": "AWS KMS Asymmetric Requests except RSA_2048API",
+          "usagetype": "ap-south-1-KMS-Requests-Asymmetric",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "AWS Key Management Service",
+          "operation": "",
+          "group": "awskms-Requests-Asymmetric"
+        },
+        "publicationDate": "2026-09-11T12:46:01Z",
+        "prices": [
+          {
+            "unit": "Requests",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.15 per 10000 KMS Asymmetric Requests excluding RSA 2048 in Asia Pacific (Mumbai)",
+            "USD": "0.0000150000"
+          }
+        ]
+      },
+      {
+        "sku": "PT52VJC4BAYZU6CN",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "awskms",
+          "groupDescription": "AWS KMS API Requests GenerateDatakeyPair ECC",
+          "usagetype": "ap-south-1-KMS-Requests-GenerateDatakeyPair-ECC",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "AWS Key Management Service",
+          "operation": "",
+          "group": "awskms-Requests-GenerateDatakeyPair-ECC"
+        },
+        "publicationDate": "2026-09-11T12:46:01Z",
+        "prices": [
+          {
+            "unit": "Requests",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.1 per 10000 ECC Generate Data Key Pair Requests in Asia Pacific (Mumbai)",
+            "USD": "0.0000100000"
+          }
+        ]
+      },
+      {
+        "sku": "URVETMTS8BMP4BHB",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "awskms",
+          "groupDescription": "AWS KMS API Requests GenerateDatakeyPair RSA",
+          "usagetype": "ap-south-1-KMS-Requests-GenerateDatakeyPair-RSA",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "AWS Key Management Service",
+          "operation": "",
+          "group": "awskms-Requests-GenerateDatakeyPair-RSA"
+        },
+        "publicationDate": "2026-09-11T12:46:01Z",
+        "prices": [
+          {
+            "unit": "Requests",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$12 per 10000 RSA Generate Data Key Pair Requests in Asia Pacific (Mumbai)",
+            "USD": "0.0012000000"
+          }
+        ]
+      }
+    ],
+    "dashboard": []
+  }
+}

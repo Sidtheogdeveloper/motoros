@@ -1,0 +1,1480 @@
+{
+  "retrievedAt": "2026-10-25",
+  "source": "AWS Pricing GetProducts Mumbai products",
+  "products": {
+    "secrets": [
+      {
+        "sku": "AET58EC77HZBS8AB",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSSecretsManager",
+          "usagetype": "APS3-AWSSecretsManager-Secrets",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "AWS Secrets Manager",
+          "operation": "",
+          "group": "AWSSecretsManager-Secret"
+        },
+        "publicationDate": "2026-09-11T12:46:10Z",
+        "prices": [
+          {
+            "unit": "Secrets",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.40 per Secret",
+            "USD": "0.4000000000"
+          }
+        ]
+      },
+      {
+        "sku": "MU5JA4VMFRFD3S2W",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSSecretsManager",
+          "usagetype": "APS3-AWSSecretsManagerAPIRequest",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "AWS Secrets Manager",
+          "operation": "",
+          "group": "AWSSecretsManager-APIRequest"
+        },
+        "publicationDate": "2026-09-11T12:46:10Z",
+        "prices": [
+          {
+            "unit": "API Requests",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.05 per 10000 API Requests",
+            "USD": "0.0000050000"
+          }
+        ]
+      }
+    ],
+    "pca": [
+      {
+        "sku": "4K2G5W6T22G8FY7R",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSCertificateManager",
+          "groupDescription": "Operation of a Private Certificate Authority as a paid service",
+          "usagetype": "APS3-PaidPrivateCA",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "AWS Certificate Manager",
+          "type": "Private",
+          "operation": "",
+          "group": "Certificate Authority Paid"
+        },
+        "publicationDate": "2026-10-22T15:42:17Z",
+        "prices": [
+          {
+            "unit": "CertificateAuthorities",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$400 monthly charge for AWS Private CA (General-purpose mode) operation in Asia Pacific (Mumbai)",
+            "USD": "400.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "EBHDUFWNT7KVTKFK",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSCertificateManager",
+          "groupDescription": "Certificate issued by ACM",
+          "usagetype": "APS3-PrivateCertificatesIssued",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "AWS Certificate Manager",
+          "type": "Private",
+          "operation": "",
+          "group": "Certificate Issued"
+        },
+        "publicationDate": "2026-10-22T15:42:17Z",
+        "prices": [
+          {
+            "unit": "Certificates",
+            "beginRange": "1000",
+            "endRange": "10000",
+            "description": "$0.35 per certificate for the next 1,001 to 10,000 certs (General-purpose mode CA) in Asia Pacific (Mumbai)",
+            "USD": "0.3500000000"
+          },
+          {
+            "unit": "Certificates",
+            "beginRange": "0",
+            "endRange": "1000",
+            "description": "$0.75 per certificate for the first 1,000 certs (General-purpose mode CA) in Asia Pacific (Mumbai)",
+            "USD": "0.7500000000"
+          },
+          {
+            "unit": "Certificates",
+            "beginRange": "10000",
+            "endRange": "Inf",
+            "description": "$0.001 per certificate for 10,001 or more certs (General-purpose mode CA) in Asia Pacific (Mumbai)",
+            "USD": "0.0010000000"
+          }
+        ]
+      },
+      {
+        "sku": "KUH4YCT6PNASRFNV",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSCertificateManager",
+          "groupDescription": "Operation of a Short-Lived Certificate Private CA",
+          "usagetype": "APS3-ShortLivedCertificatePrivateCA",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "AWS Certificate Manager",
+          "type": "Private",
+          "operation": "",
+          "group": "Short-lived Certificate Authority"
+        },
+        "publicationDate": "2026-10-22T15:42:17Z",
+        "prices": [
+          {
+            "unit": "CertificateAuthorities",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$50 monthly charge for AWS Private CA (Short-lived certificate mode) operation in Asia Pacific (Mumbai)",
+            "USD": "50.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "Q6R2CAERHNBPU868",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSCertificateManager",
+          "groupDescription": "OCSP Query handled by Private CA",
+          "usagetype": "APS3-OCSPPerQuery",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "AWS Certificate Manager",
+          "type": "Private",
+          "operation": "",
+          "group": "OCSP Query"
+        },
+        "publicationDate": "2026-10-22T15:42:17Z",
+        "prices": [
+          {
+            "unit": "Queries",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.20 per 100,000 OCSP Queries in Asia Pacific (Mumbai)",
+            "USD": "0.0000020000"
+          }
+        ]
+      },
+      {
+        "sku": "S5ET7DNG4Z8TMH6F",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSCertificateManager",
+          "groupDescription": "Operation of a Private Certificate Authority with no charge",
+          "usagetype": "APS3-FreePrivateCA",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "AWS Certificate Manager",
+          "type": "Private",
+          "operation": "",
+          "group": "Certificate Authority Free"
+        },
+        "publicationDate": "2026-10-22T15:42:17Z",
+        "prices": [
+          {
+            "unit": "CertificateAuthorities",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.00 monthly charge for AWS Private CA operation - 30 day trial in Asia Pacific (Mumbai)",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "VSZSBUGDJ83CB7PG",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSCertificateManager",
+          "groupDescription": "Creating and managing OCSP responses",
+          "usagetype": "APS3-OCSPResponseHandling",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "AWS Certificate Manager",
+          "type": "Private",
+          "operation": "",
+          "group": "OCSP Response"
+        },
+        "publicationDate": "2026-10-22T15:42:17Z",
+        "prices": [
+          {
+            "unit": "Certificates",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.06 per certificate queried, per month for OCSP response generation in Asia Pacific (Mumbai)",
+            "USD": "0.0600000000"
+          }
+        ]
+      },
+      {
+        "sku": "WXPHPVAXHFXBCEY9",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSCertificateManager",
+          "groupDescription": "Short-lived certificate issued by Private CA",
+          "usagetype": "APS3-ShortLivedCertificatesIssued",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "AWS Certificate Manager",
+          "type": "Private",
+          "operation": "",
+          "group": "Short-lived Certificate Issued"
+        },
+        "publicationDate": "2026-10-22T15:42:17Z",
+        "prices": [
+          {
+            "unit": "Certificates",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.058 per certificate (Short-lived certificate mode CA) in Asia Pacific (Mumbai)",
+            "USD": "0.0580000000"
+          }
+        ]
+      }
+    ],
+    "sqs": [
+      {
+        "sku": "2M2GBHBUZDGCE7CK",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSQueueService",
+          "groupDescription": "Amazon SQS Requests",
+          "usagetype": "APS3-Requests-Fair-Tier1",
+          "locationType": "AWS Region",
+          "queueType": "Fair",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Queue Service",
+          "operation": "",
+          "group": "SQS-APIRequest-Tier1"
+        },
+        "publicationDate": "2026-09-11T12:46:07Z",
+        "prices": [
+          {
+            "unit": "Requests",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.10 per million Amazon SQS fair queue requests in Asia Pacific (Mumbai)",
+            "USD": "0.0000001000"
+          }
+        ]
+      },
+      {
+        "sku": "WXF9K2K46U6ZR9US",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSQueueService",
+          "groupDescription": "Amazon SQS Requests",
+          "messageDeliveryFrequency": "Exactly Once",
+          "messageDeliveryOrder": "Guaranteed",
+          "usagetype": "APS3-Requests-FIFO-Tier1",
+          "locationType": "AWS Region",
+          "queueType": "FIFO (first-in, first-out)",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Queue Service",
+          "operation": "",
+          "group": "SQS-APIRequest-Tier1"
+        },
+        "publicationDate": "2026-09-11T12:46:07Z",
+        "prices": [
+          {
+            "unit": "Requests",
+            "beginRange": "200000000000",
+            "endRange": "Inf",
+            "description": "$0.42 per million Amazon SQS FIFO requests in Tier3 in Asia Pacific (Mumbai)",
+            "USD": "0.0000004200"
+          },
+          {
+            "unit": "Requests",
+            "beginRange": "0",
+            "endRange": "100000000000",
+            "description": "$0.50 per million Amazon SQS FIFO requests in Tier1 in Asia Pacific (Mumbai)",
+            "USD": "0.0000005000"
+          },
+          {
+            "unit": "Requests",
+            "beginRange": "100000000000",
+            "endRange": "200000000000",
+            "description": "$0.46 per million Amazon SQS FIFO requests in Tier2 in Asia Pacific (Mumbai)",
+            "USD": "0.0000004600"
+          }
+        ]
+      },
+      {
+        "sku": "Y6JJ7JBXQG364CH7",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AWSQueueService",
+          "groupDescription": "Amazon SQS Requests",
+          "messageDeliveryFrequency": "At Least Once",
+          "messageDeliveryOrder": "Not Guaranteed",
+          "usagetype": "APS3-Requests-Tier1",
+          "locationType": "AWS Region",
+          "queueType": "Standard",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Queue Service",
+          "operation": "",
+          "group": "SQS-APIRequest-Tier1"
+        },
+        "publicationDate": "2026-09-11T12:46:07Z",
+        "prices": [
+          {
+            "unit": "Requests",
+            "beginRange": "100000000000",
+            "endRange": "200000000000",
+            "description": "$0.35 per million Amazon SQS standard requests in Tier2 in Asia Pacific (Mumbai)",
+            "USD": "0.0000003500"
+          },
+          {
+            "unit": "Requests",
+            "beginRange": "0",
+            "endRange": "100000000000",
+            "description": "$0.40 per million Amazon SQS standard requests in Tier1 in Asia Pacific (Mumbai)",
+            "USD": "0.0000004000"
+          },
+          {
+            "unit": "Requests",
+            "beginRange": "200000000000",
+            "endRange": "Inf",
+            "description": "$0.32 per million Amazon SQS standard requests in Tier3 in Asia Pacific (Mumbai)",
+            "USD": "0.0000003200"
+          }
+        ]
+      }
+    ],
+    "sns": [
+      {
+        "sku": "2DBTYAJXVRM7KFE3",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "Apple Push Notification Service (APNS) - Mac OS",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-MACOS",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.50 per 1,000,000 Mobile Push Notifications per month thereafter",
+            "USD": "0.0000005000"
+          }
+        ]
+      },
+      {
+        "sku": "3Z27KD7RGBQNQBCF",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "SMS",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-SMS",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "Attempts to dispatch SMS",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "4QEM874Q59TJYU9T",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSNS",
+          "groupDescription": "Amazon SNS Standard Payload Scanned & Matched",
+          "usagetype": "APS3-PL-Filter-Matched",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": "",
+          "group": "SNS-Standard-Payload-MessageFiltering-Filter-Matched"
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.11 per GB for PL-Filter-Matched in Asia Pacific (Mumbai)",
+            "USD": "0.1100000000"
+          }
+        ]
+      },
+      {
+        "sku": "5H98UXEBFFF4YVFN",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSNS",
+          "groupDescription": "Amazon SNS FIFO Topics Archive Processing",
+          "usagetype": "APS3-F-ArchiveProcessing",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": "",
+          "group": "SNS-FIFO-ArchiveProcessing"
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.12 per GB of SNS FIFO Topics Archive Processing in Asia Pacific (Mumbai)",
+            "USD": "0.1200000000"
+          }
+        ]
+      },
+      {
+        "sku": "5W9ZCZ8MPJ97DWEX",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "Apple Push Notification Service (APNS) Sandbox - iOS",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-APNS_SB",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.50 per 1,000,000 Mobile Push Notifications per month thereafter",
+            "USD": "0.0000005000"
+          }
+        ]
+      },
+      {
+        "sku": "6P4F8KRF6U7GZHS5",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSNS",
+          "groupDescription": "Amazon SNS FIFO API Requests",
+          "usagetype": "APS3-F-Request-Tier1",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": "",
+          "group": "SNS-FIFO-Requests"
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Requests",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.33 per 1,000,000 SNS FIFO Publish API Requests in Asia Pacific (Mumbai)",
+            "USD": "0.0000003300"
+          }
+        ]
+      },
+      {
+        "sku": "73RF4ZCUBMSPTT2S",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "HTTP",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-HTTP",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "100000",
+            "endRange": "Inf",
+            "description": "$0.06 per 100,000 Amazon SNS HTTP/HTTPS Notifications thereafter",
+            "USD": "0.0000006000"
+          },
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "100000",
+            "description": "First 100,000 Amazon SNS HTTP/HTTPS Notifications per month are free",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "7H8J7V6GTWQQQ5GQ",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSNS",
+          "groupDescription": "Amazon SNS Message Scanning",
+          "usagetype": "APS3-MDP-Scanning",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": "",
+          "group": "SNS-MDP-Scanning"
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.10 per GB of SNS Message Scanning in Asia Pacific (Mumbai)",
+            "USD": "0.1000000000"
+          }
+        ]
+      },
+      {
+        "sku": "7PXYA8BKMSN5P7X5",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSNS",
+          "groupDescription": "Amazon SNS API Requests",
+          "usagetype": "APS3-Requests-Tier1",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": "",
+          "group": "SNS-Requests-Tier1"
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Requests",
+            "beginRange": "0",
+            "endRange": "1000000",
+            "description": "First 1,000,000 Amazon SNS API Requests per month are free",
+            "USD": "0.0000000000"
+          },
+          {
+            "unit": "Requests",
+            "beginRange": "1000000",
+            "endRange": "Inf",
+            "description": "$0.50 per 1,000,000 Amazon SNS API Requests per month thereafter",
+            "USD": "0.0000005000"
+          }
+        ]
+      },
+      {
+        "sku": "8AN8RJBPQX7N9CWH",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "Apple Passbook",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-AP_PB",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.50 per 1,000,000 Mobile Push Notifications per month thereafter",
+            "USD": "0.0000005000"
+          }
+        ]
+      },
+      {
+        "sku": "8KPK95AJ4ZSN3YSF",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "Apple Passbook Sandbox",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-AP_PB_SB",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.50 per 1,000,000 Mobile Push Notifications per month thereafter",
+            "USD": "0.0000005000"
+          }
+        ]
+      },
+      {
+        "sku": "8RDVAVZT5K2DEGWW",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "Microsoft Push Notification Service for Windows Phone (MPNS)",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-MPNS",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.50 per 1,000,000 Mobile Push Notifications per month thereafter",
+            "USD": "0.0000005000"
+          }
+        ]
+      },
+      {
+        "sku": "C5R3GEJHWM4RJYXB",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSNS",
+          "groupDescription": "Amazon SNS FIFO Payload Scanned & Matched",
+          "usagetype": "APS3-F-PL-Filter-Matched",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": "",
+          "group": "SNS-FIFO-Payload-MessageFiltering-Filter-Matched"
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.11 per GB for F-PL-Filter-Matched in Asia Pacific (Mumbai)",
+            "USD": "0.1100000000"
+          }
+        ]
+      },
+      {
+        "sku": "DGJV9QR3AP7UD2Z9",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "Apple Push Notification Service (APNS) VOIP Sandbox",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-AP_V_SB",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.50 per 1,000,000 Mobile Push Notifications per month thereafter",
+            "USD": "0.0000005000"
+          }
+        ]
+      },
+      {
+        "sku": "DNSQH49ZP8DKAFTY",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSNS",
+          "groupDescription": "Amazon SNS FIFO Subscription Messages",
+          "usagetype": "APS3-F-DA-SQS",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": "",
+          "group": "SNS-FIFO-Subscription-Messages"
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Messages",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.011 per 1,000,000 SNS FIFO Messages for Subscribers in Asia Pacific (Mumbai)",
+            "USD": "0.0000000110"
+          }
+        ]
+      },
+      {
+        "sku": "EE7KCUETHMAUS35X",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "Amazon Kinesis Data Firehose",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-FIREHOSE",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Messages",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.2394 per 1,000,000 SNS to Kinesis Firehose messages in Asia Pacific (Mumbai)",
+            "USD": "0.0000002390"
+          }
+        ]
+      },
+      {
+        "sku": "G2SWVAHCN3WVM6VD",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "Apple Push Notification Service (APNS) Sandbox - Mac OS",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-MACOS_SB",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.50 per 1,000,000 Mobile Push Notifications per month thereafter",
+            "USD": "0.0000005000"
+          }
+        ]
+      },
+      {
+        "sku": "JCVY869Z9YYQMXEU",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "Google Cloud Messaging for Android (GCM)",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-GCM",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.50 per 1,000,000 Mobile Push Notifications per month thereafter",
+            "USD": "0.0000005000"
+          }
+        ]
+      },
+      {
+        "sku": "MB6W73ETFTPJ6Q4K",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "AWS Lambda",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-LAMBDA",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "There is no charge for Lambda Notifications",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "N3FCPWEB4FD6GSV7",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSNS",
+          "groupDescription": "Amazon SNS FIFO Topics Storage",
+          "usagetype": "APS3-F-Storage",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": "",
+          "group": "SNS-FIFO-Storage"
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "GB-month",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.025 per GB / Month of SNS FIFO Topics Storage in Asia Pacific (Mumbai)",
+            "USD": "0.0250000000"
+          }
+        ]
+      },
+      {
+        "sku": "NEHXMBTWK9SK47W9",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSNS",
+          "groupDescription": "Amazon SNS FIFO Subscription Messages Payload",
+          "usagetype": "APS3-F-Egress-SQS",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": "",
+          "group": "SNS-FIFO-Subscription-Messages-Payload"
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.0011 per GB of SNS FIFO Messages for Subscribers in Asia Pacific (Mumbai)",
+            "USD": "0.0011000000"
+          }
+        ]
+      },
+      {
+        "sku": "NQXACC4768FUYKRQ",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSNS",
+          "groupDescription": "Amazon SNS Audit Reporting",
+          "usagetype": "APS3-MDP-AuditReporting",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": "",
+          "group": "SNS-MDP-AuditReporting"
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.25 per GB of SNS Audit Reporting in Asia Pacific (Mumbai)",
+            "USD": "0.2500000000"
+          }
+        ]
+      },
+      {
+        "sku": "QH3QDVS7KARVF9E7",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "Windows Push Notification Services (WNS)",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-WNS",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.50 per 1,000,000 Mobile Push Notifications per month thereafter",
+            "USD": "0.0000005000"
+          }
+        ]
+      },
+      {
+        "sku": "SB5R5R32F3NB6Q4N",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "Baidu Cloud Push (Baidu)",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-BAIDU",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.50 per 1,000,000 Mobile Push Notifications per month thereafter",
+            "USD": "0.0000005000"
+          }
+        ]
+      },
+      {
+        "sku": "SS6734JVHS3F63DE",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "Apple Push Notification Service (APNS) - iOS",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-APNS",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.50 per 1,000,000 Mobile Push Notifications per month thereafter",
+            "USD": "0.0000005000"
+          }
+        ]
+      },
+      {
+        "sku": "UDP73ECTKJWKF38J",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSNS",
+          "groupDescription": "Amazon SNS Standard Payload Scanned & Filtered",
+          "usagetype": "APS3-PL-Filtered-Out",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": "",
+          "group": "SNS-Standard-Payload-MessageFiltering-Filtered-Out"
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.11 per GB for PL-Filtered-Out in Asia Pacific (Mumbai)",
+            "USD": "0.1100000000"
+          }
+        ]
+      },
+      {
+        "sku": "V9H75TGRRTUUFMW4",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "Amazon Device Messaging (ADM)",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-ADM",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.50 per 1,000,000 Mobile Push Notifications per month thereafter",
+            "USD": "0.0000005000"
+          }
+        ]
+      },
+      {
+        "sku": "W2TYEEXSGC8QKWMR",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSNS",
+          "groupDescription": "SNS FIFO Publish Payload",
+          "usagetype": "APS3-F-Ingress-Tier1",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": "",
+          "group": "SNS-Publish-Payload"
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.0187 per GB of SNS FIFO Publish Messages Payload in Asia Pacific (Mumbai)",
+            "USD": "0.0187000000"
+          }
+        ]
+      },
+      {
+        "sku": "WQEGXJJ4434P3PGP",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "Amazon SQS",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-SQS",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "There is no charge for SQS Notifications",
+            "USD": "0.0000000000"
+          }
+        ]
+      },
+      {
+        "sku": "YG5S2MFBDGGRRNCF",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "SMTP",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-SMTP",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "1000",
+            "description": "First 1,000 Amazon SNS Email/Email-JSON Notifications per month are free",
+            "USD": "0.0000000000"
+          },
+          {
+            "unit": "Notifications",
+            "beginRange": "1000",
+            "endRange": "Inf",
+            "description": "$2.00 per 100,000 Amazon SNS Email/Email-JSON Notifications thereafter",
+            "USD": "0.0000200000"
+          }
+        ]
+      },
+      {
+        "sku": "Z7UER9Z8H4MMWUWQ",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonSNS",
+          "groupDescription": "Amazon SNS FIFO Payload Scanned & Filtered",
+          "usagetype": "APS3-F-PL-Filtered-Out",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": "",
+          "group": "SNS-FIFO-Payload-MessageFiltering-Filtered-Out"
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "GB",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.11 per GB for F-PL-Filtered-Out in Asia Pacific (Mumbai)",
+            "USD": "0.1100000000"
+          }
+        ]
+      },
+      {
+        "sku": "ZXBXCDUSXQHNVE25",
+        "attributes": {
+          "regionCode": "ap-south-1",
+          "endpointType": "Apple Push Notification Service (APNS) VOIP",
+          "servicecode": "AmazonSNS",
+          "usagetype": "APS3-DeliveryAttempts-AP_V",
+          "description": "Charged for each 64KB chunk of published data",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Simple Notification Service",
+          "operation": ""
+        },
+        "publicationDate": "2026-09-15T15:19:44Z",
+        "prices": [
+          {
+            "unit": "Notifications",
+            "beginRange": "0",
+            "endRange": "Inf",
+            "description": "$0.50 per 1,000,000 Mobile Push Notifications per month thereafter",
+            "USD": "0.0000005000"
+          }
+        ]
+      }
+    ],
+    "cognito": [
+      {
+        "sku": "2SHDBZKW7FZNTFCS",
+        "attributes": {
+          "duration": "Full",
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonCognito",
+          "usagetype": "APS3-CUPM2MTokenRequestsFull",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Cognito",
+          "operation": "CognitoUserPoolsM2MTokenOp",
+          "m2mCategory": "Tokens"
+        },
+        "publicationDate": "2026-10-20T23:38:14Z",
+        "prices": [
+          {
+            "unit": "CognitoUserPools-M2MTokens",
+            "endRange": "250000",
+            "description": "USD 0.00225 per client credential flow (M2M) token request in tier 1  in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "2SHDBZKW7FZNTFCS.JRTCKXETXF.925HBHWMHV",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0022500000"
+            }
+          },
+          {
+            "unit": "CognitoUserPools-M2MTokens",
+            "endRange": "Inf",
+            "description": "USD 0.001125 per client credential flow (M2M) token request in tier 3  in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "2SHDBZKW7FZNTFCS.JRTCKXETXF.XCXBHCFFQ2",
+            "beginRange": "5000000",
+            "pricePerUnit": {
+              "USD": "0.0011250000"
+            }
+          },
+          {
+            "unit": "CognitoUserPools-M2MTokens",
+            "endRange": "5000000",
+            "description": "USD 0.0015 per client credential flow (M2M) token request in tier 2  in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "2SHDBZKW7FZNTFCS.JRTCKXETXF.QFSY5JDYF6",
+            "beginRange": "250000",
+            "pricePerUnit": {
+              "USD": "0.0015000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "B7VAHA4TJY7HN32U",
+        "attributes": {
+          "duration": "Partial",
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonCognito",
+          "usagetype": "APS3-CognitoUserTokenRPSPartial",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Cognito",
+          "operation": "CognitoRPSOperation",
+          "apiCategory": "UserToken"
+        },
+        "publicationDate": "2026-10-20T23:38:14Z",
+        "prices": [
+          {
+            "unit": "CognitoUserPoolsRPSMo",
+            "endRange": "Inf",
+            "description": "USD 45.00 per RPS-Month incremental RPS for UserToken (partial month) for users in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "B7VAHA4TJY7HN32U.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "45.0000000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "B9DJG4TQG9G4QADA",
+        "attributes": {
+          "duration": "Full",
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonCognito",
+          "usagetype": "APS3-CognitoUserTokenRPSFull",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Cognito",
+          "operation": "CognitoRPSOperation",
+          "apiCategory": "UserToken"
+        },
+        "publicationDate": "2026-10-20T23:38:14Z",
+        "prices": [
+          {
+            "unit": "CognitoUserPoolsRPSMo",
+            "endRange": "Inf",
+            "description": "USD 20.00 per RPS-Month incremental RPS for UserToken (full month) for users in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "B9DJG4TQG9G4QADA.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "20.0000000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "KVJRUMCB5NDEHVVB",
+        "attributes": {
+          "duration": "Free",
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonCognito",
+          "usagetype": "APS3-CUPM2MTokenRequestsFree",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Cognito",
+          "operation": "CognitoUserPoolsM2MTokenOp",
+          "m2mCategory": "Tokens"
+        },
+        "publicationDate": "2026-10-20T23:38:14Z",
+        "prices": [
+          {
+            "unit": "CognitoUserPools-M2MTokens",
+            "endRange": "5000000",
+            "description": "USD 0.00 per client credential flow (M2M) token request in tier 2  in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "KVJRUMCB5NDEHVVB.JRTCKXETXF.QFSY5JDYF6",
+            "beginRange": "250000",
+            "pricePerUnit": {
+              "USD": "0.0000000000"
+            }
+          },
+          {
+            "unit": "CognitoUserPools-M2MTokens",
+            "endRange": "250000",
+            "description": "USD 0.00 per client credential flow (M2M) token request in tier 1  in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "KVJRUMCB5NDEHVVB.JRTCKXETXF.925HBHWMHV",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0000000000"
+            }
+          },
+          {
+            "unit": "CognitoUserPools-M2MTokens",
+            "endRange": "Inf",
+            "description": "USD 0.00 per client credential flow (M2M) token request in tier 3  in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "KVJRUMCB5NDEHVVB.JRTCKXETXF.XCXBHCFFQ2",
+            "beginRange": "5000000",
+            "pricePerUnit": {
+              "USD": "0.0000000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "U2MHUZB3YZ3VSRMZ",
+        "attributes": {
+          "duration": "Free",
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonCognito",
+          "usagetype": "APS3-CUPM2MAppClientsFree",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Cognito",
+          "operation": "CognitoUserPoolsM2MAppClientOp",
+          "m2mCategory": "AppClients"
+        },
+        "publicationDate": "2026-10-20T23:38:14Z",
+        "prices": [
+          {
+            "unit": "CognitoUserPools-M2MAppClientMo",
+            "endRange": "100",
+            "description": "USD 0.00 per client credential flow app client, pro-rated by the second, in tier 1  in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "U2MHUZB3YZ3VSRMZ.JRTCKXETXF.ETY2894C67",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0000000000"
+            }
+          },
+          {
+            "unit": "CognitoUserPools-M2MAppClientMo",
+            "endRange": "500",
+            "description": "USD 0.00 per client credential flow app client, pro-rated by the second, in tier 2  in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "U2MHUZB3YZ3VSRMZ.JRTCKXETXF.WQ4TY4VCYZ",
+            "beginRange": "100",
+            "pricePerUnit": {
+              "USD": "0.0000000000"
+            }
+          },
+          {
+            "unit": "CognitoUserPools-M2MAppClientMo",
+            "endRange": "Inf",
+            "description": "USD 0.00 per client credential flow app client, pro-rated by the second, in tier 3  in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "U2MHUZB3YZ3VSRMZ.JRTCKXETXF.TAV9HKW45C",
+            "beginRange": "500",
+            "pricePerUnit": {
+              "USD": "0.0000000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "VXYNNYVR5T685Y53",
+        "attributes": {
+          "duration": "Full",
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonCognito",
+          "usagetype": "APS3-CUPM2MTokenRequestsMRRFull",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Cognito",
+          "operation": "CognitoUserPoolsM2MTokenMRROp",
+          "m2mCategory": "Tokens - MRR"
+        },
+        "publicationDate": "2026-10-20T23:38:14Z",
+        "prices": [
+          {
+            "unit": "CognitoUserPools-M2MTokens",
+            "endRange": "5000000",
+            "description": "$0.00195 per multi-region-replication client credential flow (M2M) token requests in tier 2 in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "VXYNNYVR5T685Y53.JRTCKXETXF.QFSY5JDYF6",
+            "beginRange": "250000",
+            "pricePerUnit": {
+              "USD": "0.0019500000"
+            }
+          },
+          {
+            "unit": "CognitoUserPools-M2MTokens",
+            "endRange": "Inf",
+            "description": "$0.0014625 per multi-region-replication client credential flow (M2M) token requests in tier 3 in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "VXYNNYVR5T685Y53.JRTCKXETXF.XCXBHCFFQ2",
+            "beginRange": "5000000",
+            "pricePerUnit": {
+              "USD": "0.0014625000"
+            }
+          },
+          {
+            "unit": "CognitoUserPools-M2MTokens",
+            "endRange": "250000",
+            "description": "$0.002925 per multi-region-replication client credential flow (M2M) token requests in tier 1 in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "VXYNNYVR5T685Y53.JRTCKXETXF.925HBHWMHV",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0029250000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "XWDZYZNNTHRX24GD",
+        "attributes": {
+          "duration": "Free",
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonCognito",
+          "usagetype": "APS3-CognitoUserTokenRPSFree",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Cognito",
+          "operation": "CognitoRPSOperation",
+          "apiCategory": "UserToken"
+        },
+        "publicationDate": "2026-10-20T23:38:14Z",
+        "prices": [
+          {
+            "unit": "CognitoUserPoolsRPSMo",
+            "endRange": "Inf",
+            "description": "USD 0.00 per RPS-Month incremental RPS for UserToken (exempt) for users in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "XWDZYZNNTHRX24GD.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0000000000"
+            }
+          }
+        ]
+      },
+      {
+        "sku": "YUAP5PY8GWTX59RV",
+        "attributes": {
+          "duration": "Full",
+          "regionCode": "ap-south-1",
+          "servicecode": "AmazonCognito",
+          "usagetype": "APS3-CUPM2MAppClientsFull",
+          "locationType": "AWS Region",
+          "location": "Asia Pacific (Mumbai)",
+          "servicename": "Amazon Cognito",
+          "operation": "CognitoUserPoolsM2MAppClientOp",
+          "m2mCategory": "AppClients"
+        },
+        "publicationDate": "2026-10-20T23:38:14Z",
+        "prices": [
+          {
+            "unit": "CognitoUserPools-M2MAppClientMo",
+            "endRange": "Inf",
+            "description": "$0.00 per client credential flow app client, pro-rated by the second in tier 3 in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "YUAP5PY8GWTX59RV.JRTCKXETXF.TAV9HKW45C",
+            "beginRange": "500",
+            "pricePerUnit": {
+              "USD": "0.0000000000"
+            }
+          },
+          {
+            "unit": "CognitoUserPools-M2MAppClientMo",
+            "endRange": "100",
+            "description": "$0.00 per client credential flow app client, pro-rated by the second in tier 1 in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "YUAP5PY8GWTX59RV.JRTCKXETXF.ETY2894C67",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0000000000"
+            }
+          },
+          {
+            "unit": "CognitoUserPools-M2MAppClientMo",
+            "endRange": "500",
+            "description": "$0.00 per client credential flow app client, pro-rated by the second in tier 2 in Asia Pacific (Mumbai)",
+            "appliesTo": [],
+            "rateCode": "YUAP5PY8GWTX59RV.JRTCKXETXF.WQ4TY4VCYZ",
+            "beginRange": "100",
+            "pricePerUnit": {
+              "USD": "0.0000000000"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

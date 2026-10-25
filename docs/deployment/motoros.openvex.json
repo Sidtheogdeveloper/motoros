@@ -1,0 +1,23 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://github.com/Sidtheogdeveloper/motoros/security/vex/milestone-7-2026-10-25",
+  "author": "MotorOS engineering review",
+  "timestamp": "2026-10-25T00:00:00Z",
+  "version": 1,
+  "statements": [
+    {
+      "vulnerability": { "name": "CVE-2026-47884" },
+      "products": [{ "@id": "pkg:maven/org.springframework/spring-webmvc@6.2.19" }],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "MotorOS services expose JSON REST controllers and do not configure XsltView, implicit view rendering, or a wildcard view controller. The XSLT rendering path required by the vendor advisory is absent. See https://spring.io/security/cve-2026-47884/. This is an application applicability assessment, not a patched-library claim. Reassess by 2026-11-25 or on any MVC view feature change."
+    },
+    {
+      "vulnerability": { "name": "CVE-2026-47890" },
+      "products": [{ "@id": "pkg:maven/org.springframework/spring-webmvc@6.2.19" }],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "MotorOS does not stream Spring MVC/WebFlux view fragments over SSE and contains no SseEmitter, ResponseBodyEmitter, ModelAndView, or text/event-stream endpoints. The required rendering path is absent. See https://spring.io/security/cve-2026-47890/. Reassess by 2026-11-25 or on any SSE/view feature change."
+    }
+  ]
+}

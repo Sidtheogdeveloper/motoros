@@ -4,6 +4,12 @@ Licensed under the [MIT License](LICENSE).
 
 Milestone 6 adds reliable SNS/SQS event processing, transactional outbox/inbox workers, customer notifications and consent, durable reminders, versioned analytics and controlled fault recovery. The existing workshop, inventory and billing APIs remain in place. See [the Milestone 6 report](docs/milestones/MILESTONE_6_REPORT.md) for verified results and release limits, and [event reliability](docs/architecture/event-reliability.md) for the operational model. No AWS deployment, paid messaging providers or AI Orchestrator is included.
 
+## AWS deployment preparation (Milestone 7)
+
+Milestone 7 prepares Terraform, private ECS/Fargate deployments, Cognito/Valkey cloud identity, controlled migrations, digest-based GitHub releases, observability, security checks and cost/recovery runbooks. It preserves local Compose and all existing business services. **Nothing has been provisioned or deployed to AWS.** Account/domain/SES/policy/budget inputs and explicit authorization remain mandatory.
+
+Start with [the Milestone 7 report](docs/milestones/MILESTONE_7_REPORT.md), [AWS setup](docs/deployment/aws-setup.md), [deployment architecture](docs/deployment/architecture.md), [CI/CD](docs/deployment/ci-cd.md), [security review](docs/deployment/security-review.md) and [cost estimates](docs/deployment/cost-estimation.md). Local checks and image builds require no AWS account. Do not run the local fixtures against cloud identities or substitute loopback defaults for missing cloud configuration.
+
 ## Run locally
 
 Requirements: Node 24, Java 21 JDK, Docker Desktop/Linux containers, and Maven on Linux/macOS. AWS credentials are unnecessary. Use **127.0.0.1**, not localhost, for the browser: OIDC callbacks are exact URLs.
@@ -127,4 +133,4 @@ npm run export:openapi
 
 The first M6 fixture run creates a separately named synthetic local platform administrator, recorded only in ignored `.runtime/m6-fixtures.json`. Normal registration/invitation APIs never grant platform administration. Failure tests stop/restart only named local Docker services and restore them in finally blocks. They are not production fault-injection tools.
 
-The free emulator's ephemeral queues are recovered using each producer's local fourteen-day outbox journal and consumer inboxes; AWS mode does not run emulator bootstrap/recovery. Retain source proofs/inboxes for the documented scheduling/replay horizons. See [event reliability](docs/architecture/event-reliability.md) and the [unapplied SNS/SQS target](infrastructure/terraform/messaging/README.md) before deployment. No AWS apply, real messaging providers, centralized cloud telemetry or Milestone 7 implementation has been performed.
+The free emulator's ephemeral queues are recovered using each producer's local fourteen-day outbox journal and consumer inboxes; AWS mode does not run emulator bootstrap/recovery. Retain source proofs/inboxes for the documented scheduling/replay horizons. See [event reliability](docs/architecture/event-reliability.md) and the [unapplied SNS/SQS target](infrastructure/terraform/messaging/README.md) before deployment. Milestone 7 deployment preparation is documented above. No AWS apply, real provider delivery or centralized cloud telemetry deployment has been performed.

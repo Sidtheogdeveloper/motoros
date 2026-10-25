@@ -1,0 +1,14 @@
+[
+  "kms:Decrypt",
+  "kms:GenerateDataKey",
+  "s3:DeleteObject",
+  "s3:GetObject",
+  "s3:PutObject",
+  "sns:Publish",
+  "sqs:ChangeMessageVisibility",
+  "sqs:DeleteMessage",
+  "sqs:GetQueueAttributes",
+  "sqs:GetQueueUrl",
+  "sqs:ReceiveMessage",
+  "sqs:SendMessage"
+]

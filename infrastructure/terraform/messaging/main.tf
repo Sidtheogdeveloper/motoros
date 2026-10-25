@@ -112,3 +112,5 @@ resource "aws_cloudwatch_metric_alarm" "queue_age" {
 
 output "topic_arns" { value = { for key, topic in aws_sns_topic.events : key => topic.arn } }
 output "queue_arns" { value = { for key, queue in aws_sqs_queue.consumer : key => queue.arn } }
+
+output "dlq_arns" { value = { for key, queue in aws_sqs_queue.dead_letter : key => queue.arn } }

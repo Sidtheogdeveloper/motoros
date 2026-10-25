@@ -1,0 +1,75 @@
+name: Separately authorized state bootstrap
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        type: choice
+        options: [plan, apply]
+        required: true
+      plan_run_id:
+        type: string
+        description: Required for apply; private plan object from the reviewed run
+      approved_sha256:
+        type: string
+        description: Required for apply; exact reviewed private plan hash
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: motoros-bootstrap
+  cancel-in-progress: false
+jobs:
+  bootstrap:
+    if: github.ref == 'refs/heads/main'
+    environment: bootstrap
+    runs-on: [self-hosted, linux, x64, motoros-bootstrap]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.13.5'
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ap-south-1
+      - name: Validate bootstrap identity and private review storage
+        env:
+          BOOTSTRAP_JSON: ${{ vars.MOTOROS_BOOTSTRAP_JSON }}
+          REVIEW_BUCKET: ${{ vars.BOOTSTRAP_REVIEW_BUCKET }}
+          REVIEW_KEY: ${{ vars.BOOTSTRAP_REVIEW_KMS_KEY_ARN }}
+        run: |
+          mkdir -p .runtime
+          node -e 'const fs=require("fs"),cp=require("child_process"),c=JSON.parse(process.env.BOOTSTRAP_JSON);const id=JSON.parse(cp.execFileSync("aws",["sts","get-caller-identity","--output","json"]));if(id.Account!==c.account_id||!id.Arn.includes(":assumed-role/")||c.region!=="ap-south-1"||!process.env.REVIEW_BUCKET||!process.env.REVIEW_KEY||c.bucket_name===process.env.REVIEW_BUCKET)throw Error("Reviewed non-root bootstrap role and separate private review storage required");fs.writeFileSync(".runtime/bootstrap.tfvars.json",JSON.stringify(c),{mode:0o600})'
+      - name: Initialize private bootstrap state
+        env:
+          REVIEW_BUCKET: ${{ vars.BOOTSTRAP_REVIEW_BUCKET }}
+          REVIEW_KEY: ${{ vars.BOOTSTRAP_REVIEW_KMS_KEY_ARN }}
+        run: |
+          printf 'terraform { backend "s3" {} }\n' > infrastructure/terraform/bootstrap/backend.runtime.tf
+          terraform -chdir=infrastructure/terraform/bootstrap init -backend-config="bucket=$REVIEW_BUCKET" -backend-config=key=motoros/bootstrap/terraform.tfstate -backend-config=region=ap-south-1 -backend-config=encrypt=true -backend-config="kms_key_id=$REVIEW_KEY" -backend-config=use_lockfile=true
+      - name: Plan or apply the exact approved bootstrap
+        env:
+          OPERATION: ${{ inputs.operation }}
+          PLAN_RUN: ${{ inputs.plan_run_id }}
+          APPROVED_SHA: ${{ inputs.approved_sha256 }}
+          REVIEW_BUCKET: ${{ vars.BOOTSTRAP_REVIEW_BUCKET }}
+          REVIEW_KEY: ${{ vars.BOOTSTRAP_REVIEW_KMS_KEY_ARN }}
+        run: |
+          if [ "$OPERATION" = plan ]; then
+            terraform -chdir=infrastructure/terraform/bootstrap plan -var-file="$GITHUB_WORKSPACE/.runtime/bootstrap.tfvars.json" -out="$GITHUB_WORKSPACE/.runtime/bootstrap.tfplan" > .runtime/bootstrap-plan.log
+            sha256sum .runtime/bootstrap.tfplan
+            aws s3 cp .runtime/bootstrap.tfplan "s3://$REVIEW_BUCKET/motoros/bootstrap/plans/$GITHUB_RUN_ID.tfplan" --sse aws:kms --sse-kms-key-id "$REVIEW_KEY"
+          else
+            case "$PLAN_RUN" in *[!0-9]*|'') exit 1;; esac
+            test ${#APPROVED_SHA} -eq 64
+            aws s3 cp "s3://$REVIEW_BUCKET/motoros/bootstrap/plans/$PLAN_RUN.tfplan" .runtime/bootstrap.tfplan
+            printf '%s  .runtime/bootstrap.tfplan\n' "$APPROVED_SHA" | sha256sum --check
+            terraform -chdir=infrastructure/terraform/bootstrap apply "$GITHUB_WORKSPACE/.runtime/bootstrap.tfplan"
+          fi
+      - name: Remove runner-local private plans and generated backend
+        if: always()
+        run: |
+          rm -f .runtime/bootstrap.tfplan .runtime/bootstrap.tfvars.json .runtime/bootstrap-plan.log infrastructure/terraform/bootstrap/backend.runtime.tf

@@ -178,8 +178,27 @@ test('commercial workflow: booking, stock, customer approval, repair, QC, invoic
   await dialog.locator('select[name=customerId]').selectOption(m5.customer.id);
   await dialog.getByRole('textbox', { name: 'Search vehicles' }).fill(registration);
   await dialog.locator('select[name=vehicleId]').selectOption(vehicle.id);
-  const tomorrow = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
-  await dialog.getByLabel('Start (Asia/Kolkata)').fill(tomorrow + 'T15:00');
+  // Repeated acceptance runs share development data. Select real available capacity
+  // instead of assuming tomorrow's fixed slot has no other appointments.
+  let bookingStart = '';
+  for (let day = 1; day <= 14 && !bookingStart; day++) {
+    const date = new Date(Date.now() + day * 86400000).toISOString().slice(0, 10);
+    for (const hour of ['10', '12', '14', '16']) {
+      const local = date + 'T' + hour + ':00';
+      const startsAt = encodeURIComponent(new Date(local + ':00+05:30').toISOString());
+      const availability = await call(
+        context,
+        `booking/appointments/availability?branchId=${f.omr.id}&startsAt=${startsAt}&durationMinutes=45`,
+        { tenant: f.tenant },
+      );
+      if (availability.ok() && (await availability.json()).available) {
+        bookingStart = local;
+        break;
+      }
+    }
+  }
+  expect(bookingStart, 'A valid available workshop slot is required').not.toBe('');
+  await dialog.getByLabel('Start (Asia/Kolkata)').fill(bookingStart);
   await dialog.getByLabel('Duration in minutes').fill('45');
   const complaint = 'Browser commercial acceptance ' + Date.now();
   await dialog.getByLabel('Customer complaint').fill(complaint);
@@ -374,6 +393,18 @@ test('commercial workflow: booking, stock, customer approval, repair, QC, invoic
     .getByRole('button', { name: 'Verify customer approval for repair', exact: true })
     .click();
   await expect(page.getByText('approved', { exact: true }).first()).toBeVisible();
+  await expect
+    .poll(
+      async () => {
+        const response = await call(context, 'workorder/work-orders/' + jobId, {
+          tenant: f.tenant,
+        });
+        return (await response.json()).status;
+      },
+      { timeout: 30000 },
+    )
+    .toBe('APPROVED');
+  await page.reload();
   await move('IN_PROGRESS');
   await mp.reload();
   await mp.getByRole('button', { name: 'tasks', exact: true }).click();
@@ -451,7 +482,7 @@ test('commercial workflow: booking, stock, customer approval, repair, QC, invoic
   await page.getByRole('dialog').getByLabel('Amount (INR)', { exact: true }).fill('708.00');
   await page
     .getByRole('dialog')
-    .getByLabel('Unique receipt / transaction reference (8–100 letters, digits or hyphens)')
+    .getByLabel(/Unique receipt \/ transaction reference/)
     .fill('BROWSER-' + Date.now());
   await page
     .getByRole('dialog')
@@ -483,7 +514,7 @@ test('commercial workflow: booking, stock, customer approval, repair, QC, invoic
   await page.goto('/operations');
   await page.getByRole('combobox', { name: 'Acting branch', exact: true }).selectOption(f.omr.id);
   mkdirSync('.runtime/previews', { recursive: true });
-  await expect(page.getByText('Loading authorized records…').first()).not.toBeVisible();
+  await expect(page.getByText('Loading authorized recordsâ€¦').first()).not.toBeVisible();
   await page.screenshot({ path: '.runtime/previews/m5-board-desktop.png', fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(jobUrl);

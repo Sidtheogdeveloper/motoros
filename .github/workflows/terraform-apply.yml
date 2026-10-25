@@ -1,0 +1,59 @@
+name: Apply explicitly approved infrastructure plan
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        options: [staging, production]
+        required: true
+      plan_run_id:
+        type: string
+        required: true
+      plan_sha256:
+        type: string
+        required: true
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: motoros-cloud-${{ inputs.environment }}
+  cancel-in-progress: false
+jobs:
+  authorized:
+    if: github.ref == 'refs/heads/main'
+    environment: ${{ inputs.environment }}-infrastructure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.13.5'
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ap-south-1
+      - name: Materialize nonsecret reviewed configuration
+        env:
+          CONFIG_JSON: ${{ vars.MOTOROS_CONFIG_JSON }}
+          DEPLOYMENT_JSON: ${{ vars.MOTOROS_DEPLOYMENT_JSON }}
+        run: |
+          mkdir -p .runtime
+          node -e 'const fs=require("fs");for(const [n,v] of [["cloud-config",process.env.CONFIG_JSON],["deployment",process.env.DEPLOYMENT_JSON]])fs.writeFileSync(".runtime/"+n+".json",JSON.stringify(JSON.parse(v)),{mode:0o600})'
+      - run: node infrastructure/scripts/cloud.mjs preflight .runtime/cloud-config.json
+      - name: Initialize state and obtain reviewed plan
+        env:
+          STATE_BUCKET: ${{ vars.STATE_BUCKET }}
+          DEPLOY_ENV: ${{ inputs.environment }}
+          PLAN_RUN: ${{ inputs.plan_run_id }}
+        run: |
+          case "$PLAN_RUN" in *[!0-9]*|'') exit 1;; esac
+          terraform -chdir=infrastructure/terraform/environments/$DEPLOY_ENV init -backend-config="bucket=$STATE_BUCKET" -backend-config="key=motoros/$DEPLOY_ENV/terraform.tfstate" -backend-config=region=ap-south-1 -backend-config=encrypt=true
+          aws s3 cp "s3://$STATE_BUCKET/motoros/$DEPLOY_ENV/plans/$PLAN_RUN.tfplan" .runtime/approved.tfplan
+      - name: Apply exact reviewed plan
+        env:
+          MOTOROS_DEPLOY_AUTHORIZATION: ${{ inputs.environment }}
+          MOTOROS_APPROVED_PLAN_SHA256: ${{ inputs.plan_sha256 }}
+        run: node infrastructure/scripts/cloud.mjs apply .runtime/cloud-config.json .runtime/approved.tfplan

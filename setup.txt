@@ -1,0 +1,258 @@
+MOTOROS - FIRST-TIME DOWNLOAD AND SETUP
+=====================================
+Repository: https://github.com/Sidtheogdeveloper/motoros
+Last documentation review: 25 October 2026 (Asia/Calcutta)
+
+Use this file for a new computer or a new checkout. Once setup is complete,
+use run_instructions.txt. Run all commands from the repository root: the folder
+containing package.json, pom.xml and docker-compose.yml.
+
+This is a local development installation. It does not deploy to AWS. The eight
+Java APIs and the Next.js frontend run on your computer; Docker runs their local
+infrastructure. AWS credentials, a domain and paid email providers are unnecessary.
+The application has working workshop features; production approval and AI features
+are separate work. Read README.md for current limits and screenshots.
+
+1. INSTALL THE REQUIRED SOFTWARE
+--------------------------------
+- Git, recommended for cloning and updates: https://git-scm.com/downloads/
+  Download ZIP is also supported for obtaining the source, without Git history.
+- Node.js 24 with npm: https://nodejs.org/en/download
+  Select version 24, matching the repository's CI. Do not assume the newest major
+  version is the one this project tests.
+- Java 21 JDK (not only a JRE): https://adoptium.net/temurin/releases/?version=21
+- Docker Desktop on Windows/macOS: https://www.docker.com/products/docker-desktop/
+  On Linux, Docker Engine with the Compose v2 plugin is an alternative.
+- Maven 3.9.11 is the version downloaded by the Windows helper. Windows startup
+  downloads and checksum-checks this local Maven automatically. On macOS/Linux,
+  install Maven 3.9.x yourself and make mvn available on PATH:
+  https://maven.apache.org/install.html
+- An internet connection for the first dependency, container and browser downloads.
+  Allow enough available memory/disk for eight JVMs, Node, Docker and build caches;
+  this documentation does not establish a tested minimum hardware configuration.
+
+Start Docker Desktop and wait until its engine is running. On Windows, use Linux
+containers, with the WSL 2 backend configured according to Docker's instructions.
+Open a NEW terminal after installing Java, Node or Git so PATH changes are visible.
+
+Check your installation:
+  git --version                 (only if you installed Git)
+  node --version                (expect v24.x)
+  java -version                 (expect Java 21)
+  javac -version                (expect javac 21)
+  docker version                (must include an available server)
+  docker compose version        (Compose v2)
+
+Windows PowerShell:
+  npm.cmd --version
+macOS/Linux:
+  npm --version
+  mvn --version                 (must report Java 21)
+
+2. GET THE SOURCE CODE
+---------------------
+Option A - Git clone (recommended, same commands on all platforms):
+  git clone https://github.com/Sidtheogdeveloper/motoros.git
+  cd motoros
+
+Option B - Download ZIP:
+  1. Open https://github.com/Sidtheogdeveloper/motoros
+  2. Select Code -> Download ZIP.
+  3. Extract the entire archive, not individual files.
+  4. Open a terminal inside the extracted motoros-main folder.
+  5. Verify package.json, pom.xml and docker-compose.yml are directly in that folder.
+
+A ZIP has no .git directory. Git pull and the full Git-history secret checker
+require a clone; they cannot verify history from the ZIP. A ZIP does not include
+another person's local credentials, accounts, databases or installed dependencies.
+
+3. SELECT JAVA 21
+-----------------
+If JAVA_HOME and PATH already select Java 21, keep them. Otherwise configure them
+in the terminal used to start MotorOS. Replace example installation paths with the
+actual JDK folder on your computer. JAVA_HOME points to the JDK root, not bin.
+
+Windows PowerShell example:
+  $env:JAVA_HOME = 'C:\Program Files\Java\jdk-21.0.12'
+  $env:Path = "$env:JAVA_HOME\bin;$env:Path"
+  java -version
+  javac -version
+
+macOS, if Java 21 is installed in the system JDK location:
+  export JAVA_HOME=$(/usr/libexec/java_home -v 21)
+  export PATH="$JAVA_HOME/bin:$PATH"
+  java -version
+
+Linux example - replace the path with your installed JDK 21 location:
+  export JAVA_HOME=/path/to/your/jdk-21
+  export PATH="$JAVA_HOME/bin:$PATH"
+  java -version
+  mvn --version
+
+These assignments affect this terminal only. Repeat them in new terminals if your
+system environment does not already select Java 21.
+
+4. INSTALL JAVASCRIPT DEPENDENCIES
+---------------------------------
+Windows PowerShell:
+  npm.cmd ci
+macOS/Linux:
+  npm ci
+
+Use ci to install the committed lockfile. Do not copy node_modules from another
+computer. Running npm.cmd on Windows avoids npm.ps1 execution-policy errors.
+
+Browser automation is OPTIONAL for your own account and ordinary app usage, but
+REQUIRED for fixture-generation scripts and Playwright/API acceptance suites.
+Windows:
+  npx.cmd playwright install chromium
+macOS:
+  npx playwright install chromium
+Linux:
+  npx playwright install --with-deps chromium
+
+The Linux command may require administrator approval for browser system libraries.
+Use your organization's approved installation method if those packages are blocked.
+
+5. START THE APPLICATION FOR THE FIRST TIME
+------------------------------------------
+Stop any other MotorOS runner first. Start Docker before running this command.
+
+Windows:
+  npm.cmd run dev
+macOS/Linux:
+  npm run dev
+
+Keep this terminal open. First startup takes longer while dependencies and images
+are downloaded. The runner:
+  - Generates random private credentials in ignored .env, retaining existing values.
+  - Starts PostgreSQL, Keycloak, Redis, Mailpit, SeaweedFS storage and LocalStack.
+  - Initializes service-owned database roles/schemas and configures local OIDC.
+  - Runs Maven verification with Docker-backed integration tests.
+  - Configures the private local document bucket.
+  - Starts Tenant, Customer, Work Order, Booking, Inventory, Billing, Notification
+    and Analytics services; local Flyway startup applies their owned migrations.
+  - Starts the Next.js frontend/BFF on port 3000.
+
+Wait for a line beginning:
+  MotorOS ready at http://127.0.0.1:3000
+
+Open EXACTLY:
+  http://127.0.0.1:3000/
+
+Use 127.0.0.1 rather than localhost: authentication callback origins are exact.
+Do not open /api/auth/callback manually. The frontend alone is not the full app.
+The normal runner uses host Java and Node, not nine application containers.
+
+6. CREATE YOUR OWN ACCOUNT AND WORKSHOP
+--------------------------------------
+A fresh installation does not contain default user credentials.
+
+  1. On the landing page choose Get started / create an account.
+  2. Continue to the secure identity-provider registration page.
+  3. Register your email and requested profile details.
+  4. In a fresh default setup, open http://127.0.0.1:8025/ (Mailpit).
+  5. Open the verification message addressed to your email and follow its link.
+  6. Complete verification and password enrollment in the browser.
+  7. Return to http://127.0.0.1:3000/login and sign in when needed.
+  8. Choose Create workshop and enter the brand and primary branch details.
+  9. As owner, add branches and invite staff through the appropriate app screens.
+
+Mailpit CAPTURES mail locally; it does not forward messages to Gmail or Outlook.
+A message in Mailpit is expected in the default setup, even for a real email address.
+Keep the app and identity service running while following local verification links.
+Mailpit's mailbox is temporary and can disappear after its container restarts.
+Account verification and database records are not stored in that mailbox.
+
+Optional real Gmail identity email:
+  With the app running, open a second interactive terminal and run:
+    node scripts/setup-gmail.mjs
+  Enter your chosen Gmail sending address and a Google App Password in the hidden
+  prompt. Never use your normal Google password or paste secrets into chat, source
+  code or a command line. Google 2-Step Verification and App Password eligibility
+  are required. Follow docs/deployment/local-gmail.md for details and rollback.
+  This changes identity emails only; workshop notifications remain on local Mailpit.
+  Credentials must be configured locally; no developer's Gmail secret ships in Git.
+
+7. OPTIONAL SYNTHETIC DEMO DATA - SEPARATE FROM YOUR OWN ACCOUNT
+--------------------------------------------------------------
+Skip this section if you want an empty workspace for manual exploration.
+Use a dedicated LOCAL test installation with default Mailpit identity email.
+Do not run demo/test registration against an identity realm configured for real
+Gmail delivery. Preserve a personal installation separately rather than resetting
+its accounts or disabling its mail configuration just to run tests.
+
+The app must be running, and Chromium must be installed as described above.
+Open a second terminal in the same repository root. Follow the commands IN ORDER.
+
+Windows PowerShell:
+  $env:MOTOROS_DEV_FIXTURES = '1'
+  $env:MOTOROS_EXPECT_ASYNC_APPROVAL = '1'
+  npm.cmd run fixtures
+  npm.cmd run fixtures:m3
+  npm.cmd run fixtures:m4
+  npm.cmd run fixtures:m5
+
+macOS/Linux:
+  export MOTOROS_DEV_FIXTURES=1
+  export MOTOROS_EXPECT_ASYNC_APPROVAL=1
+  npm run fixtures
+  npm run fixtures:m3
+  npm run fixtures:m4
+  npm run fixtures:m5
+
+The M4/M5 fixture commands also execute their integration scenarios and can add
+new synthetic records on reruns. They are not necessary on every normal startup.
+For communication/reporting acceptance data after these fixtures, optionally run:
+  npm.cmd run test:api:m6        (Windows)
+  npm run test:api:m6            (macOS/Linux)
+This executes acceptance scenarios, including synthetic communication requests and
+creation of a separate development platform administrator when missing.
+
+Generated logins are in ignored local .runtime/m2-fixtures.json and
+.runtime/m3-fixtures.json; later fixture manifests hold additional staff/test data.
+Open these files privately in an editor, then use the generated email/password in
+the login page. Do not publish the files or use fixture passwords outside testing.
+There are no shared default passwords to copy from this documentation.
+M3 adds Apex Motorworks with Anna Nagar, Velachery and OMR, plus the isolated
+Precision Auto Care tenant. An authorized same-brand employee can view permitted
+vehicle history; a Precision employee cannot access Apex's records.
+
+8. WHAT TO KEEP PRIVATE AND WHAT TO PRESERVE
+------------------------------------------
+- .env: generated service/admin credentials and optional identity SMTP settings.
+- .runtime/: local realm imports, fixture credentials, logs and build/tool caches.
+- Docker volumes: local PostgreSQL/identity records and private uploaded documents.
+- Never publish .env, .runtime, browser storage, passwords or Terraform state/plans.
+- Keep the existing .env with the existing database; regenerating credentials while
+  preserving the old database can break authentication. Treat private backups as a
+  consistent set, including database/object data and relevant credentials.
+- docker compose down stops infrastructure and keeps named volumes. Never use its
+  volume-removal option on data you need. Docker volume cleanup is not a reset step.
+- Mailpit messages and local emulator queues are temporary; source outboxes/inboxes
+  provide documented local messaging recovery, not a general backup guarantee.
+
+9. IF SETUP DOES NOT FINISH
+--------------------------
+- Docker unreachable: start the engine; verify docker version shows its server.
+- Java not found/wrong release: check JAVA_HOME, java -version and javac -version.
+- PowerShell says npm.ps1 is blocked: use npm.cmd and npx.cmd. No machine-wide
+  execution-policy change is required. The existing dev runner invokes its Maven
+  helper in its own process; if organizational policy blocks it, use approved Maven
+  and the independent workflow in run_instructions.txt rather than weakening policy.
+- Missing Maven on macOS/Linux: install Maven and check mvn --version.
+- Port occupied: stop the previous MotorOS terminal/runner; do not start two copies.
+- Download failure: fix network/proxy access and rerun; do not disable TLS checks.
+- Site cannot be reached: verify the frontend terminal is running and wait for ready.
+- No verification mail: check Mailpit first, or Gmail Inbox/Spam only if explicitly
+  configured. Use resend verification if needed; do not mark accounts verified by hand.
+- Redirect to /api/auth/callback: after setup return to /login. Account-action emails
+  should return to /login; callbacks are only for an active sign-in transaction.
+- Startup failure details: inspect .runtime/logs locally and docker compose ps.
+  Redact secrets and private data before sharing logs.
+
+Validation note: commands were checked against the current repository and the
+existing Windows development environment on 25 October 2026. Current application
+pages and sign-in were exercised for this documentation. This is not evidence of
+fresh-machine Windows installation or executed macOS/Linux installation. README.md
+and the milestone reports distinguish prior engineering checks from this update.

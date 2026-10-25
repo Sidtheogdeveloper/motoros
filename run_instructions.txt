@@ -1,0 +1,168 @@
+MOTOROS - RUNNING AFTER SETUP
+===========================
+Repository: https://github.com/Sidtheogdeveloper/motoros
+Last documentation review: 25 October 2026 (Asia/Calcutta)
+
+Already installed? Start here. For a new checkout/computer, read setup.txt first.
+All commands below run in the repository root containing package.json and pom.xml.
+Your existing .env and Docker volumes hold the configuration/data to preserve.
+
+1. EVERYDAY STARTUP
+------------------
+  1. Start Docker Desktop (or Docker Engine on Linux) and wait for its engine.
+  2. Open a terminal in the SAME MotorOS checkout you previously configured.
+  3. Ensure Java 21 is selected. If JAVA_HOME was set only in a prior terminal,
+     repeat that assignment; setup.txt shows platform-specific examples.
+  4. Check that another MotorOS app runner is not already using ports 3000/8081-8088.
+  5. Run ONE of the following and keep the terminal open:
+
+Windows PowerShell:
+  npm.cmd run dev
+macOS/Linux:
+  npm run dev
+
+This command checks infrastructure, runs Maven verification and starts all eight
+Java services plus the frontend. It can take a while and is not a skip-tests launch.
+Existing credentials and persistent records are retained. Do not rerun npm ci,
+create a new account or regenerate fixtures on every ordinary startup.
+
+Wait for:
+  MotorOS ready at http://127.0.0.1:3000
+Then open:
+  http://127.0.0.1:3000/
+
+The anonymous root shows the public landing page. Sign in to open your workspace,
+select your workshop/branch and use the features permitted to your role.
+Use 127.0.0.1 consistently; localhost is a different authentication origin.
+
+2. LOGGING IN AND EMAIL
+----------------------
+- Existing verified user: http://127.0.0.1:3000/login and your chosen password.
+- New user: follow setup.txt account registration, verification and workshop setup.
+- Forgotten password: use Forgot your password on the login page.
+- Default local identity and workshop emails: http://127.0.0.1:8025/ (Mailpit).
+- If you previously enabled Gmail, identity mail goes through your configured Gmail
+  sender; workshop notifications still use Mailpit. See docs/deployment/local-gmail.md.
+- Existing synthetic demo logins are in your ignored .runtime fixture files; do not
+  copy them into documentation or send screenshots containing passwords.
+- Do not visit /api/auth/callback manually. If verification/password enrollment has
+  completed, return to /login to begin a fresh secure sign-in.
+
+3. STOPPING AND RESTARTING
+-------------------------
+For normal shutdown:
+  1. Press Ctrl+C in the terminal running npm run dev; wait for its app children to stop.
+  2. To stop Docker infrastructure too, run from the root:
+       docker compose down
+
+The normal shutdown command keeps named data volumes. Do not add a volume-delete
+option and do not delete .env. Local Mailpit messages and emulator queues may not
+survive container recreation; account and workshop records reside in PostgreSQL.
+
+After a reboot: start Docker, reopen this checkout, select Java 21 and repeat
+section 1. You do not need to register again if the original volumes/config remain.
+Stop the existing runner before switching to the independent workflow below.
+
+4. OPTIONAL FASTER, INDEPENDENT PROCESS WORKFLOW
+-----------------------------------------------
+Use this only AFTER the initial setup/build succeeded. Java JARs and node_modules
+must exist. This reuses built Java artifacts and does not rerun Maven each startup.
+The app processes are host Java/Node; Compose alone does not start the full app.
+
+Terminal A - prepare infrastructure and private storage (these commands finish):
+  Windows:
+    npm.cmd run infra
+    npm.cmd run storage:configure
+  macOS/Linux:
+    npm run infra
+    npm run storage:configure
+
+Terminal B - start all eight Java APIs and KEEP OPEN:
+  node scripts/run-services.mjs
+Wait for:
+  MotorOS OIDC backend services ready.
+
+Terminal C - start the frontend in development mode and KEEP OPEN:
+  node scripts/frontend.mjs
+Wait for:
+  MotorOS ready at http://127.0.0.1:3000
+
+To use a production-built frontend LOCALLY instead:
+  First stop an existing frontend (Ctrl+C in Terminal C).
+  Windows:       npm.cmd run build
+  macOS/Linux:   npm run build
+  Then:          node scripts/frontend.mjs --production
+
+This is a local production-build preview, not an AWS deployment. Build and dev/start
+share Next.js output; stop the frontend before switching modes or rebuilding it.
+
+If Java source, dependencies or migrations change, stop Terminal B BEFORE rebuilding
+JARs, especially on Windows. Rebuild with Maven 3.9.x/JDK 21:
+  mvn verify
+Windows without installed Maven: use the normal npm.cmd run dev workflow, which
+uses the repository's existing workspace-local Maven helper. Do not start it while
+Terminal B/C still hold the same application ports.
+
+For independent shutdown, Ctrl+C in B and C; then optionally docker compose down.
+Do not run the normal dev runner and this independent workflow at the same time.
+
+5. QUICK STATUS CHECKS AND LOCAL ADDRESSES
+----------------------------------------
+Container status:
+  docker compose ps
+Frontend health (open in a browser):
+  http://127.0.0.1:3000/health
+Backend health (repeat ports 8081 through 8088):
+  http://127.0.0.1:8081/actuator/health
+Local identity discovery:
+  http://127.0.0.1:8180/realms/motoros/.well-known/openid-configuration
+
+Service ports:
+  Frontend/BFF 3000; Tenant 8081; Customer 8082; Work Order 8083; Booking 8084;
+  Inventory 8085; Billing 8086; Notification 8087; Analytics 8088.
+Infrastructure:
+  PostgreSQL 55432; Keycloak 8180; Redis 16379; Mailpit UI 8025/SMTP 1025;
+  SeaweedFS private S3 8333; LocalStack SNS/SQS 4566.
+
+Ordinary users work through port 3000. Other addresses are local development tools;
+protected API endpoints still require authorization. Never expose these loopback
+services publicly or use local HTTP/auth defaults for a real deployment.
+
+6. TROUBLESHOOTING
+------------------
+- Site cannot be reached: the frontend may have stopped. Check its terminal and
+  ready message. Start the full app, or Terminal C if infrastructure/APIs are ready.
+- Frontend loads but data/sign-in fails: confirm the Java services, identity and
+  Redis are healthy, not just port 3000. Inspect .runtime/logs/<service>.log locally.
+- Port already in use: stop the previous runner or identify the owning process;
+  do not terminate unrelated software or launch a second MotorOS instance.
+- PowerShell script blocked: use npm.cmd/npx.cmd. The Gmail setup is
+  node scripts/setup-gmail.mjs. Do not change machine-wide execution policy.
+- Missing/stale verification mail: check the configured transport and resend if
+  needed. Mailpit is not your external inbox and its messages are temporary.
+- Account verified but callback failed: visit /login and sign in again; completed
+  verification/password setup need not be repeated.
+- Logo/tab icon looks old: hard-refresh with Ctrl+Shift+R (Cmd+Shift+R on macOS).
+- No workspace or permission denied: choose a permitted workshop/branch; access
+  depends on active memberships. A new personal account needs workshop creation
+  or an invitation, not a default administrative password.
+- Empty data: your personal installation starts empty. Optional fixture creation
+  and full test ordering are in setup.txt and README.md; do not run them each day.
+
+7. UPDATING A GIT CLONE
+----------------------
+  1. Stop app runners; keep your private local configuration and volumes.
+  2. Run git status. Preserve/review local edits before bringing in new commits.
+  3. Run git pull --ff-only. If it refuses, resolve the local branch state deliberately.
+  4. Run npm.cmd ci (Windows) or npm ci (macOS/Linux) when updating dependencies.
+  5. Run npm.cmd run dev or npm run dev to verify/build and apply local startup migrations.
+
+Read release/milestone notes before schema upgrades. Keep consistent private backups
+of needed data/configuration. An image/code rollback is not an automatic database
+rollback. Download ZIP users should prefer switching to a clone for managed updates;
+opening a newly extracted folder does not automatically migrate the previous .env,
+Docker project or uploaded objects. Do not discard the old installation blindly.
+
+These instructions were checked against the repository and current Windows local
+services. A fresh-machine install and macOS/Linux execution were not repeated for
+this documentation-only update. No AWS provisioning or cloud acceptance is implied.

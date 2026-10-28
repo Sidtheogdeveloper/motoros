@@ -1,4 +1,4 @@
-name: Verify MotorOS Milestone 6
+name: MotorOS application verification
 on: [push, pull_request]
 permissions:
   contents: read

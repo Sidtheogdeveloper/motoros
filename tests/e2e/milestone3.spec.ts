@@ -142,7 +142,10 @@ test('owner manages customer, vehicle, duplicate review, ownership, odometer and
     buffer: Buffer.from('%PDF-1.7\nBrowser synthetic document\n%%EOF'),
   });
   await page.getByRole('button', { name: 'Upload document', exact: true }).click();
-  await expect(page.getByRole('status')).toContainText('Document validated and published');
+  // The document-list refresh can expose its loading status alongside this notice.
+  await expect(
+    page.getByRole('status').filter({ hasText: 'Document validated and published.' }),
+  ).toBeVisible();
   await expect(page.getByText('browser-inspection.pdf', { exact: true })).toBeVisible();
   const downloadPromise = page.waitForEvent('download');
   const objectRequestPromise = page.waitForRequest(

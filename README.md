@@ -3,16 +3,19 @@
 </p>
 
 <h1 align="center">MotorOS</h1>
-<p align="center">Connected workshop operations. From the first booking to the final handover.</p>
+<p align="center">AWS-oriented workshop software. From the first booking to the final handover.</p>
 <p align="center">
   <a href="setup.txt">First-time setup</a> ·
   <a href="run_instructions.txt">Run the application</a> ·
   <a href="#screenshots">Screenshots</a> ·
   <a href="docs/milestones/MILESTONE_7_REPORT.md">Engineering status</a> ·
+  <a href="#aws-preparation-and-further-documentation">AWS deployment preparation</a> ·
   <a href="LICENSE">MIT License</a>
 </p>
 
 MotorOS is a multi-tenant, multi-branch automotive workshop application. It connects customer and vehicle records, authorized service history, bookings, job cards, inspections, inventory, estimates, invoices and customer communications through eight Spring Boot services and a Next.js frontend.
+
+**AWS target:** ECS Fargate, ECR, RDS PostgreSQL, Cognito, encrypted Valkey sessions, S3, SNS/SQS and CloudWatch, with checked-in Terraform deployment definitions. The infrastructure and release tooling are checked in; **AWS deployment is prepared, not deployed**. Start with the [AWS setup guide](docs/deployment/aws-setup.md) and [cloud architecture](docs/deployment/architecture.md).
 
 **Current status:** working local development software with implemented Milestones 1–6 and Milestone 7 AWS deployment preparation. It is **not deployed to AWS or certified production-ready**. AI integrations remain future work. Screenshots below show actual local screens; the public landing page contains a separately labeled illustrative product preview.
 

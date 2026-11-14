@@ -96,13 +96,21 @@ test('owner invites a manager and mechanic through real mail and scoped browser 
   ).not.toBeVisible();
   await expect(mechanicPage.getByRole('link', { name: 'Staff & invitations' })).not.toBeVisible();
   await expect(mechanicPage.getByRole('button', { name: 'New work order' })).not.toBeVisible();
-  await mechanicPage.getByRole('button', { name: 'Vehicles', exact: true }).click();
-  await mechanicPage.getByRole('button', { name: /FIXTURE-APEX/ }).click();
-  await expect(mechanicPage.getByRole('dialog')).toContainText('Anna Nagar');
-  await expect(mechanicPage.getByRole('dialog')).toContainText(
-    'Scheduled maintenance — synthetic development fixture',
-  );
-  await mechanicPage.keyboard.press('Escape');
+  await mechanicPage.goto('/vehicles');
+  await mechanicPage.getByRole('textbox', { name: 'Search vehicles' }).fill('FIXTURE-APEX');
+  await mechanicPage
+    .getByRole('row')
+    .filter({ hasText: 'FIXTURE-APEX' })
+    .getByRole('link', { name: /Open profile/ })
+    .click();
+  await mechanicPage.getByRole('button', { name: 'Service timeline', exact: true }).click();
+  await expect(
+    mechanicPage.getByRole('heading', {
+      name: 'Scheduled maintenance — synthetic development fixture',
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(mechanicPage.locator('.registry-timeline').getByText('Anna Nagar')).toBeVisible();
   await page.getByRole('textbox', { name: 'Search staff' }).fill(mechanic.email);
   const row = page.getByRole('row').filter({ hasText: mechanic.email }).first();
   await row.getByRole('button', { name: 'Edit access' }).click();
@@ -227,9 +235,18 @@ test('customer, vehicle and work-order lifecycle remains functional through OIDC
   await page.getByLabel('Registration number').fill('E2E-' + suffix);
   await page.getByLabel('Manufacturer').fill('Toyota');
   await page.getByLabel('Model', { exact: true }).fill('Corolla');
+  const saved = page.waitForResponse(
+    (response) =>
+      response.url().endsWith('/api/backend/customer/vehicles') &&
+      response.request().method() === 'POST' &&
+      response.status() === 201,
+  );
   await page.getByRole('button', { name: 'Save record' }).click();
-  await expect(page.getByRole('button').filter({ hasText: 'E2E-' + suffix })).toBeVisible();
-  await page.getByRole('button', { name: 'Overview', exact: true }).click();
+  await saved;
+  await page.goto('/vehicles');
+  await page.getByRole('textbox', { name: 'Search vehicles' }).fill('E2E-' + suffix);
+  await expect(page.getByRole('row').filter({ hasText: 'E2E-' + suffix })).toBeVisible();
+  await page.goto('/');
   await page.getByRole('button', { name: 'New work order' }).click();
   await page
     .getByLabel('Vehicle', { exact: true })

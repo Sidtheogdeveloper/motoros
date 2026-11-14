@@ -18,7 +18,9 @@ test('manager reviews real communication attempts, templates, reminders and cons
   await page.getByRole('button', { name: 'Delivery attempts', exact: true }).first().click();
   await expect(page.getByRole('heading', { name: 'Delivery attempts', exact: true })).toBeVisible();
   await expect(page.getByText(/ACCEPTED_UNCONFIRMED/).first()).toBeVisible();
-  await page.getByRole('button', { name: 'Close attempts', exact: true }).click();
+  const attempts = page.getByRole('dialog', { name: 'Delivery attempts' });
+  await attempts.getByRole('button', { name: 'Close', exact: true }).click();
+  await expect(attempts).not.toBeVisible();
   await page.getByRole('button', { name: 'templates', exact: true }).click();
   await expect(page.getByText('Tamil', { exact: false }).first()).toBeVisible();
   await expect(page.getByText('முன்பதிவு உறுதி செய்யப்பட்டது', { exact: true })).toBeVisible();

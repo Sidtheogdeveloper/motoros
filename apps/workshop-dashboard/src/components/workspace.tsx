@@ -14,12 +14,16 @@ import {
   Car,
   Check,
   ChevronDown,
+  ClipboardList,
+  MessageSquare,
+  ChartNoAxesColumn,
   LayoutDashboard,
   LogOut,
   Plus,
   Search,
   ShieldCheck,
   Sun,
+  Sparkles,
   Moon,
   Users,
   Wrench,
@@ -39,7 +43,7 @@ import {
   type WorkOrder,
   type Page,
 } from '@/lib/api';
-type View = 'overview' | 'jobs' | 'customers' | 'vehicles' | 'branches';
+type View = 'overview' | 'intelligence' | 'jobs' | 'customers' | 'vehicles' | 'branches';
 type FormKind = 'customer' | 'vehicle' | 'workorder' | 'branch';
 export function Workspace() {
   const [client] = useState(
@@ -96,6 +100,18 @@ function Bootstrap() {
 }
 function Dashboard({ me }: { me: Account }) {
   const can = (permission: string) => allowed(me, permission);
+  const canSummarize = can('VEHICLE_READ') && can('VEHICLE_HISTORY_READ');
+  const canUseCopilot = can('WORKORDER_READ');
+  const canDraftEstimate =
+    can('WORKORDER_READ') &&
+    can('ESTIMATE_READ') &&
+    can('ESTIMATE_CREATE') &&
+    can('INVENTORY_READ');
+  const canAnalyze = can('ANALYTICS_BRANCH_READ') && can('AI_ANALYTICS_USE');
+  const canCompose =
+    can('NOTIFICATION_READ') && can('NOTIFICATION_MANAGE') && can('AI_COMMUNICATION_DRAFT_USE');
+  const canUseIntelligence =
+    canSummarize || canUseCopilot || canDraftEstimate || canAnalyze || canCompose;
   const namespace = [me.user.id, me.activeTenant, JSON.stringify(me.context)];
   const api = <T,>(path: string) =>
     baseApi<T>(path, { headers: { 'X-MotorOS-Expected-Tenant': me.activeTenant! } });
@@ -197,11 +213,77 @@ function Dashboard({ me }: { me: Account }) {
   }
   const title = {
     overview: 'Workshop overview',
+    intelligence: 'MotorOS Intelligence',
     jobs: 'Work orders',
     customers: 'Customers',
     vehicles: 'Vehicle garage',
     branches: 'Your branches',
   }[view];
+  const scopedJobs = accessBranch ? '/jobs?branch=' + accessBranch : '/jobs';
+  const tools = [
+    {
+      show: canSummarize,
+      icon: Car,
+      name: 'AI vehicle history summary',
+      href: '/vehicles',
+      description: 'Review completed service visits across authorized branches.',
+    },
+    {
+      show: canUseCopilot,
+      icon: Wrench,
+      name: 'Mechanic Copilot',
+      href: scopedJobs,
+      description: 'Ask about a job, inspection, or approved workshop document.',
+    },
+    {
+      show: canDraftEstimate,
+      icon: ClipboardList,
+      name: 'AI estimate drafting',
+      href: scopedJobs,
+      description: 'Open an active job to draft a repair estimate from workshop records.',
+    },
+    {
+      show: canAnalyze,
+      icon: ChartNoAxesColumn,
+      name: 'Analytics Intelligence',
+      href: '/reporting#analytics-intelligence',
+      description: 'Ask about workshop activity, payments, and trends.',
+    },
+    {
+      show: canCompose,
+      icon: MessageSquare,
+      name: 'AI message composer',
+      href: '/notifications?tab=compose',
+      description: 'Prepare and review customer messages before sending.',
+    },
+  ];
+  const intelligenceShortcuts = canUseIntelligence && (
+    <section
+      className={
+        'panel feature-discovery' + (view === 'overview' ? ' feature-discovery-compact' : '')
+      }
+      aria-labelledby="intelligence-shortcuts"
+    >
+      <div className="feature-discovery-heading">
+        <Sparkles size={20} aria-hidden="true" />
+        <h2 id="intelligence-shortcuts">Workshop AI tools</h2>
+      </div>
+      <div className="feature-discovery-grid">
+        {tools
+          .filter((tool) => tool.show)
+          .map((tool) => (
+            <a className="feature-discovery-card" key={tool.name} href={tool.href}>
+              <tool.icon size={19} aria-hidden="true" />
+              <div>
+                <h3>{tool.name}</h3>
+                {view === 'intelligence' && <p>{tool.description}</p>}
+              </div>
+              <ArrowRight size={15} aria-hidden="true" className="feature-card-arrow" />
+            </a>
+          ))}
+      </div>
+    </section>
+  );
   return (
     <div className={'workspace ' + (theme ? 'light' : '')}>
       <aside className="sidebar">
@@ -221,6 +303,7 @@ function Dashboard({ me }: { me: Account }) {
           {(
             [
               { id: 'overview', icon: LayoutDashboard, label: 'Overview' },
+              { id: 'intelligence', icon: Sparkles, label: 'AI tools' },
               { id: 'jobs', icon: Wrench, label: 'Work orders' },
               { id: 'customers', icon: Users, label: 'Customers' },
               { id: 'vehicles', icon: Car, label: 'Vehicles' },
@@ -228,18 +311,21 @@ function Dashboard({ me }: { me: Account }) {
             ] as const
           )
             .filter((item) =>
-              item.id === 'customers'
-                ? can('CUSTOMER_READ')
-                : item.id === 'vehicles'
-                  ? can('VEHICLE_READ')
-                  : item.id === 'jobs'
-                    ? can('WORKORDER_READ')
-                    : true,
+              item.id === 'intelligence'
+                ? canUseIntelligence
+                : item.id === 'customers'
+                  ? can('CUSTOMER_READ')
+                  : item.id === 'vehicles'
+                    ? can('VEHICLE_READ')
+                    : item.id === 'jobs'
+                      ? can('WORKORDER_READ')
+                      : true,
             )
             .map((item) => (
               <button
                 key={item.id}
                 className={view === item.id ? 'nav-item active' : 'nav-item'}
+                aria-pressed={view === item.id}
                 onClick={() => {
                   setView(item.id);
                   setSearch('');
@@ -269,11 +355,7 @@ function Dashboard({ me }: { me: Account }) {
         <div className="sidebar-bottom">
           <div className="foundation">
             <span className="green-dot" /> LOCAL FOUNDATION
-            <p>
-              Connected to your local services.
-              <br />
-              AI and billing arrive in later milestones.
-            </p>
+            <p>Connected to your local services.</p>
           </div>
           <button className="profile" aria-label="Sign out" onClick={logout}>
             <span className="avatar">SA</span>
@@ -358,47 +440,50 @@ function Dashboard({ me }: { me: Account }) {
               <p>
                 {view === 'overview'
                   ? 'A clear view of what’s moving through your workshop.'
-                  : view === 'vehicles'
-                    ? 'Every vehicle. One history across your brand.'
-                    : view === 'branches'
-                      ? 'Connected locations, shared customer history.'
-                      : 'Keep your workshop moving, one detail at a time.'}
+                  : view === 'intelligence'
+                    ? 'Open the tools available to your role.'
+                    : view === 'vehicles'
+                      ? 'Every vehicle. One history across your brand.'
+                      : view === 'branches'
+                        ? 'Connected locations, shared customer history.'
+                        : 'Keep your workshop moving, one detail at a time.'}
               </p>
             </div>
-            {(view === 'customers'
-              ? can('CUSTOMER_WRITE')
-              : view === 'vehicles'
-                ? can('VEHICLE_WRITE')
-                : view === 'branches'
-                  ? can('BRANCH_CREATE')
-                  : can('WORKORDER_CREATE')) && (
-              <Button
-                disabled={
-                  (view === 'overview' || view === 'jobs') && (!branchId || branchId === 'all')
-                }
-                title={branchId === 'all' ? 'Select a branch to create a work order' : undefined}
-                onClick={() =>
-                  setForm(
-                    view === 'customers'
-                      ? 'customer'
-                      : view === 'vehicles'
-                        ? 'vehicle'
-                        : view === 'branches'
-                          ? 'branch'
-                          : 'workorder',
-                  )
-                }
-              >
-                <Plus size={17} />
-                {view === 'customers'
-                  ? 'Add customer'
-                  : view === 'vehicles'
-                    ? 'Add vehicle'
-                    : view === 'branches'
-                      ? 'Add branch'
-                      : 'New work order'}
-              </Button>
-            )}
+            {view !== 'intelligence' &&
+              (view === 'customers'
+                ? can('CUSTOMER_WRITE')
+                : view === 'vehicles'
+                  ? can('VEHICLE_WRITE')
+                  : view === 'branches'
+                    ? can('BRANCH_CREATE')
+                    : can('WORKORDER_CREATE')) && (
+                <Button
+                  disabled={
+                    (view === 'overview' || view === 'jobs') && (!branchId || branchId === 'all')
+                  }
+                  title={branchId === 'all' ? 'Select a branch to create a work order' : undefined}
+                  onClick={() =>
+                    setForm(
+                      view === 'customers'
+                        ? 'customer'
+                        : view === 'vehicles'
+                          ? 'vehicle'
+                          : view === 'branches'
+                            ? 'branch'
+                            : 'workorder',
+                    )
+                  }
+                >
+                  <Plus size={17} />
+                  {view === 'customers'
+                    ? 'Add customer'
+                    : view === 'vehicles'
+                      ? 'Add vehicle'
+                      : view === 'branches'
+                        ? 'Add branch'
+                        : 'New work order'}
+                </Button>
+              )}
           </div>
           {(failure || error) && (
             <div role="alert" className="error-banner">
@@ -413,328 +498,358 @@ function Dashboard({ me }: { me: Account }) {
               </button>
             </div>
           )}
-          {loading ? (
-            <div className="loading" role="status">
-              Connecting to your workshop…
-            </div>
-          ) : (
-            <>
-              {view === 'overview' && (
-                <>
-                  <div className="metrics">
-                    {[
-                      {
-                        label: 'Active work orders',
-                        value: active.length,
-                        icon: Wrench,
-                        note: 'In this branch · loaded records',
-                      },
-                      {
-                        label: 'Ready for delivery',
-                        value: all.filter((j) => j.status === 'READY_FOR_DELIVERY').length,
-                        icon: Check,
-                        note: 'Awaiting customer collection',
-                      },
-                      {
-                        label: 'Registered customers',
-                        value: customers.data?.totalElements ?? '—',
-                        icon: Users,
-                        note: 'Shared across your brand',
-                      },
-                      {
-                        label: 'Vehicles in your garage',
-                        value: vehicles.data?.totalElements ?? '—',
-                        icon: Car,
-                        note: 'One connected service history',
-                      },
-                    ]
-                      .filter((m) =>
-                        m.label === 'Registered customers'
-                          ? can('CUSTOMER_READ')
-                          : m.label === 'Vehicles in your garage'
-                            ? can('VEHICLE_READ')
-                            : true,
-                      )
-                      .map((m) => (
-                        <section className="metric" key={m.label}>
-                          <div>
-                            {m.label}
-                            <m.icon size={17} />
-                          </div>
-                          <strong>{m.value}</strong>
-                          <small>{m.note}</small>
-                        </section>
-                      ))}
-                  </div>
-                  <div className="section-row">
-                    <h2>
-                      On the workshop floor <span>{active.length}</span>
-                    </h2>
-                    <button onClick={() => setView('jobs')}>
-                      View all work orders <ArrowUpRight size={15} />
-                    </button>
-                  </div>
-                  <div className="board">
-                    {[
-                      {
-                        label: 'Intake & inspection',
-                        states: ['CREATED', 'CHECKED_IN', 'INSPECTION'],
-                        color: 'amber',
-                      },
-                      {
-                        label: 'Estimates & approval',
-                        states: ['ESTIMATE_PENDING', 'AWAITING_APPROVAL', 'APPROVED'],
-                        color: 'purple',
-                      },
-                      {
-                        label: 'In the workshop',
-                        states: ['IN_PROGRESS', 'QUALITY_CHECK'],
-                        color: 'blue',
-                      },
-                      { label: 'Ready to go', states: ['READY_FOR_DELIVERY'], color: 'green' },
-                    ].map((column) => {
-                      const rows = all.filter((j) => column.states.includes(j.status));
-                      return (
-                        <section className="board-column" key={column.label}>
-                          <div className="column-title">
-                            <span className={'status-dot ' + column.color} />
-                            {column.label}
-                            <small>{rows.length}</small>
-                          </div>
-                          {rows.length ? (
-                            rows
-                              .slice(0, 3)
-                              .map((j) => (
-                                <JobCard
-                                  key={j.id}
-                                  job={j}
-                                  vehicle={vehicles.data?.content.find((v) => v.id === j.vehicleId)}
-                                  onAdvance={can('WORKORDER_UPDATE') ? () => advance(j) : undefined}
-                                  busy={busy}
-                                />
-                              ))
-                          ) : (
-                            <div className="empty-column">
-                              <Check size={20} />
-                              <span>All clear here</span>
-                              <small>Jobs appear as work progresses</small>
+          {view === 'intelligence' && intelligenceShortcuts}
+          {view !== 'intelligence' &&
+            (loading ? (
+              <div className="loading" role="status">
+                Connecting to your workshop…
+              </div>
+            ) : (
+              <>
+                {view === 'overview' && (
+                  <>
+                    <div className="metrics">
+                      {[
+                        {
+                          label: 'Active work orders',
+                          value: active.length,
+                          icon: Wrench,
+                          note: 'In this branch · loaded records',
+                        },
+                        {
+                          label: 'Ready for delivery',
+                          value: all.filter((j) => j.status === 'READY_FOR_DELIVERY').length,
+                          icon: Check,
+                          note: 'Awaiting customer collection',
+                        },
+                        {
+                          label: 'Registered customers',
+                          value: customers.data?.totalElements ?? '—',
+                          icon: Users,
+                          note: 'Shared across your brand',
+                        },
+                        {
+                          label: 'Vehicles in your garage',
+                          value: vehicles.data?.totalElements ?? '—',
+                          icon: Car,
+                          note: 'One connected service history',
+                        },
+                      ]
+                        .filter((m) =>
+                          m.label === 'Registered customers'
+                            ? can('CUSTOMER_READ')
+                            : m.label === 'Vehicles in your garage'
+                              ? can('VEHICLE_READ')
+                              : true,
+                        )
+                        .map((m) => (
+                          <section className="metric" key={m.label}>
+                            <div>
+                              {m.label}
+                              <m.icon size={17} />
                             </div>
-                          )}
-                        </section>
-                      );
-                    })}
-                  </div>
-                  <div className="bottom-grid">
-                    <section className="panel activity-panel">
-                      <div className="panel-heading">
-                        <h2>Connected service history</h2>
-                        <Car size={19} />
-                      </div>
-                      <p>Previous visits, wherever they happened.</p>
-                      <div className="history-callout">
-                        <div className="vehicle-illustration">
-                          <Car size={56} strokeWidth={1} />
+                            <strong>{m.value}</strong>
+                            <small>{m.note}</small>
+                          </section>
+                        ))}
+                    </div>
+                    {intelligenceShortcuts}
+                    <div className="section-row">
+                      <h2>
+                        On the workshop floor <span>{active.length}</span>
+                      </h2>
+                      <button onClick={() => setView('jobs')}>
+                        View all work orders <ArrowUpRight size={15} />
+                      </button>
+                    </div>
+                    <div className="board">
+                      {[
+                        {
+                          label: 'Intake & inspection',
+                          states: ['CREATED', 'CHECKED_IN', 'INSPECTION'],
+                          color: 'amber',
+                        },
+                        {
+                          label: 'Estimates & approval',
+                          states: ['ESTIMATE_PENDING', 'AWAITING_APPROVAL', 'APPROVED'],
+                          color: 'purple',
+                        },
+                        {
+                          label: 'In the workshop',
+                          states: ['IN_PROGRESS', 'QUALITY_CHECK'],
+                          color: 'blue',
+                        },
+                        { label: 'Ready to go', states: ['READY_FOR_DELIVERY'], color: 'green' },
+                      ].map((column) => {
+                        const rows = all.filter((j) => column.states.includes(j.status));
+                        return (
+                          <section className="board-column" key={column.label}>
+                            <div className="column-title">
+                              <span className={'status-dot ' + column.color} />
+                              {column.label}
+                              <small>{rows.length}</small>
+                            </div>
+                            {rows.length ? (
+                              rows
+                                .slice(0, 3)
+                                .map((j) => (
+                                  <JobCard
+                                    key={j.id}
+                                    job={j}
+                                    vehicle={vehicles.data?.content.find(
+                                      (v) => v.id === j.vehicleId,
+                                    )}
+                                    onAdvance={
+                                      can('WORKORDER_UPDATE') ? () => advance(j) : undefined
+                                    }
+                                    busy={busy}
+                                  />
+                                ))
+                            ) : (
+                              <div className="empty-column">
+                                <Check size={20} />
+                                <span>All clear here</span>
+                                <small>Jobs appear as work progresses</small>
+                              </div>
+                            )}
+                          </section>
+                        );
+                      })}
+                    </div>
+                    <div className="bottom-grid">
+                      <section className="panel activity-panel">
+                        <div className="panel-heading">
+                          <h2>Connected service history</h2>
+                          <Car size={19} />
                         </div>
-                        <div>
-                          <strong>One vehicle. Every branch.</strong>
-                          <p>
-                            Open a vehicle to see delivered and closed work orders from authorized
-                            locations across your brand.
-                          </p>
-                          <Button variant="outline" onClick={() => setView('vehicles')}>
-                            Explore vehicle garage <ArrowRight size={15} />
+                        <p>Previous visits, wherever they happened.</p>
+                        <div className="history-callout">
+                          <div className="vehicle-illustration">
+                            <Car size={56} strokeWidth={1} />
+                          </div>
+                          <div>
+                            <strong>One vehicle. Every branch.</strong>
+                            <p>
+                              Open a vehicle to see delivered and closed work orders from authorized
+                              locations across your brand.
+                            </p>
+                            <Button variant="outline" onClick={() => setView('vehicles')}>
+                              Explore vehicle garage <ArrowRight size={15} />
+                            </Button>
+                          </div>
+                        </div>
+                      </section>
+                      <section className="panel branch-panel">
+                        <div className="panel-heading">
+                          <h2>Branch network</h2>
+                          <span className="badge">LIVE</span>
+                        </div>
+                        {branches.data?.map((b) => (
+                          <button
+                            className="branch-row"
+                            key={b.id}
+                            onClick={() => setSelected(b.id)}
+                          >
+                            <span className="branch-building">
+                              <Building2 size={18} />
+                            </span>
+                            <span>
+                              <strong>{b.name}</strong>
+                              <small>{b.city}</small>
+                            </span>
+                            {b.id === branchId ? (
+                              <span className="selected-label">
+                                Selected <Check size={12} />
+                              </span>
+                            ) : (
+                              <ArrowUpRight size={16} />
+                            )}
+                          </button>
+                        ))}
+                      </section>
+                    </div>
+                  </>
+                )}
+                {view === 'jobs' && (
+                  <section className="panel">
+                    <div className="panel-heading">
+                      <h2>Branch work orders</h2>
+                      <span className="badge">{jobs.data?.totalElements ?? 0} TOTAL</span>
+                    </div>
+                    {all.length ? (
+                      <div className="job-list">
+                        {all.map((j) => (
+                          <JobCard
+                            key={j.id}
+                            job={j}
+                            vehicle={vehicles.data?.content.find((v) => v.id === j.vehicleId)}
+                            onAdvance={can('WORKORDER_UPDATE') ? () => advance(j) : undefined}
+                            busy={busy}
+                          />
+                        ))}
+                      </div>
+                    ) : (
+                      <Empty
+                        icon="jobs"
+                        title="Your floor is ready"
+                        text="Create a customer, register their vehicle, then open the first work order."
+                        action={() => setForm('workorder')}
+                        label="Create work order"
+                      />
+                    )}
+                  </section>
+                )}
+                {view === 'customers' && (
+                  <section className="panel">
+                    <div className="panel-heading">
+                      <h2>
+                        Customer directory <span>{customers.data?.totalElements ?? 0}</span>
+                      </h2>
+                      <label className="search">
+                        <Search size={16} />
+                        <input
+                          aria-label="Search customers"
+                          placeholder="Search by name…"
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
+                        />
+                      </label>
+                    </div>
+                    {customers.data?.content.length ? (
+                      <div className="table-wrap">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Customer</th>
+                              <th>Email</th>
+                              <th>Phone</th>
+                              <th>Scope</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {customers.data.content.map((c) => (
+                              <tr key={c.id}>
+                                <td>
+                                  <span className="table-avatar">{c.name[0]}</span>
+                                  {c.name}
+                                </td>
+                                <td>{c.email || '—'}</td>
+                                <td>{c.phone || '—'}</td>
+                                <td>
+                                  <span className="tag">Brand-wide</span>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    ) : (
+                      <Empty
+                        icon="customers"
+                        title="Your customers, in one place"
+                        text="Add your first customer to start building a lasting service relationship."
+                        action={() => setForm('customer')}
+                        label="Add customer"
+                      />
+                    )}
+                  </section>
+                )}
+                {view === 'vehicles' && (
+                  <section className="panel">
+                    <div className="panel-heading">
+                      <h2>Brand vehicle garage</h2>
+                      <span className="badge">{vehicles.data?.totalElements ?? 0} VEHICLES</span>
+                    </div>
+                    {vehicles.data?.content.length ? (
+                      <div className="vehicle-grid">
+                        {vehicles.data.content.map((v) => (
+                          <article className="vehicle-card" key={v.id}>
+                            <Car size={38} strokeWidth={1} />
+                            <span className="registration">{v.registration}</span>
+                            <strong>
+                              {v.make} {v.model}
+                            </strong>
+                            <small>
+                              {customers.data?.content.find((c) => c.id === v.customerId)?.name ||
+                                'Registered customer'}
+                            </small>
+                            <div className="feature-actions">
+                              <a href={`/vehicles/${v.id}`}>
+                                Open profile <ArrowUpRight size={13} aria-hidden="true" />
+                              </a>
+                              {canSummarize && (
+                                <>
+                                  <a
+                                    className="feature-link"
+                                    href={`/vehicles/${v.id}?tab=intelligence`}
+                                  >
+                                    AI history summary
+                                  </a>
+                                  <button
+                                    type="button"
+                                    className="feature-text-button"
+                                    onClick={() => setHistory(v)}
+                                  >
+                                    Service history
+                                  </button>
+                                </>
+                              )}
+                            </div>
+                          </article>
+                        ))}
+                      </div>
+                    ) : (
+                      <Empty
+                        icon="vehicles"
+                        title="Build your vehicle garage"
+                        text="Register a vehicle against an existing customer to begin its service timeline."
+                        action={() => setForm('vehicle')}
+                        label="Add vehicle"
+                      />
+                    )}
+                  </section>
+                )}
+                {view === 'branches' && (
+                  <section className="panel">
+                    <div className="panel-heading">
+                      <h2>Your connected locations</h2>
+                      <span className="badge">{branches.data?.length ?? 0} BRANCHES</span>
+                    </div>
+                    <div className="vehicle-grid">
+                      {branches.data?.map((b) => (
+                        <div className="vehicle-card" key={b.id}>
+                          <Building2 size={32} />
+                          <h3>{b.name}</h3>
+                          <p>{b.city}</p>
+                          <a className="vehicle-link" href={'/branches/' + b.id}>
+                            Branch profile & hours
+                          </a>
+                          <Button
+                            variant="outline"
+                            onClick={() => {
+                              setSelected(b.id);
+                              setView('overview');
+                            }}
+                          >
+                            Open branch <ArrowRight size={15} />
                           </Button>
                         </div>
-                      </div>
-                    </section>
-                    <section className="panel branch-panel">
-                      <div className="panel-heading">
-                        <h2>Branch network</h2>
-                        <span className="badge">LIVE</span>
-                      </div>
-                      {branches.data?.map((b) => (
-                        <button className="branch-row" key={b.id} onClick={() => setSelected(b.id)}>
-                          <span className="branch-building">
-                            <Building2 size={18} />
-                          </span>
-                          <span>
-                            <strong>{b.name}</strong>
-                            <small>{b.city}</small>
-                          </span>
-                          {b.id === branchId ? (
-                            <span className="selected-label">
-                              Selected <Check size={12} />
-                            </span>
-                          ) : (
-                            <ArrowUpRight size={16} />
-                          )}
-                        </button>
-                      ))}
-                    </section>
-                  </div>
-                </>
-              )}
-              {view === 'jobs' && (
-                <section className="panel">
-                  <div className="panel-heading">
-                    <h2>Branch work orders</h2>
-                    <span className="badge">{jobs.data?.totalElements ?? 0} TOTAL</span>
-                  </div>
-                  {all.length ? (
-                    <div className="job-list">
-                      {all.map((j) => (
-                        <JobCard
-                          key={j.id}
-                          job={j}
-                          vehicle={vehicles.data?.content.find((v) => v.id === j.vehicleId)}
-                          onAdvance={can('WORKORDER_UPDATE') ? () => advance(j) : undefined}
-                          busy={busy}
-                        />
                       ))}
                     </div>
-                  ) : (
-                    <Empty
-                      icon="jobs"
-                      title="Your floor is ready"
-                      text="Create a customer, register their vehicle, then open the first work order."
-                      action={() => setForm('workorder')}
-                      label="Create work order"
-                    />
-                  )}
-                </section>
-              )}
-              {view === 'customers' && (
-                <section className="panel">
-                  <div className="panel-heading">
-                    <h2>
-                      Customer directory <span>{customers.data?.totalElements ?? 0}</span>
-                    </h2>
-                    <label className="search">
-                      <Search size={16} />
-                      <input
-                        aria-label="Search customers"
-                        placeholder="Search by name…"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                      />
-                    </label>
-                  </div>
-                  {customers.data?.content.length ? (
-                    <div className="table-wrap">
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>Customer</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Scope</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {customers.data.content.map((c) => (
-                            <tr key={c.id}>
-                              <td>
-                                <span className="table-avatar">{c.name[0]}</span>
-                                {c.name}
-                              </td>
-                              <td>{c.email || '—'}</td>
-                              <td>{c.phone || '—'}</td>
-                              <td>
-                                <span className="tag">Brand-wide</span>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  ) : (
-                    <Empty
-                      icon="customers"
-                      title="Your customers, in one place"
-                      text="Add your first customer to start building a lasting service relationship."
-                      action={() => setForm('customer')}
-                      label="Add customer"
-                    />
-                  )}
-                </section>
-              )}
-              {view === 'vehicles' && (
-                <section className="panel">
-                  <div className="panel-heading">
-                    <h2>Brand vehicle garage</h2>
-                    <span className="badge">{vehicles.data?.totalElements ?? 0} VEHICLES</span>
-                  </div>
-                  {vehicles.data?.content.length ? (
-                    <div className="vehicle-grid">
-                      {vehicles.data.content.map((v) => (
-                        <button className="vehicle-card" key={v.id} onClick={() => setHistory(v)}>
-                          <Car size={38} strokeWidth={1} />
-                          <span className="registration">{v.registration}</span>
-                          <strong>
-                            {v.make} {v.model}
-                          </strong>
-                          <small>
-                            {customers.data?.content.find((c) => c.id === v.customerId)?.name ||
-                              'Registered customer'}
-                          </small>
-                          <span className="vehicle-link">
-                            View service history <ArrowUpRight size={15} />
-                          </span>
-                        </button>
-                      ))}
-                    </div>
-                  ) : (
-                    <Empty
-                      icon="vehicles"
-                      title="Build your vehicle garage"
-                      text="Register a vehicle against an existing customer to begin its service timeline."
-                      action={() => setForm('vehicle')}
-                      label="Add vehicle"
-                    />
-                  )}
-                </section>
-              )}
-              {view === 'branches' && (
-                <section className="panel">
-                  <div className="panel-heading">
-                    <h2>Your connected locations</h2>
-                    <span className="badge">{branches.data?.length ?? 0} BRANCHES</span>
-                  </div>
-                  <div className="vehicle-grid">
-                    {branches.data?.map((b) => (
-                      <div className="vehicle-card" key={b.id}>
-                        <Building2 size={32} />
-                        <h3>{b.name}</h3>
-                        <p>{b.city}</p>
-                        <a className="vehicle-link" href={'/branches/' + b.id}>
-                          Branch profile & hours
-                        </a>
-                        <Button
-                          variant="outline"
-                          onClick={() => {
-                            setSelected(b.id);
-                            setView('overview');
-                          }}
-                        >
-                          Open branch <ArrowRight size={15} />
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                  <p className="panel-note">
-                    Memberships are checked live. Newly created branches appear immediately for
-                    authorized owners.
-                  </p>
-                </section>
-              )}
-              <footer className="workspace-footer">
-                <span>
-                  <span className="green-dot" /> Local API workspace
-                </span>
-                <span>MotorOS Foundation · v0.1</span>
-              </footer>
-            </>
-          )}
+                    <p className="panel-note">
+                      Memberships are checked live. Newly created branches appear immediately for
+                      authorized owners.
+                    </p>
+                  </section>
+                )}
+                <footer className="workspace-footer">
+                  <span>
+                    <span className="green-dot" /> Local API workspace
+                  </span>
+                  <span>MotorOS Foundation · v0.1</span>
+                </footer>
+              </>
+            ))}
         </main>
       </div>
       {form && (
@@ -832,6 +947,9 @@ function JobCard({
         <span className={'tag ' + (job.status === 'READY_FOR_DELIVERY' ? 'ready' : '')}>
           {statusLabel(job.status)}
         </span>
+        <a className="feature-link" href={`/jobs/${job.id}?tab=copilot`}>
+          Ask Copilot
+        </a>
         {next && onAdvance && job.status !== 'CANCELLED' && (
           <button
             disabled={busy}

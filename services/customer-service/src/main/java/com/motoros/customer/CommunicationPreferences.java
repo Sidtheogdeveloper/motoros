@@ -20,7 +20,7 @@ public class CommunicationPreferences {
   private final Records r;private final ObjectProvider<EventGateway> gateway;
   CommunicationPreferences(JdbcTemplate db,ObjectProvider<EventGateway> gateway){r=new Records(db);this.gateway=gateway;}
   public record Preferences(boolean emailEnabled,boolean smsEnabled,boolean whatsappEnabled,boolean operationalEnabled,boolean promotionalEnabled,@NotBlank @Pattern(regexp="en|ta") String preferredLanguage,@NotBlank @Size(min=10,max=500) String consentNote,@NotNull @Min(0) Long version){}
-  private Map<String,Object> customer(UUID tenant,UUID id){return r.one("select id,tenant_id,email,phone,status from customer.customers where tenant_id=? and id=?",tenant,id);}
+  private Map<String,Object> customer(UUID tenant,UUID id){return r.one("select id,tenant_id,name,email,phone,status from customer.customers where tenant_id=? and id=?",tenant,id);}
   private void scope(Jwt j,UUID id,boolean write){
     var c=customer(Access.tenant(j),id);
     if("CUSTOMER".equals(j.getClaimAsString("role"))){
@@ -38,7 +38,7 @@ public class CommunicationPreferences {
     r.db.update("insert into customer.communication_preferences(tenant_id,customer_id,email_enabled,sms_enabled,whatsapp_enabled,operational_enabled,promotional_enabled,preferred_language,consent_note,consent_recorded_by,version) values(?,?,?,?,?,?,?,?,?,?,1) on conflict(tenant_id,customer_id) do update set email_enabled=excluded.email_enabled,sms_enabled=excluded.sms_enabled,whatsapp_enabled=excluded.whatsapp_enabled,operational_enabled=excluded.operational_enabled,promotional_enabled=excluded.promotional_enabled,preferred_language=excluded.preferred_language,consent_note=excluded.consent_note,consent_recorded_by=excluded.consent_recorded_by,consent_recorded_at=now(),version=communication_preferences.version+1,updated_at=now()",t,id,p.emailEnabled(),p.smsEnabled(),p.whatsappEnabled(),p.operationalEnabled(),p.promotionalEnabled(),p.preferredLanguage(),p.consentNote(),Access.user(j));
     r.db.update("insert into customer.communication_preference_audit(id,tenant_id,customer_id,actor_id,preferences) values(?,?,?,?,?::jsonb)",UUID.randomUUID(),t,id,Access.user(j),Records.json(p));return prefs(t,id);
   }
-  @GetMapping("/api/automation/communication-context") public Map<String,Object> resolve(@RequestHeader("X-MotorOS-Tenant") UUID tenant,@RequestParam UUID customerId,@RequestParam UUID eventId,@RequestParam String producer){
+  @GetMapping("/api/automation/communication-context") public Map<String,Object> resolve(@RequestHeader("X-MotorOS-Tenant") UUID tenant,@RequestParam UUID customerId,@RequestParam UUID eventId,@RequestParam String producer,@RequestParam(defaultValue="false") boolean verifyVehicle){
     var proof=gateway.getObject().get(producer,"/api/automation/event-proof/"+eventId,tenant);
     var source=EventEnvelope.read(Records.json(proof.get("event")));
     var current=proof.containsKey("current")?Records.object(proof.get("current")):Map.<String,Object>of();
@@ -46,6 +46,17 @@ public class CommunicationPreferences {
     if(!customerId.toString().equals(String.valueOf(linked)))throw new ResponseStatusException(FORBIDDEN,"Source/customer linkage mismatch");
     var customer=customer(tenant,customerId);if(!"ACTIVE".equals(customer.get("status")))throw new ResponseStatusException(CONFLICT,"Customer unavailable");
     var result=prefs(tenant,customerId);result.put("customerId",customerId);result.put("tenantId",tenant);
-    result.put("email",Objects.toString(customer.get("email"),""));result.put("phone",Objects.toString(customer.get("phone"),""));return result;
+    result.put("email",Objects.toString(customer.get("email"),""));result.put("phone",Objects.toString(customer.get("phone"),""));
+    if (verifyVehicle) {
+      Object vehicleId = current.getOrDefault("vehicleId", source.payload().get("vehicleId"));
+      if (vehicleId == null) throw new ResponseStatusException(CONFLICT, "Source has no verified vehicle");
+      var vehicle = r.one("select registration,status from customer.vehicles where tenant_id=? and id=? and customer_id=?",
+          tenant, Records.uuid(vehicleId), customerId);
+      if (!"ACTIVE".equals(vehicle.get("status"))) throw new ResponseStatusException(CONFLICT, "Vehicle unavailable");
+      result.put("vehicleId", vehicleId.toString());
+      result.put("registration", vehicle.get("registration"));
+      result.put("customerName", customer.get("name"));
+    }
+    return result;
   }
 }

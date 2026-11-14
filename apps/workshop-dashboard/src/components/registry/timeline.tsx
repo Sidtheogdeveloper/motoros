@@ -1,15 +1,28 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { History, ShieldCheck } from 'lucide-react';
 import { useData, Issue, Pager, type Page, type Branch } from './shared';
 export function Timeline({ id, branches }: { id: string; branches: Branch[] }) {
   const [selected, setSelected] = useState(''),
     [page, setPage] = useState(0);
-  const branch = selected || branches.find((b) => b.status === 'ACTIVE')?.id;
+  const branch = branches.find((b) => b.id === selected && b.status === 'ACTIVE')?.id ||
+    branches.find((b) => b.status === 'ACTIVE')?.id;
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    const sourcePage = query.get('historyPage');
+    const sourceBranch = query.get('historyBranch');
+    if (sourcePage && /^[0-9]{1,5}$/.test(sourcePage)) setPage(Number(sourcePage));
+    if (sourceBranch) setSelected(sourceBranch);
+  }, []);
   const result = useData<Page>(
       branch ? `customer/vehicles/${id}/timeline?branchId=${branch}&page=${page}&size=20` : null,
     ),
     labels = useData<Branch[]>('tenant/history-branches');
+  useEffect(() => {
+    const target = window.location.hash.slice(1);
+    if (result.data && target.startsWith('service-record-'))
+      document.getElementById(target)?.scrollIntoView();
+  }, [result.data]);
   return (
     <section className="panel registry-summary">
       <div className="panel-heading">
@@ -46,7 +59,7 @@ export function Timeline({ id, branches }: { id: string; branches: Branch[] }) {
       {!branch && <p role="alert">No active authorized branch.</p>}
       <div className="registry-timeline">
         {result.data?.content.map((event) => (
-          <article key={event.id}>
+          <article key={event.id} id={`service-record-${event.id}`}>
             <span className="green-dot" />
             <div>
               <small>

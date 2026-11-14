@@ -158,6 +158,8 @@ public class SecurityConfiguration {
                           || (app.equals("motoros-customer")
                               && eventPath.equals("/api/automation/communication-context")
                               && "motoros-notification".equals(logicalClient))
+                          || (eventPath.equals("/api/automation/communication-source")
+                              && "motoros-notification".equals(logicalClient))
                           || eventPath.equals("/api/automation/reconciliation-events")
                               && Set.of("motoros-analytics").contains(logicalClient);
                   if (!service

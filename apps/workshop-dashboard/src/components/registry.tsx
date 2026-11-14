@@ -11,10 +11,12 @@ export function RegistryPage({
   kind,
   id,
   timeline = false,
+  openIntelligence = false,
 }: {
   kind: 'customers' | 'vehicles';
   id?: string;
   timeline?: boolean;
+  openIntelligence?: boolean;
 }) {
   const [me, setMe] = useState<Account | null>(null),
     [error, setError] = useState('');
@@ -96,7 +98,11 @@ export function RegistryPage({
           <a href="/profile">Your profile</a>
         </nav>
         <Issue error={error} />
-        {id ? <Detail kind={kind} id={id} timeline={timeline} /> : <Directory kind={kind} />}
+        {id ? (
+          <Detail kind={kind} id={id} timeline={timeline} openIntelligence={openIntelligence} />
+        ) : (
+          <Directory kind={kind} />
+        )}
       </main>
     </Context.Provider>
   );

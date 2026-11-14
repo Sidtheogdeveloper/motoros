@@ -4,6 +4,7 @@ import { allowed } from '@/lib/account';
 import { useCommand, Badge, type Job, type Page } from '../operations/shared';
 import { Button } from '../ui/button';
 import { Amount } from './shared';
+import { EstimateAssistant } from './estimate-assistant';
 import type { Estimate, Invoice } from './billing';
 export function JobCommercial({ job, refresh }: { job: Job; refresh: () => void }) {
   const me = useAccount(),
@@ -32,6 +33,13 @@ export function JobCommercial({ job, refresh }: { job: Job; refresh: () => void 
           <a href={'/inventory?branch=' + job.branchId}>Branch stock and job reservations</a>
         </p>
       )}
+      {can('ESTIMATE_CREATE') &&
+        can('ESTIMATE_READ') &&
+        can('INVENTORY_READ') &&
+        me.activeTenant &&
+        !['CANCELLED', 'CLOSED', 'DELIVERED'].includes(job.status) && (
+          <EstimateAssistant key={job.id} jobId={job.id} tenant={me.activeTenant} />
+        )}
       {can('ESTIMATE_READ') && (
         <>
           <p>

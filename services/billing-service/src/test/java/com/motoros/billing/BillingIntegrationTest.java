@@ -450,6 +450,15 @@ class BillingIntegrationTest {
       pool.shutdownNow();
     }
     var response = mvc.perform(get("/api/invoices/" + id).with(staff(t))).andReturn().getResponse();
+    assertEquals(
+        3,
+        db.queryForObject(
+            "select count(*) from billing.outbox_events where tenant_id=? and ("
+                + " event_type='InvoiceIssued' and payload->>'issuedAt' is not null or"
+                + " event_type='PaymentRecorded' and payload->>'paymentAt' is not null or"
+                + " event_type='EstimateApproved' and payload->>'decidedAt' is not null)",
+            Integer.class,
+            t));
     assertEquals("PAID", Records.object(response.getContentAsString()).get("paymentStatus"));
     assertEquals(
         404,
@@ -492,5 +501,21 @@ class BillingIntegrationTest {
             Integer.class,
             tenant,
             id));
+  }
+
+  @Test
+  void projectionReconciliationSetsAnExplicitVersionOnTheLegacyOutbox() throws Exception {
+    UUID tenant = UUID.randomUUID();
+    var estimate = approved(tenant);
+    var manager = new org.springframework.jdbc.datasource.DataSourceTransactionManager(db.getDataSource());
+    var events = new com.motoros.foundation.events.EventStore(db, manager, "billing");
+    var worker = new com.motoros.foundation.events.SourceReconciliation(events);
+    worker.reconcile();
+    worker.reconcile();
+    assertEquals(1, db.queryForObject(
+        "select count(*) from billing.outbox_events where tenant_id=? and aggregate_id=?"
+            + " and event_type='ProjectionSnapshot' and event_version=1"
+            + " and status='LEGACY_REQUIRES_RECONCILIATION'",
+        Integer.class, tenant, Records.uuid(estimate.get("id"))));
   }
 }

@@ -12,11 +12,17 @@ export function Modal({
   className?: string;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
+  const pressedBackdrop = useRef(false);
   useEffect(() => {
     const dialog = ref.current;
     if (!dialog) return;
+    const opener = document.activeElement;
     dialog.showModal();
-    return () => dialog.close();
+    return () => {
+      if (dialog.open) dialog.close();
+      if (opener instanceof HTMLElement && opener.isConnected)
+        opener.focus({ preventScroll: true });
+    };
   }, []);
   return (
     <dialog
@@ -27,8 +33,12 @@ export function Modal({
         event.preventDefault();
         onClose();
       }}
+      onPointerDown={(event) => {
+        pressedBackdrop.current = event.target === event.currentTarget;
+      }}
       onClick={(event) => {
-        if (event.target === event.currentTarget) onClose();
+        if (pressedBackdrop.current && event.target === event.currentTarget) onClose();
+        pressedBackdrop.current = false;
       }}
     >
       {children}

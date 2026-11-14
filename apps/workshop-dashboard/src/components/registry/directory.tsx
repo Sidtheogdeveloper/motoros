@@ -18,6 +18,7 @@ export function Directory({ kind }: { kind: 'customers' | 'vehicles' }) {
   const me = useAccount(),
     customer = kind === 'customers',
     canWrite = allowed(me, customer ? 'CUSTOMER_WRITE' : 'VEHICLE_WRITE');
+  const canSummarize = !customer && allowed(me, 'VEHICLE_HISTORY_READ');
   const [q, setQ] = useState(''),
     [status, setStatus] = useState(''),
     [page, setPage] = useState(0),
@@ -94,6 +95,13 @@ export function Directory({ kind }: { kind: 'customers' | 'vehicles' }) {
                 <tr key={row.id}>
                   <td>
                     <strong>{customer ? row.name : row.registration}</strong>
+                    {canSummarize && (
+                      <div className="feature-actions">
+                        <a className="feature-link" href={`/vehicles/${row.id}?tab=intelligence`}>
+                          AI history summary
+                        </a>
+                      </div>
+                    )}
                     {row.identifierConflict && (
                       <small className="error">Legacy identifier conflict — review required</small>
                     )}

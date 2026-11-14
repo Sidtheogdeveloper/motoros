@@ -3,7 +3,7 @@ import { Brand } from '@/components/brand';
 
 import { useState, useEffect } from 'react';
 import { account, allowed, switchBrand, type Account } from '@/lib/account';
-import { Context, Issue, useData } from './registry/shared';
+import { Context, Issue, useAccount, useData } from './registry/shared';
 import { type Branch } from './operations/shared';
 import { Bookings } from './operations/bookings';
 import { Jobs, JobDetail, Workload } from './operations/jobs';
@@ -11,11 +11,13 @@ import { Intake } from './operations/intake';
 import { Inventory } from './commercial/inventory';
 import { Transfers } from './commercial/transfers';
 import { NotificationCenter } from './communications/notification-center';
+import { AnalyticsIntelligence } from './communications/analytics-intelligence';
 import { BranchReporting } from './communications/reporting';
 import { Estimates, EstimateDetail, Invoices, InvoiceDetail } from './commercial/billing';
 export function OperationsPage({
   view,
   id,
+  openCopilot = false,
 }: {
   view:
     | 'appointments'
@@ -31,6 +33,7 @@ export function OperationsPage({
     | 'notifications'
     | 'reporting';
   id?: string;
+  openCopilot?: boolean;
 }) {
   const [me, setMe] = useState<Account | null>(null),
     [error, setError] = useState('');
@@ -138,12 +141,21 @@ export function OperationsPage({
           {me.user.platformAdmin && <a href="/platform/operations">Event operations</a>}
         </nav>
         <Issue error={error} />
-        <Operations view={view} id={id} />
+        <Operations view={view} id={id} openCopilot={openCopilot} />
       </main>
     </Context.Provider>
   );
 }
-function Operations({ view, id }: { view: string; id?: string }) {
+function Operations({
+  view,
+  id,
+  openCopilot,
+}: {
+  view: string;
+  id?: string;
+  openCopilot: boolean;
+}) {
+  const me = useAccount();
   const branches = useData<Branch[]>('tenant/branches?size=100'),
     [selected, setSelected] = useState('');
   const active = branches.data?.filter((b) => b.status === 'ACTIVE') || [];
@@ -210,12 +222,21 @@ function Operations({ view, id }: { view: string; id?: string }) {
           ) : view === 'invoices' ? (
             <InvoiceDetail key={id} id={id} />
           ) : (
-            <JobDetail key={id} id={id} branches={active} />
+            <JobDetail key={id} id={id} branches={active} openCopilot={openCopilot} />
           )
         ) : view === 'notifications' ? (
           <NotificationCenter key={branch} branch={branch} />
         ) : view === 'reporting' ? (
-          <BranchReporting key={branch} branch={branch} />
+          <>
+            {allowed(me, 'AI_ANALYTICS_USE') && (
+              <AnalyticsIntelligence
+                key={me.activeTenant}
+                tenant={me.activeTenant!}
+                branches={active}
+              />
+            )}
+            <BranchReporting key={branch} branch={branch} />
+          </>
         ) : view === 'inventory' ? (
           <Inventory key={branch} branch={branch} />
         ) : view === 'transfers' ? (

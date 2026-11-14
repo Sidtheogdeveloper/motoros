@@ -471,6 +471,116 @@
           }
         }
       }
+    },
+    "/api/analytics/metrics": {
+      "get": {
+        "tags": [
+          "metric-query-controller"
+        ],
+        "operationId": "query",
+        "parameters": [
+          {
+            "name": "metric",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "invoice_value",
+                "collected_payments",
+                "outstanding_balance",
+                "unpaid_invoices",
+                "appointment_count",
+                "completed_work_orders",
+                "average_turnaround",
+                "estimate_approval_rate",
+                "parts_consumption",
+                "repeat_customer_rate",
+                "repeat_customer_count",
+                "service_category_distribution",
+                "average_invoice_value"
+              ]
+            }
+          },
+          {
+            "name": "group",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "total",
+              "enum": [
+                "total",
+                "branch",
+                "month",
+                "part",
+                "service"
+              ]
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "branchId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-MotorOS-Tenant",
+            "in": "header",
+            "description": "Selected tenant; independently authorized against current membership. BFF supplies this from the server session.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

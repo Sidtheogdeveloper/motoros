@@ -241,6 +241,14 @@ class BookingIntegrationTest {
     assertEquals(201, first.getStatus(), first.getContentAsString());
     String id = Records.object(first.getContentAsString()).get("id").toString();
     assertEquals(
+        Records.object(body).get("serviceCategoryId"),
+        db.queryForObject(
+            "select payload->>'serviceCategoryId' from booking.outbox_events where tenant_id=?"
+                + " and aggregate_id=?::uuid and event_type='AppointmentBooked'",
+            String.class,
+            t,
+            Records.object(first.getContentAsString()).get("id")));
+    assertEquals(
         201,
         mvc.perform(
                 post("/api/appointments")

@@ -50,6 +50,25 @@ public class EventSourceController {
             .toList());
   }
 
+  @GetMapping("/api/automation/communication-source")
+  public Map<String, Object> communicationSource(
+      @RequestHeader("X-MotorOS-Tenant") UUID tenant,
+      @RequestParam UUID branchId,
+      @RequestParam UUID resourceId,
+      @RequestParam String eventType) {
+    if (!Set.of("booking", "workorder", "billing").contains(store.schema)
+        || !EventEnvelope.TYPES.get(store.schema).contains(eventType))
+      throw new ResponseStatusException(NOT_FOUND);
+    boolean child = Set.of("VehicleCheckedIn", "InspectionCompleted").contains(eventType);
+    var row = new Records(store.db).one(
+        "select event_id from " + store.schema + ".outbox_events"
+            + " where tenant_id=? and branch_id=? and canonical_type=?"
+            + (child ? " and (aggregate_id=? or payload->>'workOrderId'=?::text)"
+                     : " and aggregate_id=? and ?::text is not null")
+            + " and aggregate_version is not null order by occurred_at desc,event_id desc limit 1",
+        tenant, branchId, eventType, resourceId, resourceId);
+    return Map.of("eventId", row.get("event_id"));
+  }
   @GetMapping("/api/automation/event-proof/{id}")
   public Map<String, Object> proof(
       @AuthenticationPrincipal Jwt jwt,
@@ -77,6 +96,8 @@ public class EventSourceController {
         Set.of(
             "appointments",
             "work_orders",
+            "vehicle_check_ins",
+            "inspections",
             "estimates",
             "invoices",
             "payments",
@@ -111,6 +132,8 @@ public class EventSourceController {
                 "status",
                 "appointment_status",
                 "requested_start_time",
+                "branch_timezone",
+                "invoice_number",
                 "expected_end_time",
                 "revision",
                 "expires_at",
@@ -132,6 +155,17 @@ public class EventSourceController {
                   && event.aggregateId().equals(latest.getFirst().get("id"))
                   && java.time.Instant.parse(raw.get("expires_at").toString())
                       .isAfter(java.time.Instant.now()));
+        }
+        if (Set.of("vehicle_check_ins", "inspections").contains(event.aggregateType())) {
+          var job = new Records(store.db).one(
+              "select branch_id, customer_id, vehicle_id, status from workorder.work_orders"
+                  + " where tenant_id=? and id=?",
+              tenant, Records.uuid(raw.get("work_order_id")));
+          if (!Objects.equals(job.get("branch_id"), event.branchId()))
+            throw new ResponseStatusException(CONFLICT, "Work order branch changed");
+          current.put("job_status", job.get("status"));
+          current.put("customer_id", job.get("customer_id"));
+          current.put("vehicle_id", job.get("vehicle_id"));
         }
         out.put("current", Records.dto(current));
       }

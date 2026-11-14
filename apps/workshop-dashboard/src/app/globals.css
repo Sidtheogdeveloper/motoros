@@ -2091,3 +2091,268 @@ form {
 }
 
 .commercial-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1rem;margin:1rem 0}.commercial-grid>.operation-card{min-width:0;overflow-wrap:anywhere}.button-row{display:flex;gap:.65rem;flex-wrap:wrap;align-items:center}.commercial-payment{padding:1rem 0;border-bottom:1px solid #343434}.table-scroll{overflow-x:auto;max-width:100%}.table-scroll table{width:100%;border-collapse:collapse}.table-scroll th,.table-scroll td{text-align:left;padding:.8rem;border-bottom:1px solid #343434}.operation-card fieldset,.record-form fieldset{border:1px solid #3a3a3a;border-radius:10px;padding:1rem;margin:.8rem 0;min-width:0}.record-form select{max-width:100%}.record-form .pager{font-size:.8rem;flex-wrap:wrap}.record-form input[type=checkbox]{width:auto;margin-right:.5rem}.management-nav{flex-wrap:wrap}.management-page h2{overflow-wrap:anywhere}
+
+.feature-discovery {
+  margin-bottom: 20px;
+  padding: clamp(14px, 3vw, 20px);
+}
+.feature-discovery-heading,
+.feature-discovery-card,
+.feature-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.feature-discovery-heading {
+  margin-bottom: 14px;
+}
+.feature-discovery-heading > svg,
+.feature-discovery-card > svg {
+  flex: none;
+  color: var(--amber);
+}
+.feature-discovery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 10px;
+}
+.feature-discovery-card {
+  align-items: flex-start;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--bg);
+  padding: 14px;
+}
+.feature-discovery-card:hover {
+  border-color: var(--amber);
+}
+.feature-discovery-card h3 {
+  margin: 0 0 5px;
+  font-size: 14px;
+}
+.feature-discovery-card p {
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+.feature-discovery-card span,
+.feature-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.feature-discovery-card span,
+.feature-link {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--amber);
+  text-underline-offset: 3px;
+}
+.feature-actions {
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+.feature-actions a:not(.button),
+.feature-text-button {
+  min-height: 40px;
+}
+.feature-text-button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.feature-discovery-card:focus-visible,
+.feature-actions :is(a, button):focus-visible,
+.feature-link:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+.job-bottom {
+  flex-wrap: wrap;
+  gap: 6px 10px;
+}
+.job-bottom .feature-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+}
+.registry-tabs:focus-visible,
+.operations-tabs:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* Shared workspace layout and native dialog placement. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+.native-modal,
+.native-modal.registry-modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: calc(100% - 32px);
+  height: fit-content;
+  max-height: calc(100dvh - 40px);
+  border-radius: 14px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 20px 64px #0007;
+}
+.native-modal .dialog {
+  max-height: none;
+  max-width: none;
+  overflow: visible;
+  padding: clamp(20px, 4vw, 32px);
+  border-radius: inherit;
+}
+.native-modal .dialog h2 {
+  padding-inline-end: 36px;
+}
+.native-modal .dialog-close {
+  min-width: 40px;
+  min-height: 40px;
+}
+.native-modal .form-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.native-modal .dialog-actions {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.native-modal :is(input, select, textarea) {
+  max-width: 100%;
+}
+.registry-modal .panel-heading {
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+.registry-modal .panel-heading .button {
+  flex-shrink: 0;
+}
+.delivery-attempts {
+  list-style: none;
+  padding: 0;
+}
+.delivery-attempts li {
+  display: grid;
+  gap: 4px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.feature-discovery-card > div {
+  flex: 1;
+  min-width: 0;
+}
+.feature-discovery-card .feature-card-arrow {
+  align-self: center;
+  margin-inline-start: auto;
+}
+.feature-discovery-compact .feature-discovery-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 185px), 1fr));
+}
+.feature-discovery-compact .feature-discovery-card {
+  align-items: center;
+  padding: 10px 12px;
+}
+.feature-discovery-compact .feature-discovery-card h3 {
+  margin: 0;
+  font-size: 13px;
+}
+.widget-grid,
+.composer-layout {
+  display: grid;
+  width: 100%;
+  gap: 16px;
+  align-items: start;
+}
+.widget-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  margin-block: 16px 0;
+  align-items: stretch;
+}
+.composer-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  margin-block: 10px;
+}
+.composer-input,
+.composer-preview,
+.widget-grid > * {
+  min-width: 0;
+}
+.composer-preview {
+  display: grid;
+  gap: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: clamp(14px, 2.5vw, 20px);
+}
+.composer-preview .button {
+  justify-self: start;
+}
+.composer-empty p {
+  color: var(--muted);
+}
+.composer-preview .notice {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  padding: 14px;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+#analytics-intelligence {
+  scroll-margin-top: 24px;
+}
+.session-recovery {
+  min-height: 100dvh;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 22px;
+  padding: 24px;
+}
+.session-recovery > section {
+  width: min(100%, 490px);
+  padding: clamp(22px, 5vw, 40px);
+}
+.session-recovery h1 {
+  font-size: clamp(24px, 5vw, 34px);
+  margin-block: 9px 12px;
+}
+.session-recovery p {
+  margin-bottom: 20px;
+}
+@media (max-width: 850px) {
+  .composer-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .native-modal,
+  .native-modal.registry-modal {
+    inset: auto 0 max(12px, env(safe-area-inset-bottom));
+    width: calc(100% - 24px);
+    max-height: calc(100dvh - 32px - env(safe-area-inset-bottom));
+    margin-block: 0;
+  }
+  .native-modal .form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .native-modal .dialog-actions .button {
+    flex: 1 1 auto;
+  }
+}
+@media (max-width: 480px) {
+  .board {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .board-column {
+    min-height: 0;
+  }
+  .feature-discovery-compact .feature-discovery-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

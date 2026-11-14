@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { Sparkles } from 'lucide-react';
 import { useAccount, useData, Issue } from '../registry/shared';
 import { Timeline } from '../registry/timeline';
 import { send, statusLabel } from '@/lib/api';
@@ -20,6 +21,7 @@ import {
   useCommand,
   Can,
 } from './shared';
+import { MechanicCopilot } from './copilot';
 import { InspectionPanel, QualityPanel, Photos } from './inspection';
 import { JobCommercial } from '../commercial/job-commercial';
 import { PartsFulfillment } from '../commercial/parts-fulfillment';
@@ -73,9 +75,16 @@ export function Jobs({ branch, board, mine }: { branch: string; board: boolean; 
           Check-in {date(job.checkInAt || job.createdAt)}
           {job.estimatedCompletionAt && <> · Due {date(job.estimatedCompletionAt)}</>}
         </small>
-        <a className="button" href={'/jobs/' + job.id}>
-          Open job card
-        </a>
+        <div className="feature-actions">
+          <Button asChild variant="outline">
+            <a href={'/jobs/' + job.id}>Open job card</a>
+          </Button>
+          <Button asChild variant="ghost">
+            <a className="feature-link" href={`/jobs/${job.id}?tab=copilot`}>
+              <Sparkles size={15} aria-hidden="true" /> Ask Copilot
+            </a>
+          </Button>
+        </div>
       </article>
     );
   }
@@ -173,12 +182,21 @@ export function Jobs({ branch, board, mine }: { branch: string; board: boolean; 
     </>
   );
 }
-export function JobDetail({ id, branches }: { id: string; branches: Branch[] }) {
+export function JobDetail({
+  id,
+  branches,
+  openCopilot = false,
+}: {
+  id: string;
+  branches: Branch[];
+  openCopilot?: boolean;
+}) {
+  const sections = useRef<HTMLElement>(null);
   const me = useAccount(),
     data = useData<Job>('workorder/work-orders/' + id),
     job = data.data,
     staff = useData<Staff[]>(job ? 'tenant/branches/' + job.branchId + '/technicians' : null),
-    [tab, setTab] = useState('details'),
+    [tab, setTab] = useState(openCopilot ? 'copilot' : 'details'),
     [form, setForm] = useState(''),
     command = useCommand();
   const can = (p: string) => allowed(me, p);
@@ -253,6 +271,16 @@ export function JobDetail({ id, branches }: { id: string; branches: Branch[] }) 
           </p>
         )}
         <div className="operations-tools">
+          {tab !== 'copilot' && (
+            <Button
+              onClick={() => {
+                setTab('copilot');
+                sections.current?.focus();
+              }}
+            >
+              <Sparkles size={16} aria-hidden="true" /> Ask Mechanic Copilot
+            </Button>
+          )}
           {manager && editable && (
             <>
               <Button onClick={() => setForm('assign')}>Assign technician</Button>
@@ -275,12 +303,19 @@ export function JobDetail({ id, branches }: { id: string; branches: Branch[] }) 
         </div>
       </section>
       <JobCommercial job={job} refresh={data.reload} />
-      <nav className="operations-tabs" aria-label="Job sections">
-        {['details', 'tasks', 'inspection', 'photos', 'quality', 'history', 'audit'].map((t) => (
-          <Button key={t} variant={tab === t ? 'default' : 'outline'} onClick={() => setTab(t)}>
-            {statusLabel(t)}
-          </Button>
-        ))}
+      <nav ref={sections} tabIndex={-1} className="operations-tabs" aria-label="Job sections">
+        {['details', 'copilot', 'tasks', 'inspection', 'photos', 'quality', 'history', 'audit'].map(
+          (t) => (
+            <Button
+              key={t}
+              aria-pressed={tab === t}
+              variant={tab === t ? 'default' : 'outline'}
+              onClick={() => setTab(t)}
+            >
+              {t === 'copilot' ? 'Copilot' : statusLabel(t)}
+            </Button>
+          ),
+        )}
       </nav>
       {tab === 'details' && (
         <div className="operations-list">
@@ -397,6 +432,14 @@ export function JobDetail({ id, branches }: { id: string; branches: Branch[] }) 
         <QualityPanel job={job} staff={staff.data || []} editable={editable} reload={data.reload} />
       )}{' '}
       {tab === 'history' && <Timeline id={job.vehicleId} branches={branches} />}{' '}
+      {tab === 'copilot' && (
+        <MechanicCopilot
+          key={me.activeTenant + '/' + job.id}
+          jobId={job.id}
+          vehicleId={job.vehicleId}
+          branchId={job.branchId}
+        />
+      )}
       {tab === 'audit' && (
         <section className="panel operation-card">
           <h2>Status history</h2>

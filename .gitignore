@@ -20,3 +20,9 @@ terraform.tfvars
 infrastructure/*.local.json
 *.tfvars.json
 /infrastructure/terraform/bootstrap/backend.runtime.tf
+
+# Python development artifacts
+__pycache__/
+.pytest_cache/
+*.egg-info/
+.venv/

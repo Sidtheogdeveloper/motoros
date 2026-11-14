@@ -267,6 +267,13 @@ class InventoryIntegrationTest {
     assertEquals(
         1,
         db.queryForObject(
+            "select count(*) from inventory.outbox_events where tenant_id=? and"
+                + " event_type='PartConsumed' and payload->>'consumedAt' is not null",
+            Integer.class,
+            t));
+    assertEquals(
+        1,
+        db.queryForObject(
                 "select on_hand from inventory.branch_stock where tenant_id=? and part_id=?",
                 java.math.BigDecimal.class,
                 t,

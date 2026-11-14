@@ -50,8 +50,8 @@ public class SourceReconciliation {
               store.db.update(
                   "insert into "
                       + store.schema
-                      + ".outbox_events(event_id,event_type,tenant_id,branch_id,aggregate_id,aggregate_type,correlation_id,payload,actor_id,source_snapshot)"
-                      + " values(?,'ProjectionSnapshot',?,?,?,?,?,'{}',?,?::jsonb)",
+                      + ".outbox_events(event_id,event_type,event_version,tenant_id,branch_id,aggregate_id,aggregate_type,correlation_id,payload,actor_id,source_snapshot)"
+                      + " values(?,'ProjectionSnapshot',1,?,?,?,?,?,'{}',?,?::jsonb)",
                   id,
                   row.get("tenant_id"),
                   row.get("branch_id"),

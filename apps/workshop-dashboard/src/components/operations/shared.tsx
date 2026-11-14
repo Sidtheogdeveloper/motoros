@@ -169,10 +169,12 @@ export function ActionForm({
   children,
   submit,
   onClose,
+  submitLabel = 'Save',
 }: {
   title: string;
   children: ReactNode;
   submit: (f: FormData, key: string) => Promise<void>;
+  submitLabel?: string;
   onClose: () => void;
 }) {
   const [key] = useState(() => crypto.randomUUID()),
@@ -195,7 +197,7 @@ export function ActionForm({
       <form onSubmit={save}>
         <Issue error={error} />
         {children}
-        <Button disabled={busy}>{busy ? 'Saving…' : 'Save'}</Button>
+        <Button disabled={busy}>{busy ? 'Saving…' : submitLabel}</Button>
         <p className="muted">
           If a request times out, retry unchanged to safely resume it. Close and reopen for a
           different operation.

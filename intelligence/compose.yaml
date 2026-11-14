@@ -1,0 +1,52 @@
+name: motoros-intelligence
+services:
+  database:
+    image: postgres:17.6-alpine
+    environment:
+      POSTGRES_DB: intelligence
+      POSTGRES_USER: intelligence_app
+      POSTGRES_PASSWORD: ${AI_DB_PASSWORD:?Set a local AI database password}
+    volumes:
+      - intelligence-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', 'intelligence_app', '-d', 'intelligence']
+      interval: 3s
+      timeout: 2s
+      retries: 20
+  orchestrator:
+    build: ./ai-orchestrator
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      AI_DATABASE_URL: postgresql+psycopg://intelligence_app:${AI_DB_PASSWORD:?Set a local AI database password}@database/intelligence
+      AI_BFF_KEY: ${AI_BFF_KEY:?Set a shared local AI gateway key}
+      AI_CUSTOMER_URL: ${AI_CUSTOMER_URL:-http://host.docker.internal:8082}
+      AI_BOOKING_URL: ${AI_BOOKING_URL:-http://host.docker.internal:8084}
+      AI_INVENTORY_URL: ${AI_INVENTORY_URL:-http://host.docker.internal:8085}
+      AI_NOTIFICATION_URL: ${AI_NOTIFICATION_URL:-http://host.docker.internal:8087}
+      AI_ANALYTICS_URL: ${AI_ANALYTICS_URL:-http://host.docker.internal:8088}
+      AI_BILLING_URL: ${AI_BILLING_URL:-http://host.docker.internal:8086}
+      AI_WORKORDER_URL: ${AI_WORKORDER_URL:-http://host.docker.internal:8083}
+      AI_COPILOT_RETENTION_DAYS: ${AI_COPILOT_RETENTION_DAYS:-30}
+      AI_MONTHLY_COPILOT: ${AI_MONTHLY_COPILOT:-100}
+      AI_TENANT_URL: ${AI_TENANT_URL:-http://host.docker.internal:8081}
+      AI_HISTORY_LOCAL_EVENTS: ${AI_HISTORY_LOCAL_EVENTS:-true}
+      AI_SQS_ENDPOINT: ${AI_SQS_ENDPOINT:-http://host.docker.internal:4566}
+      AI_MESSAGING_PREFIX: ${AI_MESSAGING_PREFIX:-motoros}
+      AI_PROVIDER: ${AI_PROVIDER:-disabled}
+      AI_ALLOW_NVIDIA: ${AI_ALLOW_NVIDIA:-false}
+      NVIDIA_API_KEY: ${NVIDIA_API_KEY:-}
+      AI_MONTHLY_SUMMARIES: ${AI_MONTHLY_SUMMARIES:-100}
+      AI_RETENTION_HOURS: ${AI_RETENTION_HOURS:-24}
+      AI_MODEL: ${AI_MODEL:-}
+      AI_OLLAMA_URL: ${AI_OLLAMA_URL:-http://host.docker.internal:11434}
+    ports: ['127.0.0.1:8089:8089']
+    command:
+      [
+        'sh',
+        '-ec',
+        'alembic upgrade head && exec uvicorn motoros_ai.app:app --host 0.0.0.0 --port 8089 --no-access-log --limit-concurrency 16',
+      ]
+volumes:
+  intelligence-db:

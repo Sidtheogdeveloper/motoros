@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useContext, createContext, type ReactNode } from 'react';
+import { useState, useEffect, useId, useContext, createContext, type ReactNode } from 'react';
 import { type Account } from '@/lib/account';
 import { api } from '@/lib/api';
 import { Button } from '@/components/ui/button';
@@ -34,11 +34,11 @@ type Row = {
   createdAt?: string;
   branchId?: string;
   summary?: string;
-  completedRepairs?: {taskDescription:string;completedAt:string}[];
-  technicianNotes?: {kind:string;note:string}[];
-  parts?: {description:string;quantity:number;status:string}[];
-  odometer?: {odometerKilometers:number;checkInAt:string}[];
-  recommendations?: {category:string;technicianNotes:string;severity:string}[];
+  completedRepairs?: { taskDescription: string; completedAt: string }[];
+  technicianNotes?: { kind: string; note: string }[];
+  parts?: { description: string; quantity: number; status: string }[];
+  odometer?: { odometerKilometers: number; checkInAt: string }[];
+  recommendations?: { category: string; technicianNotes: string; severity: string }[];
   source?: {
     service: string;
     resourceId: string;
@@ -140,12 +140,13 @@ function FormDialog({
   onClose: () => void;
   children: ReactNode;
 }) {
+  const titleId = useId();
   return (
-    <Modal className="registry-modal" titleId="registry-form" onClose={onClose}>
+    <Modal className="registry-modal" titleId={titleId} onClose={onClose}>
       <div className="record-form">
         <div className="panel-heading">
-          <h2 id="registry-form">{title}</h2>
-          <Button variant="ghost" onClick={onClose}>
+          <h2 id={titleId}>{title}</h2>
+          <Button type="button" variant="ghost" onClick={onClose}>
             Close
           </Button>
         </div>

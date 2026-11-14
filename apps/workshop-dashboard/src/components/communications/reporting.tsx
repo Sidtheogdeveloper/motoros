@@ -37,7 +37,7 @@ export function BranchReporting({ branch }: { branch: string }) {
       <Issue error={data.error} loading={data.loading} />
       {data.data && (
         <>
-          <section className="operation-card">
+          <section className="panel operation-card">
             <h2>Projection freshness</h2>
             <p>
               Last source event:{' '}
@@ -53,51 +53,53 @@ export function BranchReporting({ branch }: { branch: string }) {
             </p>
             <p>Snapshot requested: {new Date(data.data.asOf).toLocaleString()}</p>
           </section>
-          <section className="operation-card">
-            <h2>Bookings</h2>
-            {data.data.booking.map((m, i) => (
-              <p key={i}>
-                {m.bookings} bookings · {m.confirmed} confirmed · {m.cancelled} cancelled
-              </p>
-            ))}
-          </section>
-          <section className="operation-card">
-            <h2>Workshop completion</h2>
-            {data.data.workorder.map((m, i) => (
-              <p key={i}>
-                {m.completedWorkOrders} completed repairs · average turnaround{' '}
-                {m.averageTurnaroundMinutes === null
-                  ? 'unavailable'
-                  : Number(m.averageTurnaroundMinutes).toFixed(1) + ' minutes'}
-              </p>
-            ))}
-          </section>
-          <section className="operation-card">
-            <h2>Billing and collections</h2>
-            <p>{data.data.collectionsDefinition}</p>
-            {data.data.billing.map((m) => (
-              <div key={m.currency || 'none'}>
-                <h3>{m.currency || 'Unspecified currency'}</h3>
-                <p>
-                  {m.issuedInvoices} issued invoices · issued value{' '}
-                  {formatDecimal(m.issuedInvoiceValue)}
+          <div className="widget-grid">
+            <section className="panel operation-card">
+              <h2>Bookings</h2>
+              {data.data.booking.map((m, i) => (
+                <p key={i}>
+                  {m.bookings} bookings · {m.confirmed} confirmed · {m.cancelled} cancelled
                 </p>
-                <p>
-                  Recorded net collections {formatDecimal(m.recordedPaymentCollections)} ·{' '}
-                  {m.pendingApprovals} pending approvals
+              ))}
+            </section>
+            <section className="panel operation-card">
+              <h2>Workshop completion</h2>
+              {data.data.workorder.map((m, i) => (
+                <p key={i}>
+                  {m.completedWorkOrders} completed repairs · average turnaround{' '}
+                  {m.averageTurnaroundMinutes === null
+                    ? 'unavailable'
+                    : Number(m.averageTurnaroundMinutes).toFixed(1) + ' minutes'}
                 </p>
-              </div>
-            ))}
-          </section>
-          <section className="operation-card">
-            <h2>Parts and communications</h2>
-            <p>Consumed quantity: {data.data.parts[0]?.consumed_quantity || '0'}</p>
-            {data.data.notifications.map((n) => (
-              <p key={n.status}>
-                {n.status}: {n.count}
-              </p>
-            ))}
-          </section>
+              ))}
+            </section>
+            <section className="panel operation-card">
+              <h2>Billing and collections</h2>
+              <p>{data.data.collectionsDefinition}</p>
+              {data.data.billing.map((m) => (
+                <div key={m.currency || 'none'}>
+                  <h3>{m.currency || 'Unspecified currency'}</h3>
+                  <p>
+                    {m.issuedInvoices} issued invoices · issued value{' '}
+                    {formatDecimal(m.issuedInvoiceValue)}
+                  </p>
+                  <p>
+                    Recorded net collections {formatDecimal(m.recordedPaymentCollections)} ·{' '}
+                    {m.pendingApprovals} pending approvals
+                  </p>
+                </div>
+              ))}
+            </section>
+            <section className="panel operation-card">
+              <h2>Parts and communications</h2>
+              <p>Consumed quantity: {data.data.parts[0]?.consumed_quantity || '0'}</p>
+              {data.data.notifications.map((n) => (
+                <p key={n.status}>
+                  {n.status}: {n.count}
+                </p>
+              ))}
+            </section>
+          </div>
         </>
       )}
     </>

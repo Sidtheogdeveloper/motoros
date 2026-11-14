@@ -110,6 +110,11 @@ public record EventEnvelope(
             "status",
             "resourceVersion",
             "startsAt",
+            "issuedAt",
+            "paymentAt",
+            "decidedAt",
+            "consumedAt",
+            "serviceCategoryId",
             "checkInAt",
             "completedAt",
             "amount",
@@ -128,6 +133,7 @@ public record EventEnvelope(
       if (canonical.get(decimal) != null) canonical.put(decimal, canonical.get(decimal).toString());
     for (String key :
         List.of(
+            "serviceCategoryId",
             "resourceId",
             "customerId",
             "vehicleId",
@@ -145,7 +151,7 @@ public record EventEnvelope(
     for (String key : List.of("resourceVersion", "revision"))
       if (canonical.get(key) != null && !canonical.get(key).toString().matches("[0-9]{1,19}"))
         throw new IllegalArgumentException("INVALID_VERSION_PAYLOAD");
-    for (String key : List.of("startsAt", "checkInAt", "completedAt"))
+    for (String key : List.of("startsAt", "checkInAt", "completedAt", "issuedAt", "paymentAt", "decidedAt", "consumedAt"))
       if (canonical.get(key) != null) Instant.parse(canonical.get(key).toString());
     payload = Collections.unmodifiableMap(canonical);
   }

@@ -1,4 +1,5 @@
 'use client';
+import { ReasonDialog } from './reason-dialog';
 import { Brand } from '@/components/brand';
 
 import { useEffect, useState } from 'react';
@@ -49,7 +50,13 @@ export function PlatformHealth() {
     [outboxStatus, setOutboxStatus] = useState(''),
     [error, setError] = useState(''),
     [epoch, setEpoch] = useState(0),
-    [busy, setBusy] = useState(false);
+    [busy, setBusy] = useState(false),
+    [pending, setPending] = useState<{
+      id: string;
+      action: string;
+      kind: string;
+      title: string;
+    } | null>(null);
   useEffect(() => {
     account()
       .then(setMe)
@@ -85,26 +92,25 @@ export function PlatformHealth() {
       });
     return () => c.abort();
   }, [me, service, page, epoch, outboxPage, outboxStatus]);
-  async function act(id: string, action: string, kind = 'failures') {
-    const reason = window.prompt('Audit reason (at least 10 characters)');
-    if (!reason) return;
-    if (reason.trim().length < 10) {
-      setError('Record a longer audit reason.');
-      return;
-    }
+  async function confirmAction(reason: string) {
+    if (!pending) return;
     setBusy(true);
     try {
-      await send(service + '/platform/messaging/' + kind + '/' + id + '/' + action, { reason });
+      await send(
+        service + '/platform/messaging/' + pending.kind + '/' + pending.id + '/' + pending.action,
+        { reason },
+      );
+      setPending(null);
       setEpoch((e) => e + 1);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Action denied');
     } finally {
       setBusy(false);
     }
   }
   return (
     <main className="management-page operations-page">
-      <a className="brand" href="/"><Brand /></a>
+      <a className="brand" href="/">
+        <Brand />
+      </a>
       <h1>Event operations</h1>
       {error && <p role="alert">{error}</p>}
       {!me && !error && <p role="status">Checking platform authority…</p>}
@@ -206,7 +212,17 @@ export function PlatformHealth() {
                   Event {e.eventId} · {new Date(e.createdAt).toLocaleString()}
                 </p>
                 {e.status === 'TERMINAL' && (
-                  <Button disabled={busy} onClick={() => act(e.eventId, 'retry', 'outbox')}>
+                  <Button
+                    disabled={busy}
+                    onClick={() =>
+                      setPending({
+                        id: e.eventId,
+                        action: 'retry',
+                        kind: 'outbox',
+                        title: 'Retry event',
+                      })
+                    }
+                  >
                     Retry outbox event
                   </Button>
                 )}
@@ -225,10 +241,31 @@ export function PlatformHealth() {
                 <p>
                   Event {f.eventId || 'invalid contract'} · {new Date(f.createdAt).toLocaleString()}
                 </p>
-                <Button disabled={busy} onClick={() => act(f.id, 'redrive')}>
+                <Button
+                  disabled={busy}
+                  onClick={() =>
+                    setPending({
+                      id: f.id,
+                      action: 'redrive',
+                      kind: 'failures',
+                      title: 'Redrive event',
+                    })
+                  }
+                >
                   Redrive event
                 </Button>
-                <Button variant="outline" disabled={busy} onClick={() => act(f.id, 'resolve')}>
+                <Button
+                  variant="outline"
+                  disabled={busy}
+                  onClick={() =>
+                    setPending({
+                      id: f.id,
+                      action: 'resolve',
+                      kind: 'failures',
+                      title: 'Mark event resolved',
+                    })
+                  }
+                >
                   Mark resolved
                 </Button>
               </article>
@@ -247,6 +284,13 @@ export function PlatformHealth() {
             </Button>
           </section>
         </>
+      )}
+      {pending && (
+        <ReasonDialog
+          title={pending.title}
+          onClose={() => setPending(null)}
+          onConfirm={confirmAction}
+        />
       )}
     </main>
   );

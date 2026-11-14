@@ -1,9 +1,11 @@
 'use client';
-import { useState } from 'react';
-import { useAccount, useData, Issue } from '../registry/shared';
+import { useEffect, useState } from 'react';
+import { useAccount, useData, Issue, FormDialog } from '../registry/shared';
 import { allowed } from '@/lib/account';
 import { send, statusLabel } from '@/lib/api';
 import { Button } from '../ui/button';
+import { ReasonDialog } from './reason-dialog';
+import { MessageComposer } from './message-composer';
 import { Paging } from '../commercial/shared';
 import type { Page } from '../operations/shared';
 
@@ -52,8 +54,20 @@ export function NotificationCenter({ branch }: { branch: string }) {
     [status, setStatus] = useState(''),
     [page, setPage] = useState(0),
     [selected, setSelected] = useState<Notice | null>(null),
-    [error, setError] = useState(''),
+    [pending, setPending] = useState<{
+      id: string;
+      version: number;
+      action: 'retry' | 'cancel';
+      schedule?: boolean;
+    } | null>(null),
     [busy, setBusy] = useState(false);
+  const canCompose =
+    allowed(me, 'AI_COMMUNICATION_DRAFT_USE') && allowed(me, 'NOTIFICATION_MANAGE');
+  useEffect(() => {
+    if (canCompose && new URLSearchParams(window.location.search).get('tab') === 'compose') {
+      setTab('compose');
+    }
+  }, [canCompose]);
   const history = useData<Page<Notice>>(
     tab === 'history'
       ? `notification/notifications?branchId=${branch}&status=${status}&page=${page}`
@@ -70,15 +84,10 @@ export function NotificationCenter({ branch }: { branch: string }) {
   const attempts = useData<{ attemptNumber: number; category: string; createdAt: string }[]>(
     selected ? `notification/notifications/${selected.id}/attempts` : null,
   );
-  async function act(id: string, version: number, action: string, schedule = false) {
-    const reason = window.prompt('Record a reason (at least 10 characters)');
-    if (!reason) return;
-    if (reason.trim().length < 10) {
-      setError('A reason of at least 10 characters is required.');
-      return;
-    }
+  async function confirmAction(reason: string) {
+    if (!pending) return;
+    const { id, version, action, schedule } = pending;
     setBusy(true);
-    setError('');
     try {
       await send(
         `notification/notifications/${schedule ? 'schedules/' : ''}${id}/${action}`,
@@ -86,10 +95,9 @@ export function NotificationCenter({ branch }: { branch: string }) {
         'POST',
         me.activeTenant!,
       );
+      setPending(null);
       history.reload();
       schedules.reload();
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Action failed');
     } finally {
       setBusy(false);
     }
@@ -97,17 +105,24 @@ export function NotificationCenter({ branch }: { branch: string }) {
   return (
     <>
       <nav className="management-nav" aria-label="Communication views">
-        {['history', 'reminders', 'templates', 'preferences'].map((t) => (
+        {[
+          ...(canCompose ? ['compose'] : []),
+          'history',
+          'reminders',
+          'templates',
+          'preferences',
+        ].map((t) => (
           <Button
             key={t}
             variant={tab === t ? 'default' : 'outline'}
+            aria-pressed={tab === t}
             onClick={() => {
               setTab(t);
               setPage(0);
               setSelected(null);
             }}
           >
-            {t}
+            {t === 'compose' ? 'AI message composer' : t}
           </Button>
         ))}
       </nav>
@@ -116,31 +131,36 @@ export function NotificationCenter({ branch }: { branch: string }) {
         development captures in local mode.
       </p>
       <Issue
-        error={error || history.error || schedules.error || templates.error}
+        error={history.error || schedules.error || templates.error}
         loading={history.loading || schedules.loading || templates.loading}
       />
+      {tab === 'compose' && canCompose && (
+        <MessageComposer tenant={me.activeTenant!} branch={branch} />
+      )}
       {tab === 'history' && (
         <>
-          <label>
-            Delivery status
-            <select
-              value={status}
-              onChange={(e) => {
-                setStatus(e.target.value);
-                setPage(0);
-              }}
-            >
-              <option value="">All statuses</option>
-              {['PENDING', 'APPROVED', 'QUEUED', 'SENDING', 'SENT', 'FAILED', 'CANCELLED'].map(
-                (s) => (
-                  <option key={s}>{s}</option>
-                ),
-              )}
-            </select>
-          </label>
-          <Button variant="outline" onClick={history.reload}>
-            Refresh communications
-          </Button>
+          <div className="operations-tools">
+            <label>
+              Delivery status
+              <select
+                value={status}
+                onChange={(e) => {
+                  setStatus(e.target.value);
+                  setPage(0);
+                }}
+              >
+                <option value="">All statuses</option>
+                {['PENDING', 'APPROVED', 'QUEUED', 'SENDING', 'SENT', 'FAILED', 'CANCELLED'].map(
+                  (s) => (
+                    <option key={s}>{s}</option>
+                  ),
+                )}
+              </select>
+            </label>
+            <Button variant="outline" onClick={history.reload}>
+              Refresh communications
+            </Button>
+          </div>
           <div className="operations-list">
             {history.data?.content.map((n) => (
               <article className="operation-card" key={n.id}>
@@ -159,7 +179,12 @@ export function NotificationCenter({ branch }: { branch: string }) {
                 {allowed(me, 'NOTIFICATION_MANAGE') && (
                   <>
                     {n.status === 'FAILED' && (
-                      <Button disabled={busy} onClick={() => act(n.id, n.version, 'retry')}>
+                      <Button
+                        disabled={busy}
+                        onClick={() =>
+                          setPending({ id: n.id, version: n.version, action: 'retry' })
+                        }
+                      >
                         Retry notification
                       </Button>
                     )}
@@ -167,7 +192,9 @@ export function NotificationCenter({ branch }: { branch: string }) {
                       <Button
                         variant="outline"
                         disabled={busy}
-                        onClick={() => act(n.id, n.version, 'cancel')}
+                        onClick={() =>
+                          setPending({ id: n.id, version: n.version, action: 'cancel' })
+                        }
                       >
                         Cancel notification
                       </Button>
@@ -180,18 +207,20 @@ export function NotificationCenter({ branch }: { branch: string }) {
           {history.data?.content.length === 0 && <p>No matching communications.</p>}
           <Paging page={page} setPage={setPage} data={history.data} />
           {selected && (
-            <section className="operation-card">
-              <h2>Delivery attempts</h2>
+            <FormDialog title="Delivery attempts" onClose={() => setSelected(null)}>
               <Issue error={attempts.error} loading={attempts.loading} />
-              {attempts.data?.map((a) => (
-                <p key={a.attemptNumber}>
-                  Attempt {a.attemptNumber}: {a.category} · {new Date(a.createdAt).toLocaleString()}
-                </p>
-              ))}
-              <Button variant="outline" onClick={() => setSelected(null)}>
-                Close attempts
-              </Button>
-            </section>
+              {attempts.data?.length === 0 && <p>No delivery attempts yet.</p>}
+              <ol className="delivery-attempts">
+                {attempts.data?.map((a) => (
+                  <li key={a.attemptNumber}>
+                    <strong>Attempt {a.attemptNumber}</strong>
+                    <span>
+                      {statusLabel(a.category)} · {new Date(a.createdAt).toLocaleString()}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </FormDialog>
           )}
         </>
       )}
@@ -211,7 +240,9 @@ export function NotificationCenter({ branch }: { branch: string }) {
                 <Button
                   disabled={busy}
                   variant="outline"
-                  onClick={() => act(s.id, s.version, 'cancel', true)}
+                  onClick={() =>
+                    setPending({ id: s.id, version: s.version, action: 'cancel', schedule: true })
+                  }
                 >
                   Cancel reminder
                 </Button>
@@ -233,6 +264,19 @@ export function NotificationCenter({ branch }: { branch: string }) {
           </article>
         ))}
       {tab === 'preferences' && <PreferenceEditor />}
+      {pending && (
+        <ReasonDialog
+          title={
+            pending.schedule
+              ? 'Cancel reminder'
+              : pending.action === 'retry'
+                ? 'Retry notification'
+                : 'Cancel notification'
+          }
+          onClose={() => setPending(null)}
+          onConfirm={confirmAction}
+        />
+      )}
     </>
   );
 }

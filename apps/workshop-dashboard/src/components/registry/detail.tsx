@@ -1,5 +1,6 @@
 'use client';
-import { useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
+import { Sparkles } from 'lucide-react';
 import { allowed } from '@/lib/account';
 import { send } from '@/lib/api';
 import { Button } from '@/components/ui/button';
@@ -16,22 +17,33 @@ import {
 } from './shared';
 import { RecordEditor } from './directory';
 import { Timeline } from './timeline';
+import { VehicleIntelligence } from './intelligence';
 import { DocumentPanel } from './documents';
 export function Detail({
   kind,
   id,
   timeline,
+  openIntelligence = false,
 }: {
   kind: 'customers' | 'vehicles';
   id: string;
   timeline: boolean;
+  openIntelligence?: boolean;
 }) {
   const me = useAccount(),
     customer = kind === 'customers',
     can = (p: string) => allowed(me, p);
   const record = useData<Row>(`customer/${kind}/${id}`),
     branches = useData<Branch[]>('tenant/branches?size=100');
-  const [tab, setTab] = useState(timeline ? 'Service timeline' : 'Overview'),
+  const canSummarize = !customer && can('VEHICLE_HISTORY_READ');
+  const sections = useRef<HTMLElement>(null);
+  const [selection, setTab] = useState(
+      openIntelligence && canSummarize
+        ? 'Intelligence'
+        : timeline && canSummarize
+          ? 'Service timeline'
+          : 'Overview',
+    ),
     [editing, setEditing] = useState(false);
   const row = record.data;
   const tabs = customer
@@ -41,8 +53,9 @@ export function Detail({
         ...(can('VEHICLE_OWNERSHIP_READ') ? ['Ownership'] : []),
         'Odometer',
         ...(can('DOCUMENT_READ') ? ['Documents'] : []),
-        ...(can('VEHICLE_HISTORY_READ') ? ['Service timeline'] : []),
+        ...(can('VEHICLE_HISTORY_READ') ? ['Service timeline', 'Intelligence'] : []),
       ];
+  const tab = tabs.includes(selection) ? selection : 'Overview';
   return (
     <>
       <section className="management-heading">
@@ -55,18 +68,37 @@ export function Detail({
               : [row?.make, row?.model, row?.year].filter(Boolean).join(' · ')}
           </p>
         </div>
-        {row && can(customer ? 'CUSTOMER_WRITE' : 'VEHICLE_WRITE') && (
-          <Button variant="outline" onClick={() => setEditing(true)}>
-            Edit {customer ? 'customer' : 'vehicle'}
-          </Button>
+        {row && (
+          <div className="feature-actions">
+            {canSummarize && tab !== 'Intelligence' && (
+              <Button
+                onClick={() => {
+                  setTab('Intelligence');
+                  sections.current?.focus();
+                }}
+              >
+                <Sparkles size={16} aria-hidden="true" /> Open AI history summary
+              </Button>
+            )}
+            {can(customer ? 'CUSTOMER_WRITE' : 'VEHICLE_WRITE') && (
+              <Button variant="outline" onClick={() => setEditing(true)}>
+                Edit {customer ? 'customer' : 'vehicle'}
+              </Button>
+            )}
+          </div>
         )}
       </section>
       <Issue error={record.error || branches.error} loading={record.loading} />
       {row && (
         <>
-          <nav className="registry-tabs" aria-label="Profile sections">
+          <nav ref={sections} tabIndex={-1} className="registry-tabs" aria-label="Profile sections">
             {tabs.map((t) => (
-              <Button key={t} variant={tab === t ? 'default' : 'ghost'} onClick={() => setTab(t)}>
+              <Button
+                key={t}
+                aria-pressed={tab === t}
+                variant={tab === t ? 'default' : 'ghost'}
+                onClick={() => setTab(t)}
+              >
                 {t}
               </Button>
             ))}
@@ -104,7 +136,11 @@ export function Detail({
                       been merged.
                     </p>
                   )}
-                  <a href={'/vehicles/' + id + '/timeline'}>Open cross-branch service timeline →</a>
+                  {canSummarize && (
+                    <a href={'/vehicles/' + id + '/timeline'}>
+                      Open cross-branch service timeline →
+                    </a>
+                  )}
                 </section>
               )}
             </>
@@ -116,6 +152,9 @@ export function Detail({
           {tab === 'Documents' && (
             <DocumentPanel kind={kind} id={id} branches={branches.data || []} />
           )}{' '}
+          {tab === 'Intelligence' && can('VEHICLE_HISTORY_READ') && (
+            <VehicleIntelligence id={id} branches={branches.data || []} />
+          )}
           {tab === 'Service timeline' && <Timeline id={id} branches={branches.data || []} />}
         </>
       )}

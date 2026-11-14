@@ -2,6 +2,7 @@ package com.motoros.notification;
 
 import com.motoros.foundation.*;
 import com.motoros.foundation.events.*;
+import java.time.Instant;
 import java.util.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -13,18 +14,21 @@ public class NotificationDelivery {
   private final EventGateway gateway;
   private final DeliveryCipher cipher;
   private final DeliveryProviders providers;
+  private final CommunicationFacts assistant;
 
   NotificationDelivery(
       EventStore store,
       NotificationConsumer consumer,
       EventGateway gateway,
       DeliveryCipher cipher,
-      DeliveryProviders providers) {
+      DeliveryProviders providers,
+      CommunicationFacts assistant) {
     this.store = store;
     this.consumer = consumer;
     this.gateway = gateway;
     this.cipher = cipher;
     this.providers = providers;
+    this.assistant = assistant;
   }
 
   @Scheduled(fixedDelayString = "${motoros.notification.poll-ms:1000}")
@@ -47,6 +51,10 @@ public class NotificationDelivery {
       String template = row.get("template_key").toString();
       int attempt = ((Number) row.get("attempt_count")).intValue();
       try {
+        if (row.get("assistant_purpose") != null) {
+          sendAssistant(row, claim, event);
+          continue;
+        }
         var context = gateway.proof(event);
         var prefs = consumer.preferences(event, context);
         var type =
@@ -89,6 +97,34 @@ public class NotificationDelivery {
             null);
       }
     }
+  }
+
+  private void sendAssistant(Map<String, Object> row, UUID claim, EventEnvelope event) {
+    var content = Records.object(cipher.decrypt(row.get("encrypted_content").toString()));
+    if (!Instant.parse(content.get("expiresAt").toString()).isAfter(Instant.now())) {
+      finish(row, claim, event, "CANCELLED", "APPROVAL_EXPIRED", null);
+      return;
+    }
+    var purpose = CommunicationFacts.Purpose.valueOf(row.get("assistant_purpose").toString());
+    var channel = CommunicationFacts.Channel.valueOf(row.get("channel").toString());
+    CommunicationFacts.Verified verified;
+    try {
+      verified = assistant.resolve(event, purpose, (UUID) row.get("customer_id"),
+          Records.uuid(content.get("vehicleId")), channel);
+    } catch (org.springframework.web.server.ResponseStatusException rejected) {
+      if (!rejected.getStatusCode().is4xxClientError()) throw rejected;
+      finish(row, claim, event, "CANCELLED", "POLICY_OR_SOURCE_CHANGED", null);
+      return;
+    }
+    if (!verified.fingerprint().equals(content.get("factsHash"))) {
+      finish(row, claim, event, "CANCELLED", "APPROVED_FACTS_CHANGED", null);
+      return;
+    }
+    String body = content.get("body").toString();
+    if (verified.approvalBody() != null) body += "\n\n" + verified.approvalBody();
+    var accepted = providers.send(channel.name(), (UUID) row.get("id"), verified.recipient(),
+        content.get("subject").toString(), body);
+    finish(row, claim, event, "SENT", accepted.status(), accepted.messageId());
   }
 
   private void finish(

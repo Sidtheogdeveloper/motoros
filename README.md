@@ -17,7 +17,7 @@ MotorOS is a multi-tenant, multi-branch automotive workshop application. It conn
 
 **AWS target:** ECS Fargate, ECR, RDS PostgreSQL, Cognito, encrypted Valkey sessions, S3, SNS/SQS and CloudWatch, with checked-in Terraform deployment definitions. The infrastructure and release tooling are checked in; **AWS deployment is prepared, not deployed**. Start with the [AWS setup guide](docs/deployment/aws-setup.md) and [cloud architecture](docs/deployment/architecture.md).
 
-**Current status:** working local development software with implemented Milestones 1–6 and Milestone 7 AWS deployment preparation. It is **not deployed to AWS or certified production-ready**. AI integrations remain future work. Screenshots below show actual local screens; the public landing page contains a separately labeled illustrative product preview.
+**Current status:** working local development software with implemented Milestones 1–6 and Milestone 7 AWS deployment preparation. It is **not deployed to AWS or certified production-ready**. The optional [vehicle history Intelligence workflow](intelligence/README.md) passed local acceptance with live NVIDIA inference. The job card also includes Mechanic Copilot and an [estimate drafting assistant](docs/milestones/MILESTONE_10_REPORT.md). Reporting includes [Analytics Intelligence](docs/milestones/MILESTONE_11_REPORT.md). Notifications includes the [Customer Communication Assistant](docs/milestones/MILESTONE_12_REPORT.md). Screenshots below show actual local screens; the public landing page contains a separately labeled illustrative product preview.
 
 ## Contents
 
@@ -39,16 +39,16 @@ MotorOS is a multi-tenant, multi-branch automotive workshop application. It conn
 
 ## Application status
 
-| Area                             | What exists                                                                                                                | Practical limit                                                                                                            |
-| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Identity and workshop management | OIDC sign-in, verified registration, password recovery, tenants, branches, roles and staff invitations                     | Local Keycloak; cloud identity requires separately configured deployment                                                   |
-| Customer and vehicle registry    | Search, contacts, ownership history, odometer records, private documents and permitted cross-branch history                | Records are shared within a tenant; history access does not grant branch mutation rights                                   |
-| Workshop operations              | Booking, check-in, job cards, tasks, assignments, inspection, quality review and operational board                         | Development-only approval paths are labeled and are not production financial approval                                      |
-| Inventory and billing            | Parts, reservations, stock transfers, estimates/approvals, issued invoices and payment recording                           | Recording a payment is not a payment-gateway integration; accounting/tax configuration needs independent review            |
-| Messaging and reporting          | Transactional outbox/inbox, SNS/SQS-compatible local transport, reminders, notification attempts and reporting projections | At-least-once processing; external provider acceptance is not delivery or a read receipt                                   |
-| Email                            | Mailpit by default; optional Gmail SMTP for local identity emails                                                          | Gmail credentials are configured locally and never included in a GitHub download; SMS/WhatsApp remain development adapters |
-| AWS deployment                   | Terraform, images, controlled release/migration tooling, IAM boundaries and operations runbooks                            | Cloud provisioning, end-to-end staging acceptance and restore exercises remain gated/unexecuted                            |
-| AI                               | Structured APIs and source references suitable for future integrations                                                     | No AI Orchestrator, Mechanic Copilot or Vehicle History Summarizer is implemented                                          |
+| Area                             | What exists                                                                                                                | Practical limit                                                                                                                                                            |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Identity and workshop management | OIDC sign-in, verified registration, password recovery, tenants, branches, roles and staff invitations                     | Local Keycloak; cloud identity requires separately configured deployment                                                                                                   |
+| Customer and vehicle registry    | Search, contacts, ownership history, odometer records, private documents and permitted cross-branch history                | Records are shared within a tenant; history access does not grant branch mutation rights                                                                                   |
+| Workshop operations              | Booking, check-in, job cards, tasks, assignments, inspection, quality review and operational board                         | Development-only approval paths are labeled and are not production financial approval                                                                                      |
+| Inventory and billing            | Parts, reservations, stock transfers, estimates/approvals, issued invoices and payment recording                           | Recording a payment is not a payment-gateway integration; accounting/tax configuration needs independent review                                                            |
+| Messaging and reporting          | Transactional outbox/inbox, SNS/SQS-compatible local transport, reminders, notification attempts and reporting projections | At-least-once processing; external provider acceptance is not delivery or a read receipt                                                                                   |
+| Email                            | Mailpit by default; optional Gmail SMTP for local identity emails                                                          | Gmail credentials are configured locally and never included in a GitHub download; SMS/WhatsApp remain development adapters                                                 |
+| AWS deployment                   | Terraform, images, controlled release/migration tooling, IAM boundaries and operations runbooks                            | Cloud provisioning, end-to-end staging acceptance and restore exercises remain gated/unexecuted                                                                            |
+| AI                               | Structured APIs and source references suitable for future integrations                                                     | Optional AI Orchestrator supports Vehicle History, Mechanic Copilot, Estimate Drafting, Analytics Intelligence and Customer Communications locally; cloud AI is unverified |
 
 See the [Milestone 6 report](docs/milestones/MILESTONE_6_REPORT.md) and [Milestone 7 report](docs/milestones/MILESTONE_7_REPORT.md) for engineering evidence, historical test results and known limitations. Those reports describe their validation dates; they are not a claim that every suite was rerun for this documentation update.
 
@@ -67,48 +67,40 @@ Some operational screens intentionally use a simpler layout than the public land
 
 ## Screenshots
 
-Captured **25 October 2026** from the running local application with the current MotorOS branding. Authenticated screens use existing **synthetic development accounts and data**; no real customer records or credentials are shown. Values reflect that local fixture database and are not production statistics. Click a desktop image to view it at full size.
+The signed-in screens were captured on **14 November 2026** from the local Apex Motorworks demo. All five branches use synthetic records. The landing page includes an illustrative product preview.
 
-### Public landing page
+| Workshop overview                                                                                                                    | Branch directory                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [![Apex Motorworks dashboard with job counts and five AI shortcuts](docs/screenshots/dashboard.png)](docs/screenshots/dashboard.png) | [![Apex branch directory with Anna Nagar, Velachery, OMR, Adyar QA and Porur QA](docs/screenshots/franchise-branches.png)](docs/screenshots/franchise-branches.png) |
 
-![MotorOS landing page with the orange hexagonal logo, product introduction and labeled illustrative workshop preview](docs/screenshots/landing.png)
+| Vehicle history                                                                                                                                   | Workshop job board                                                                                                                                |
+| ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [![Vehicle service timeline with visits from multiple Apex branches](docs/screenshots/vehicle-history.png)](docs/screenshots/vehicle-history.png) | [![Workshop board with simulated repair jobs and their actual workflow statuses](docs/screenshots/job-board.png)](docs/screenshots/job-board.png) |
 
-### Workshop dashboard and authorized vehicle history
-
-| Workshop overview                                                                                                                                                            | Vehicle service timeline                                                                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![MotorOS workshop dashboard showing a synthetic Apex workshop, branch selector and operational summaries](docs/screenshots/dashboard.png)](docs/screenshots/dashboard.png) | [![Vehicle profile showing an authorized completed service with its originating branch and source reference](docs/screenshots/vehicle-history.png)](docs/screenshots/vehicle-history.png) |
+| Analytics Intelligence                                                                                                          | Customer message composer                                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [![Analytics comparing completed repairs across demo branches](docs/screenshots/analytics.png)](docs/screenshots/analytics.png) | [![Message composer with a draft Tamil check-in update and staff approval controls](docs/screenshots/message-composer.png)](docs/screenshots/message-composer.png) |
 
 <details>
-<summary><strong>View job board, inventory, billing and communication screens</strong></summary>
+<summary>More application screens</summary>
 
-### Workshop board
+| Appointments                                                                                                             | Inventory                                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| [![Appointments with synthetic workshop bookings](docs/screenshots/appointments.png)](docs/screenshots/appointments.png) | [![Inventory catalog and stock across the Apex franchise](docs/screenshots/inventory.png)](docs/screenshots/inventory.png) |
 
-The board uses real work-order state. Its columns scroll horizontally; the screenshot shows the visible portion of that board.
+| Billing                                                                                                                              | Notification history                                                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [![Repair estimates showing simulated workshop parts and labor charges](docs/screenshots/billing.png)](docs/screenshots/billing.png) | [![Notification history showing synthetic delivery requests and statuses](docs/screenshots/notifications.png)](docs/screenshots/notifications.png) |
 
-![Workshop board showing synthetic job cards, status counts, branch selection and technician filters](docs/screenshots/job-board.png)
+[![AI tools workspace with five tools for workshop staff](docs/screenshots/intelligence.png)](docs/screenshots/intelligence.png)
 
-### Inventory
+[![MotorOS public landing page](docs/screenshots/landing.png)](docs/screenshots/landing.png)
 
-![Inventory catalog with synthetic oil-filter parts, prices and stock/reservation actions](docs/screenshots/inventory.png)
-
-### Billing estimates
-
-![Billing estimate directory showing synthetic approved estimate revisions and branch pricing actions](docs/screenshots/billing.png)
-
-### Customer communications
-
-Statuses distinguish provider acceptance, cancellation and stale source events; they do not imply a customer has read a message.
-
-![Customer communications screen showing synthetic delivery attempts, reminders, templates and preferences](docs/screenshots/notifications.png)
+<img src="docs/screenshots/vehicle-mobile.png" width="300" alt="Vehicle service history on a mobile viewport">
 
 </details>
 
-### Mobile vehicle history
-
-<img src="docs/screenshots/vehicle-mobile.png" width="300" alt="MotorOS mobile vehicle profile with responsive navigation and authorized service timeline">
-
-Screen routes and capture details are recorded in the [screenshot notes](docs/screenshots/README.md).
+See the [screenshot notes](docs/screenshots/README.md) for routes and capture details.
 
 ## Technology and architecture
 
@@ -274,6 +266,14 @@ npm run fixtures:m5
 
 Follow that order. M4/M5 fixture commands run integration scenarios and may add more synthetic records on reruns. For later communication/reporting acceptance data, `npm run test:api:m6` runs its scenarios and creates the separate synthetic platform administrator when needed; it is not an ordinary startup step.
 
+To load the five-branch Apex demo after Milestone 3 fixtures are ready, keep the fixture flag enabled and run:
+
+```text
+node scripts/seed-franchise-demo.mjs
+```
+
+The script adds 60 customers, 60 vehicles, 30 appointments, 41 work orders, 20 draft estimates, and eight catalog parts stocked at each of the five branches. It also completes a service visit for the same vehicle at Anna Nagar and OMR so the timeline has a cross-branch example. Sign in with the Apex owner from the local fixture manifest and open **Branches**, **Appointments**, or **AI tools**.
+
 Generated logins are in private, ignored `.runtime/m2-fixtures.json` and `.runtime/m3-fixtures.json`, with further staff data in subsequent manifests. Open them privately; do not paste them into README files or screenshots. Fixtures include Apex Motorworks (Anna Nagar, Velachery, OMR) and isolated Precision Auto Care. They demonstrate authorized same-tenant history and cross-tenant denial, not an automatic grant of access to real accounts. Older installations with legacy identities need the explicit migration policy described in the [identity architecture](docs/architecture/identity-and-authorization.md).
 
 ## Local endpoints
@@ -416,7 +416,7 @@ The existing cost snapshots are dated estimates, not a current bill or a deploym
 
 ## Documentation verification
 
-This documentation update was checked on **25 October 2026 (Asia/Calcutta)** against the implemented startup scripts, package commands and CI workflow. The existing Windows local app was reachable, and all eight current screenshots were captured after real sign-in using verified synthetic accounts. Screenshots do not establish that every feature or failure mode was retested.
+This documentation update was checked on **25 October 2026 (Asia/Calcutta)** against the implemented startup scripts, package commands and CI workflow. The existing Windows local app was reachable, and the original screenshots were captured after real sign-in using verified synthetic accounts. Screenshots do not establish that every feature or failure mode was retested.
 
 | Check for this update                        | Result                                                                              |
 | -------------------------------------------- | ----------------------------------------------------------------------------------- |

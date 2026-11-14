@@ -45,14 +45,19 @@ function scopedEnv(env, allowed) {
   return Object.fromEntries(
     Object.entries(env).filter(
       ([key]) =>
-        !/(?:PASSWORD|SECRET|SECRET_KEY|ENCRYPTION_KEY|ACCESS_KEY|ACCESS_KEY_ID|SESSION_TOKEN)$/.test(
+        !/(?:PASSWORD|SECRET|SECRET_KEY|ENCRYPTION_KEY|ACCESS_KEY|ACCESS_KEY_ID|SESSION_TOKEN|AI_BFF_KEY|AI_DATABASE_URL)$/.test(
           key,
         ) || allowed.includes(key),
     ),
   );
 }
 export function frontendEnv(env) {
-  return scopedEnv(env, ['OIDC_CLIENT_SECRET', 'REDIS_PASSWORD', 'SESSION_ENCRYPTION_KEY']);
+  return scopedEnv(env, [
+    'OIDC_CLIENT_SECRET',
+    'REDIS_PASSWORD',
+    'SESSION_ENCRYPTION_KEY',
+    'AI_BFF_KEY',
+  ]);
 }
 export function java(env) {
   return env.JAVA_HOME

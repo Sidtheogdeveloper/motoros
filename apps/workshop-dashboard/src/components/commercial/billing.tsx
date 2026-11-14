@@ -286,6 +286,7 @@ function EstimateForm({
   return (
     <ActionForm
       title={estimate ? 'Edit estimate draft' : 'Create estimate draft'}
+      submitLabel={estimate ? 'Recalculate and save' : undefined}
       onClose={onClose}
       submit={async (f, key) => {
         const result = await send<Estimate>(
@@ -410,7 +411,12 @@ function EstimateForm({
         type="datetime-local"
         value={localDate(estimate?.expiresAt || new Date(Date.now() + 7 * 86400000).toISOString())}
       />
-      <Field name="note" label="Scope and revision notes" value={estimate?.note || ''} />
+      <Field
+        name="note"
+        label="Scope and revision notes"
+        required={false}
+        value={estimate?.note || ''}
+      />
     </ActionForm>
   );
 }
@@ -422,6 +428,8 @@ export function EstimateDetail({ id }: { id: string }) {
   const me = useAccount(),
     data = useData<Estimate>('billing/estimates/' + id),
     [edit, setEdit] = useState(false),
+    [compare, setCompare] = useState(''),
+    comparison = useData<Estimate>(compare ? 'billing/estimates/' + compare : null),
     [action, setAction] = useState(''),
     cmd = useCommand();
   const e = data.data;
@@ -473,6 +481,31 @@ export function EstimateDetail({ id }: { id: string }) {
                 <a href={'/estimates/' + v.id}>Revision {v.revision}</a> · {v.status}
               </p>
             ))}
+            {e.versions.some((revision) => revision.id !== e.id) && (
+              <label>
+                Compare with revision {e.revision}
+                <select value={compare} onChange={(event) => setCompare(event.target.value)}>
+                  <option value="">Choose another revision</option>
+                  {e.versions
+                    .filter((revision) => revision.id !== e.id)
+                    .map((revision) => (
+                      <option key={revision.id} value={revision.id}>
+                        Revision {revision.revision} · {revision.status}
+                      </option>
+                    ))}
+                </select>
+              </label>
+            )}
+            <Issue error={comparison.error} loading={comparison.loading} />
+            {comparison.data?.seriesId === e.seriesId && comparison.data.id === compare && (
+              <div className="notice">
+                <h3>
+                  Revision {comparison.data.revision} · {comparison.data.status}
+                </h3>
+                <p>{comparison.data.note}</p>
+                <EstimateAmounts estimate={comparison.data} />
+              </div>
+            )}
             {e.workOrderScope?.length > 0 && (
               <>
                 <h3>Repair tasks in this version</h3>

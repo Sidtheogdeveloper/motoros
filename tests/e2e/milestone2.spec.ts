@@ -119,6 +119,13 @@ test('owner invites a manager and mechanic through real mail and scoped browser 
   await page.getByRole('button', { name: 'Save access' }).click();
   await expect(page.getByRole('status')).toContainText('Access updated');
   await mechanicPage.reload();
+  await expect(mechanicPage.getByRole('heading', { name: 'Choose a workshop.' })).toBeVisible();
+  await expect(mechanicPage.getByRole('button', { name: 'Service timeline', exact: true })).toHaveCount(0);
+  const denied = await call(mechanicContext, 'customer/vehicles/' + fixtures[0].vehicleId, {
+    tenant: fixtures[0].branches[1].tenantId,
+  });
+  expect(denied.status()).toBe(403);
+  await mechanicPage.getByRole('link', { name: 'Return to your workspaces' }).click();
   await expect(mechanicPage.getByRole('heading', { name: 'Welcome to MotorOS.' })).toBeVisible();
   await managerContext.close();
   await mechanicContext.close();
